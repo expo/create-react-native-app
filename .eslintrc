@@ -1,0 +1,13 @@
+{
+  "extends": "exponent/react",
+  "plugins": [
+    "flowtype",
+  ],
+  "globals": {
+    "document": false,
+  },
+  "rules": {
+    "flowtype/define-flow-type": 1,
+    "flowtype/use-flow-type": 1,
+  },
+}
