@@ -12,6 +12,9 @@
   "bin": {
     "create-react-native-app": "./build/index.js"
   },
+  "scripts": {
+    "start": "gulp"
+  },
   "dependencies": {
     "babel-runtime": "^6.9.2",
     "chalk": "^1.1.1",
