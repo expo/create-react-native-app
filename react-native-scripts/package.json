@@ -13,6 +13,9 @@
   "bin": {
     "react-native-scripts": "./build/bin/react-native-scripts.js"
   },
+  "scripts": {
+    "start": "gulp"
+  },
   "dependencies": {
     "address": "^1.0.1",
     "babel-runtime": "^6.9.2",
