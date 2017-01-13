@@ -2,4 +2,4 @@
 
 ## Development
 
-`yarn && gulp` will start a watcher that will build artifacts and place them in the build directory.
+`yarn && yarn start` will start a watcher that will build artifacts and place them in the build directory.
