@@ -2768,9 +2768,9 @@ next-tick@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/next-tick/-/next-tick-1.0.0.tgz#ca86d1fe8828169b0120208e3dc8424b9db8342c"
 
-"ngrok@git+https://github.com/exponentjs/ngrok.git#v1.3.0":
+"ngrok@git+https://github.com/exponentjs/ngrok#v1.3.0":
   version "2.2.1"
-  resolved "git+https://github.com/exponentjs/ngrok.git#ef4cba8f387fd26b39a2c3259d9d85091c52c73b"
+  resolved "git+https://github.com/exponentjs/ngrok#ef4cba8f387fd26b39a2c3259d9d85091c52c73b"
   dependencies:
     async "^0.9.0"
     decompress-zip "^0.3.0"
@@ -3516,7 +3516,7 @@ source-map-resolve@^0.3.0:
     source-map-url "~0.3.0"
     urix "~0.1.0"
 
-source-map-support@^0.4.2, source-map-support@^0.4.8:
+source-map-support@^0.4.1, source-map-support@^0.4.2:
   version "0.4.8"
   resolved "https://registry.yarnpkg.com/source-map-support/-/source-map-support-0.4.8.tgz#4871918d8a3af07289182e974e32844327b2e98b"
   dependencies:
