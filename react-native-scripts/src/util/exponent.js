@@ -1,9 +1,12 @@
 // @flow
 
 import chalk from 'chalk';
+import fsp from 'fs-promise';
 import inquirer from 'inquirer';
+import path from 'path';
 
 import {
+  Detach,
   User as UserManager,
 } from 'xdl';
 
@@ -16,6 +19,61 @@ UserManager.initialize(AUTH_CLIENT_ID);
 
 export async function detach() {
   const user = await loginOrRegister();
+
+  const appJsonPath = path.join(process.cwd(), 'app.json');
+  const appJson = JSON.parse(await fsp.readFile(appJsonPath));
+
+  if (!appJson.exponent.ios || !appJson.exponent.ios.bundleIdentifier) {
+    console.log(`
+You'll need to specify an iOS bundle identifier. It must be unique on the App Store if you want to
+publish it there. See this StackOverflow question for more information:
+  ${chalk.cyan('https://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project')}
+`);
+    const { iosBundleIdentifier } = await inquirer.prompt([
+      {
+        name: 'iosBundleIdentifier',
+        message: 'What would you like your iOS bundle identifier to be?',
+      },
+    ]);
+
+    appJson.exponent.ios = appJson.exponent.ios || {};
+    appJson.exponent.ios.bundleIdentifier = iosBundleIdentifier;
+  }
+
+  // check for android.package field, prompt interactively
+  if (!appJson.exponent.android || !appJson.exponent.android.package) {
+    console.log(`
+You'll need to specify an Android package name. It must be unique on the Play Store if you want to
+publish it there. See this StackOverflow question for more information:
+  ${chalk.cyan('https://stackoverflow.com/questions/6273892/android-package-name-convention')}
+`);
+
+    const { androidPackage } = await inquirer.prompt([
+      {
+        name: 'androidPackage',
+        message: 'What would you like your Android package name to be?',
+      },
+    ]);
+
+    appJson.exponent.android = appJson.exponent.android || {};
+    appJson.exponent.android.package = androidPackage;
+  }
+
+  // update app.json file with new contents
+  await fsp.writeFile(appJsonPath, JSON.stringify(appJson, null, 2));
+
+  await Detach.detachAsync(process.cwd());
+  // yesno lib doesn't properly shut down. without this the command won't exit
+  process.stdin.pause();
+
+  console.log(`${chalk.green('Successfully set up ExponentKit!')}
+
+You'll need to use Exponent's XDE to run this project:
+  ${chalk.cyan('https://docs.getexponent.com/versions/latest/introduction/installation.html')}
+
+For further instructions, please read ExponentKit's build documentation:
+  ${chalk.cyan('https://docs.getexponent.com/versions/latest/guides/exponentkit.html#rerun-the-project-in-xde-or-exp')}
+`);
 }
 
 async function loginOrRegister(): Promise<?User> {

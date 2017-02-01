@@ -8,15 +8,15 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  "@exponent/vector-icons": "~2.0.3",
-  "exponent": "~12.0.3",
-  "react": "~15.3.2",
-  "react-native": "git+https://github.com/exponentjs/react-native#sdk-12.0.0"
+  "exponent": "^13.1.0",
+  "react": "~15.4.0",
+  // TODO move to npm JS once https://github.com/electron/electron/pull/8539 is released
+  "react-native": "https://github.com/exponent/react-native/archive/sdk-13.0.3.tar.gz"
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  "jest-exponent": "~0.1.3",
+  "jest-exponent": "^0.2.0",
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean) => {
