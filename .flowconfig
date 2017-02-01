@@ -1,8 +1,7 @@
 [ignore]
 <PROJECT_ROOT>/build/.*
 
-.*/xdl/build/.*
-.*/node_modules/xdl/.*
+.*/node_modules/xdl/build/.*
 
 [include]
 ./

@@ -1,3 +1,5 @@
+// @flow
+
 import chalk from 'chalk';
 import path from 'path';
 import pathExists from 'path-exists';

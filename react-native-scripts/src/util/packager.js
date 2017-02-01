@@ -1,3 +1,5 @@
+// @flow
+
 import {
   Project,
   ProjectUtils,
@@ -6,7 +8,7 @@ import {
 import bunyan from 'bunyan';
 import chalk from 'chalk';
 
-function run(onReady) {
+function run(onReady: () => ?any, options: Object = {}) {
   // TODO check to see if packager is running already and run onready if it is
 
   let packagerReady = false;
@@ -68,12 +70,10 @@ function run(onReady) {
     });
   });
 
-  // TODO make all this anonymous
-
   console.log(chalk.blue('Starting packager...'));
 
-  Project.startAsync(projectDir).then(() => {}, (reason) => {
-    console.log(chalk.red(`Error starting packager: ${reason}`));
+  Project.startAsync(projectDir, options).then(() => {}, (reason) => {
+    console.log(chalk.red(`Error starting packager: ${reason.stack}`));
     process.exit(1);
   });
 }

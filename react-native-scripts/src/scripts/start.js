@@ -1,3 +1,5 @@
+// @flow
+
 import { ProjectSettings } from 'xdl';
 
 import ipAddress from 'address';
