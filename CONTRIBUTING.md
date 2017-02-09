@@ -91,4 +91,4 @@ var toExport = {
 module.exports = toExport;
 ```
 
-Once you'ev set these up, make sure to run `$ node_modules/react-native/packager/packager.sh --reset-cache` and exit it once the packager is loaded before you try any npm/yarn commands again. This will make sure that the new CLI config is picked up.
+Once you've set these up, make sure to run `$ node_modules/react-native/packager/packager.sh --reset-cache` and exit it once the packager is loaded before you try any npm/yarn commands again. This will make sure that the new CLI config is picked up.

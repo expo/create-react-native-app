@@ -12,9 +12,6 @@ Please keep an eye on this README, we'll update with details when it's all ready
 
 Create React Native apps with no build configuration.
 
-* [Getting Started](https://github.com/react-community/create-react-native-app#getting-started) -- How to create a new app
-* [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md)
-
 ## tl;dr
 
 ```sh
@@ -68,7 +65,7 @@ If you're familiar with React Native already, you won't find any `ios` or `andro
 
 Runs your app in development mode.
 
-Open it in the [Exponent app](https://getexponent.com) on your phone to view it. It will reload if you save edits to your files, and you will see build errors in the terminal.
+Open it in the [Exponent app](https://getexponent.com) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
 
 #### `npm test`
 
@@ -90,9 +87,9 @@ Please refer to the [User Guide](https://github.com/react-community/create-react
 
 ## Philosophy
 
-* **Minimal "Time to Hello World"**: Create React Native App should reduce the setup time it takes to try building a mobile app to the absolute minimum, ideally on par with React web development (especially as seen with Create React App).
+* **Minimal "Time to Hello World"**: Create React Native App should reduce the setup time it takes to try building a mobile app to the absolute minimum, ideally on par with React web development (especially as seen with [Create React App](https://github.com/facebookincubator/create-react-app)).
 * **Develop on Your Device**: It should be easy to develop on a physical device when you want to test how your app feels and responds to inputs.
-* **One Build Tool**: If you just want to try out React Native, you shouldn't need to install Xcode, Android Studio, NDKs, or mess with environment variables.
+* **One Build Tool**: If you just want to get started with React Native, you shouldn't need to install Xcode, Android Studio, NDKs, or mess with environment variables.
 * **No Lock-In**: You can always "eject" to your own build setup if you need to write custom native code or modify how your app is built.
 
 ## Why Use This?
@@ -114,7 +111,7 @@ If you're having issues with Create React Native App, please make sure:
 * The issue is not covered in the [Getting Started](https://github.com/react-community/create-react-native-app#getting-started) or [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) documentation
 * There is not already an [open issue](https://github.com/react-community/create-react-native-app/issues) for your particular problem
 
-If you've checked the documentation and currently open issues, please either open a new GitHub issue or ping `dikaiosune` on the [Reactiflux Discord](https://www.reactiflux.com/)'s #react-native channel. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
+If you've checked the documentation and currently open issues, please either open a new GitHub issue or ping `dikaiosune` on the [Reactiflux](https://www.reactiflux.com/)'s #react-native channel on Discord. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
 
 ## Contributing
 
