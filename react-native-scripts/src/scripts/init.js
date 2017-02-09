@@ -8,15 +8,15 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  "exponent": "~12.0.3",
+  "exponent": "~13.1.0",
   // TODO(dikaiosune) move this to stable releases and update exponent dep
-  "react": "~15.4.0-rc.4",
+  "react": "~15.4.0",
   "react-native": "0.41.2"
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  "jest-exponent": "~0.1.3",
+  "jest-exponent": "^0.2.0",
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean) => {
