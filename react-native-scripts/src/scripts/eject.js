@@ -5,8 +5,10 @@ import fsp from 'fs-promise';
 import inquirer from 'inquirer';
 import matchRequire from 'match-require';
 import path from 'path';
+import spawn from 'cross-spawn';
 
 import { detach } from '../util/exponent';
+import { generatePatchesForMainForEject, transformMainForEject } from '../util/xforms';
 
 async function eject() {
   try {
@@ -66,9 +68,105 @@ Ejecting is permanent! Please be careful with your selection.
   const { ejectMethod } = await inquirer.prompt(questions);
 
   if (ejectMethod === 'raw') {
-    // TODO implement
-    // TODO remove exponent deps from package.json?
-    throw new Error('This hasn\'t been built yet!');
+    const npmOrYarn = await fsp.exists(path.resolve('yarn.lock')) ? 'yarnpkg' : 'npm';
+    const appJson = JSON.parse(await fsp.readFile(path.resolve('app.json')));
+    const pkgJson = JSON.parse(await fsp.readFile(path.resolve('package.json')));
+    let { name: newName, displayName: newDisplayName, exponent: { name: expName }} = appJson;
+
+    // we ask user to provide a project name (default is package name stripped of dashes)
+    // but we want to infer some good default choices, especially if they've set them up in app.json
+    if (!newName) {
+      newName = stripDashes(pkgJson.name);
+    }
+
+    if (!newDisplayName && expName) {
+      newDisplayName = expName;
+    }
+
+    console.log('We have a couple of questions to ask you about how you\'d like to name your app:');
+    const { enteredName, enteredDisplayname } = await inquirer.prompt([
+      {
+        name: 'enteredDisplayname',
+        message: 'What should your app appear as on a user\'s home screen?',
+        default: newDisplayName,
+        validate: (s) => {
+          return s.length > 0;
+        }
+      },
+      {
+        name: 'enteredName',
+        message: 'What should your Android Studio and Xcode projects be called?',
+        default: newName,
+        validate: (s) => {
+          return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1;
+        },
+      },
+    ]);
+
+    appJson.name = enteredName;
+    appJson.displayName = enteredDisplayname;
+
+    console.log(chalk.blue('Writing your selections to app.json...'));
+    // write the updated app.json file
+    await fsp.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
+    console.log(chalk.green('Wrote to app.json, please update it manually in the future.'))
+
+    const ejectCommand = 'node';
+    const ejectArgs = [path.resolve('node_modules', 'react-native', 'local-cli', 'cli.js'), 'eject'];
+
+    const { status } = spawn.sync(ejectCommand, ejectArgs, {stdio: 'inherit'});
+
+    if (status !== 0) {
+      console.log(chalk.red(`Eject failed with exit code ${status}, see above output for any issues.`));
+      console.log(chalk.yellow('You may want to delete the `ios` and/or `android` directories.'));
+      process.exit(1);
+    } else {
+      console.log(chalk.green('Successfully copied template native code.'));
+    }
+
+    // remove exponent from package.json, print reminder to rm -rf node_modules?
+    // also add babel-exponent at an appropriate version
+    pkgJson.devDependencies['babel-preset-exponent'] = '1.0.0';
+
+    // NOTE: exponent won't work after performing a raw eject, so we should delete this
+    delete pkgJson.dependencies.exponent;
+    delete pkgJson.devDependencies['react-native-scripts'];
+
+    // rewrite scripts to use react-native-cli
+    pkgJson.scripts.start = 'react-native start';
+    pkgJson.scripts.ios = 'react-native run-ios';
+    pkgJson.scripts.android = 'react-native run-android';
+
+    // these are no longer relevant to an ejected project (maybe build is?)
+    delete pkgJson.scripts.build;
+    delete pkgJson.scripts.eject;
+
+    console.log(chalk.blue(`Updating your ${npmOrYarn} scripts in package.json...`));
+
+    await fsp.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
+
+    console.log(chalk.green('Your package.json is up to date!'));
+
+    // FIXME now we need to provide platform-specific entry points until upstream uses a single one
+    console.log(chalk.blue(`Adding platform-specific entry points...`));
+
+    const lolThatsSomeComplexCode = `require('./index.js')`;
+
+    await fsp.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
+    await fsp.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
+
+    console.log(chalk.green('Added new entry points!'));
+
+    await attemptMainTransform(appJson.name);
+
+    console.log(`
+Note that using \`${npmOrYarn} start\` will now require you to run Xcode and/or
+Android Studio to build the native code for your project.`);
+
+    console.log(chalk.yellow(`
+It's recommended to delete your node_modules directory and rerun ${npmOrYarn}
+to ensure that the changes we made to package.json persist correctly.
+`));
 
   } else if (ejectMethod === 'exponentKit') {
     await detach();
@@ -116,6 +214,83 @@ async function filesUsingExponentSdk(): Promise<Array<string>> {
   return filesUsingExponent;
 }
 
+async function attemptMainTransform(moduleName: string) {
+  const indexPath = path.resolve('index.js');
+
+  let xformError = null;
+  try {
+    const indexSource = (await fsp.readFile(indexPath)).toString();
+    const xformedSource = transformMainForEject(indexSource, moduleName);
+
+    console.log(
+      `There are some small changes you'll need to make to ${chalk.cyan(indexPath)}
+for your app to continue working after ejecting.
+
+We can attempt to make them automatically for you -- it's usually a very small diff.`)
+
+    const { showDiff } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'showDiff',
+        message: 'Would you like to see the patch we would apply for you?',
+        default: true,
+      }
+    ]);
+
+    if (!showDiff) {
+      return;
+    }
+
+    const patch = generatePatchesForMainForEject(indexPath, indexSource, xformedSource);
+
+    console.log(`
+This is the patch we would apply:
+
+${patch}`);
+
+    const { proceed } = await inquirer.prompt([
+      {
+        type: 'confirm',
+        name: 'proceed',
+        message: 'Should we apply this patch to make sure your code works after ejecting?',
+        default: true,
+      },
+    ]);
+
+    if (proceed) {
+      console.log(chalk.blue(`Writing to ${indexPath}...`));
+      await fsp.writeFile(indexPath, xformedSource);
+      console.log(chalk.green(`Successfully updated ${indexPath}!`));
+    } else {
+      return;
+    }
+  } catch (e) {
+    xformError = e;
+  }
+
+  if (xformError) {
+    console.log(chalk.yellow(`
+We were unable to automatically make the necessary changes to your code for ejection.
+(${xformError})
+
+You can read
+  ${chalk.cyan('https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md')}
+for information about what steps you may need to take after ejection is finished.`));
+  }
+}
+
+function stripDashes(s: string): string {
+  let ret = '';
+
+  for (let c of s) {
+    if (c !== ' ' && c !== '-') {
+      ret += c;
+    }
+  }
+
+  return ret;
+}
+
 async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<string>> {
   // ignore node_modules
   if (root.includes('node_modules')) {
@@ -149,4 +324,7 @@ eject().then(() => {
   // the exponent local github auth server leaves a setTimeout for 5 minutes
   // so we need to explicitly exit (for now, this will be resolved in the nearish future)
   process.exit(0);
+}).catch((e) => {
+  console.error(`Problem running eject: ${e}`);
+  process.exit(1);
 });

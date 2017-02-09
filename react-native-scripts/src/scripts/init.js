@@ -8,15 +8,15 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  "@exponent/vector-icons": "~2.0.3",
-  "exponent": "~12.0.3",
-  "react": "~15.3.2",
-  "react-native": "git+https://github.com/exponentjs/react-native#sdk-12.0.0"
+  "exponent": "~13.1.0",
+  // TODO(dikaiosune) move this to stable releases and update exponent dep
+  "react": "~15.4.0",
+  "react-native": "0.41.2"
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  "jest-exponent": "~0.1.3",
+  "jest-exponent": "^0.2.0",
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean) => {
@@ -33,7 +33,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   const appPackage = JSON.parse(await fsp.readFile(appPackagePath));
 
   // mutate the default package.json in any ways we need to
-  appPackage.main = 'main.js';
+  appPackage.main = 'index.js';
   appPackage.scripts = {
     start: "react-native-scripts start",
     build: "react-native-scripts build",
@@ -110,7 +110,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
     // display the cleanest way to get to the app dir
     // if the cwd + appName is equal to the full path, then just cd into appName
     let cdpath;
-    if (path.join(process.cwd(), appName) === appPath) {
+    if (path.resolve(appName) === appPath) {
       cdpath = appName;
     } else {
       cdpath = appPath;

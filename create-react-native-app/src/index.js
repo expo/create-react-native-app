@@ -162,7 +162,7 @@ function getPackageName(installPackage: string): string {
   if (installPackage.indexOf('.tgz') > -1) {
     // The package name could be with or without semver version, e.g. react-scripts-0.2.0-alpha.1.tgz
     // However, this function returns package name only wihout semver version.
-    const matches = installPackage.match(/^.+\/(.+?)(?:-\d+.+)?\.tgz$/);
+    const matches = installPackage.match(/^.+[\/\\](.+?)(?:-\d+.+)?\.tgz$/);
     if (matches && matches.length >= 2) {
       return matches[1];
     } else {
