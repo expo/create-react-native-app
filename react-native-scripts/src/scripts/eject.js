@@ -10,8 +10,6 @@ import spawn from 'cross-spawn';
 import { detach } from '../util/exponent';
 import { generatePatchesForMainForEject, transformMainForEject } from '../util/xforms';
 
-const BABEL_EXPONENT_VERSION = '1.0.0'
-
 async function eject() {
   try {
     const filesWithExponent = await filesUsingExponentSdk();
@@ -71,8 +69,8 @@ Ejecting is permanent! Please be careful with your selection.
 
   if (ejectMethod === 'raw') {
     const npmOrYarn = await fsp.exists(path.resolve('yarn.lock')) ? 'yarnpkg' : 'npm';
-    const appJson = JSON.parse(await fsp.readFile(path.join(process.cwd(), 'app.json')));
-    const pkgJson = JSON.parse(await fsp.readFile(path.join(process.cwd(), 'package.json')));
+    const appJson = JSON.parse(await fsp.readFile(path.resolve('app.json')));
+    const pkgJson = JSON.parse(await fsp.readFile(path.resolve('package.json')));
     let { name: newName, displayName: newDisplayName, exponent: { name: expName }} = appJson;
 
     // we ask user to provide a project name (default is package name stripped of dashes)
@@ -110,11 +108,11 @@ Ejecting is permanent! Please be careful with your selection.
 
     console.log(chalk.blue('Writing your selections to app.json...'));
     // write the updated app.json file
-    await fsp.writeFile(path.join(process.cwd(), 'app.json'), JSON.stringify(appJson, null, 2));
+    await fsp.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
     console.log(chalk.green('Wrote to app.json, please update it manually in the future.'))
 
     const ejectCommand = 'node';
-    const ejectArgs = ['node_modules/react-native/local-cli/cli.js', 'eject'];
+    const ejectArgs = [path.resolve('node_modules', 'react-native', 'local-cli', 'cli.js'), 'eject'];
 
     const { status } = spawn.sync(ejectCommand, ejectArgs, {stdio: 'inherit'});
 
@@ -128,7 +126,7 @@ Ejecting is permanent! Please be careful with your selection.
 
     // remove exponent from package.json, print reminder to rm -rf node_modules?
     // also add babel-exponent at an appropriate version
-    pkgJson.devDependencies['babel-preset-exponent'] = BABEL_EXPONENT_VERSION;
+    pkgJson.devDependencies['babel-preset-exponent'] = '1.0.0';
 
     // NOTE: exponent won't work after performing a raw eject, so we should delete this
     delete pkgJson.dependencies.exponent;
