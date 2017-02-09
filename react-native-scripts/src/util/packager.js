@@ -2,11 +2,50 @@
 
 import {
   Project,
+  ProjectSettings,
   ProjectUtils,
 } from 'xdl';
 
 import bunyan from 'bunyan';
 import chalk from 'chalk';
+
+function installExitHooks(projectDir) {
+  // install ctrl+c handler that writes non-running state to directory
+  if (process.platform === 'win32') {
+    require('readline').createInterface({
+        input: process.stdin,
+        output: process.stdout,
+      })
+      .on("SIGINT", () => {
+        process.emit("SIGINT");
+      });
+  }
+
+  process.on('SIGINT', () => {
+    console.log(chalk.blue('\nStopping packager...'));
+    cleanUpPackager(projectDir).then(() => {
+      console.log(chalk.green('Packager stopped.'));
+      process.exit();
+    });
+  });
+}
+
+async function cleanUpPackager(projectDir) {
+  const result = await Promise.race([
+    Project.stopAsync(projectDir),
+    new Promise((resolve, reject) => setTimeout(resolve, 1000, 'stopFailed')),
+  ]);
+
+  if (result === 'stopFailed') {
+    // find RN packager pid, attempt to kill manually
+    try {
+      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(projectDir);
+      process.kill(packagerPid);
+    } catch (e) {
+      process.exit(1);
+    }
+  }
+}
 
 function run(onReady: () => ?any, options: Object = {}) {
   // TODO check to see if packager is running already and run onready if it is
@@ -21,7 +60,7 @@ function run(onReady: () => ?any, options: Object = {}) {
         // don't show the initial packager setup, so that we can display a nice getting started message
         // note: it's possible for the RN packager to log its setup before the express server is done
         // this is a potential race condition but it'll work for now
-        if (chunk.msg.indexOf('<END>   Initializing Packager') >= 0) {
+        if (chunk.msg.indexOf('Loading dependency graph, done.') >= 0) {
           packagerReady = true;
           onReady();
           return;
@@ -51,25 +90,7 @@ function run(onReady: () => ?any, options: Object = {}) {
     type: 'raw',
   });
 
-  // setup graceful shutdown on ctrl+c
-  if (process.platform === 'win32') {
-    require('readline').createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    })
-    .on("SIGINT", () => {
-      process.emit("SIGINT");
-    });
-  }
-
-  process.on('SIGINT', () => {
-    console.log(chalk.blue('\nStopping packager...'));
-    Project.stopAsync(projectDir).then(() => {
-      console.log(chalk.green('Packager stopped.'));
-      process.exit();
-    });
-  });
-
+  installExitHooks(projectDir);
   console.log(chalk.blue('Starting packager...'));
 
   Project.startAsync(projectDir, options).then(() => {}, (reason) => {

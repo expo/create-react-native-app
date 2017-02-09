@@ -8,10 +8,10 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  "exponent": "^13.1.0",
+  "exponent": "~13.1.0",
+  // TODO(dikaiosune) move this to stable releases and update exponent dep
   "react": "~15.4.0",
-  // TODO move to npm JS once https://github.com/electron/electron/pull/8539 is released
-  "react-native": "https://github.com/exponent/react-native/archive/sdk-13.0.3.tar.gz"
+  "react-native": "0.41.2"
 };
 
 // TODO figure out how this interacts with ejection
@@ -33,7 +33,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   const appPackage = JSON.parse(await fsp.readFile(appPackagePath));
 
   // mutate the default package.json in any ways we need to
-  appPackage.main = 'main.js';
+  appPackage.main = 'index.js';
   appPackage.scripts = {
     start: "react-native-scripts start",
     build: "react-native-scripts build",
@@ -110,7 +110,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
     // display the cleanest way to get to the app dir
     // if the cwd + appName is equal to the full path, then just cd into appName
     let cdpath;
-    if (path.join(process.cwd(), appName) === appPath) {
+    if (path.resolve(appName) === appPath) {
       cdpath = appName;
     } else {
       cdpath = appPath;
