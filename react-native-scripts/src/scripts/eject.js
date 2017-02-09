@@ -8,7 +8,7 @@ import path from 'path';
 import spawn from 'cross-spawn';
 
 import { detach } from '../util/exponent';
-import { generatePatchesForMainForEject, transformMainForEject } from '../util/codemods';
+import { generatePatchesForMainForEject, transformMainForEject } from '../util/xforms';
 
 const BABEL_EXPONENT_VERSION = '1.0.0'
 
@@ -228,7 +228,7 @@ async function attemptMainTransform(moduleName: string) {
       `There are some small changes you'll need to make to ${chalk.cyan(indexPath)}
 for your app to continue working after ejecting.
 
-We can attempt to make them automatically for you -- (it's usually a very small diff).`)
+We can attempt to make them automatically for you -- it's usually a very small diff.`)
 
     const { showDiff } = await inquirer.prompt([
       {
@@ -248,8 +248,7 @@ We can attempt to make them automatically for you -- (it's usually a very small 
     console.log(`
 This is the patch we would apply:
 
-${patch}
-`);
+${patch}`);
 
     const { proceed } = await inquirer.prompt([
       {
