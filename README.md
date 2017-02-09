@@ -24,13 +24,15 @@ $ npm start
 
 Install the [Exponent](https://getexponent.com) app on your iOS or Android phone, and use the QR code in the terminal to open your app. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment) section of the User Guide.
 
+Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.getexponent.com/versions/latest/sdk/index.html) that the Exponent App provides.
+
 ## Sections
 
 * [Getting Started](#getting-started)
 * [User Guide](#user-guide)
 * [Philosophy](#philosophy)
 * [Why Use This?](#why-use-this)
-* [Limitations](#limitations)
+* [Limitations and Capabilities](#limitations-and-capabilities)
 * [Support and Contact](#support-and-contact)
 * [Contributing](#contributing)
 
@@ -92,17 +94,17 @@ Please refer to the [User Guide](https://github.com/react-community/create-react
 * **One Build Tool**: If you just want to get started with React Native, you shouldn't need to install Xcode, Android Studio, NDKs, or mess with environment variables.
 * **No Lock-In**: You can always "eject" to your own build setup if you need to write custom native code or modify how your app is built.
 
-## Why Use This?
+## Limitations and Capabilities
 
-**If you're getting started** with React Native, `create-react-native-app` gives you a coherent and simple way to get started. TODO WRITE THIS
+The main limitation of a CRNA project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
 
-**If you're experienced** with React Native, `create-react-native-app` TODO WRITE THIS
+Apps made with Create React Native App support everything in the Components and APIs sections of the [React Native Documentation](https://facebook.github.io/react-native/docs/getting-started.html).
 
-## Limitations
+Apps made with Create React Native App also support most of the JavaScript-to-Native APIs provided by the [Exponent SDK](https://docs.getexponent.com/versions/latest/sdk/index.html), since they are loaded by the Exponent app.
 
-TODO WRITE THIS
+If you're sure that you need custom native code, please read the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md).
 
-* `react-native link` && custom native code
+If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Exponent's standalone app builds](https://docs.getexponent.com/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
 
 ## Support and Contact
 
