@@ -2,9 +2,7 @@
 
 ## Warning
 
-If you're reading this right now, `create-react-native-app` isn't yet ready for general consumption.
-
-Projects can be created using the npm packages, but they will not yet work with the currently released Exponent app. This should change in the *very* near future. Keep an eye on this space!
+Create React Native App is currently at an alpha/preview level of reliability. If you're interested in helping us move it towards a release, please check out [`help-wanted` issues](https://github.com/react-community/create-react-native-app/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)! In the meantime we'd love to get [feedback and bug reports](https://github.com/react-community/create-react-native-app/issues/new) if you do try it out.
 
 ---
 
