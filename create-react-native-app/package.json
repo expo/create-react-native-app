@@ -1,10 +1,14 @@
 {
   "name": "create-react-native-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create React Native apps with no build configuration.",
   "license": "BSD-3-Clause",
+  "keywords": ["react-native", "react"],
+  "homepage": "https://github.com/react-community/create-react-native-app",
+  "bugs": "https://github.com/react-community/create-react-native-app",
+  "preferGlobal": true,
   "engines": {
-    "node": ">=4"
+    "node": ">=6"
   },
   "files": [
     "build"
