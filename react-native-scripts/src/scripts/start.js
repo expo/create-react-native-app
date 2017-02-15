@@ -10,6 +10,7 @@ import qr from 'qrcode-terminal';
 import packager from '../util/packager';
 
 import { Config } from 'xdl';
+Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
