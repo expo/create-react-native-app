@@ -21,16 +21,16 @@ async function printServerInfo() {
   const settings = await ProjectSettings.readPackagerInfoAsync(process.cwd());
   // who knows why qrcode-terminal takes a callback instead of just returning a string
   const address = `exp://${ipAddress.ip()}:${settings.exponentServerPort}`;
-  qr.generate(address, {small: true}, (qrCode) => {
+  qr.generate(address, (qrCode) => {
     console.log(`${chalk.green('Packager started!')}
 
-To view your app with live reloading, point the Exponent app to this address:
-
-  ${chalk.underline(chalk.cyan(address))}
-
-Or this QR code:
+To view your app with live reloading, point the Exponent app to this QR code:
 
 ${indent(qrCode, 2)}
+
+Or enter this address in the search bar:
+
+  ${chalk.underline(chalk.cyan(address))}
 
 Your phone will need to be on the same local network as this computer.
 

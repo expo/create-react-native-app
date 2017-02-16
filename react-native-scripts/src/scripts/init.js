@@ -99,6 +99,11 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   console.log(`Installing dependencies using ${command}...`);
   console.log();
 
+  if (command === 'yarnpkg') {
+    // it's weird to print a yarn alias that no one uses
+    command = 'yarn';
+  }
+
   const proc = spawn(command, args, {stdio: 'inherit'});
   proc.on('close', (code) => {
     if (code !== 0) {

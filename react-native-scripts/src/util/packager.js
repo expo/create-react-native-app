@@ -10,7 +10,6 @@ import bunyan from 'bunyan';
 import chalk from 'chalk';
 
 function installExitHooks(projectDir) {
-  // install ctrl+c handler that writes non-running state to directory
   if (process.platform === 'win32') {
     require('readline').createInterface({
         input: process.stdin,
