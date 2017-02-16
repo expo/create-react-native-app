@@ -1,4 +1,4 @@
-import { ProjectSettings, Simulator } from 'xdl';
+import { Config, ProjectSettings, Simulator } from 'xdl';
 
 import chalk from 'chalk';
 import ipAddress from 'address';
@@ -7,7 +7,6 @@ import pathExists from 'path-exists';
 
 import packager from '../util/packager';
 
-import { Config } from 'xdl';
 Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;

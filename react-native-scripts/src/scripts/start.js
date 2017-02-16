@@ -1,6 +1,6 @@
 // @flow
 
-import { ProjectSettings } from 'xdl';
+import { Config, ProjectSettings } from 'xdl';
 
 import ipAddress from 'address';
 import chalk from 'chalk';
@@ -9,7 +9,6 @@ import qr from 'qrcode-terminal';
 
 import packager from '../util/packager';
 
-import { Config } from 'xdl';
 Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
