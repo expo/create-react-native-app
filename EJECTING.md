@@ -6,7 +6,7 @@ If you see the reason you'd like to eject, click the link for a short explanatio
 
 * [I want to include a library which uses `react-native link`](#react-native-link)
 * [I want to write my own native code for my app](#writing-my-own-native-code)
-* [I want to build my app to publish to the App Store or Play Store](#https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment)
+* [I want to build my app to publish to the App Store or Play Store](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment)
 * [I am blocked from working on my app because of a bug in CRNA](#bugs-in-crna)
 
 ## General Information
