@@ -29,7 +29,7 @@ ${indent(qrCode, 2)}
 
 You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
 
-Or enter this address in the search bar:
+Or enter this address in the Exponent app's search bar:
 
   ${chalk.underline(chalk.cyan(address))}
 
