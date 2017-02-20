@@ -1,6 +1,6 @@
 // @flow
 
-import { Config, ProjectSettings } from 'xdl';
+import { Config, ProjectSettings, UrlUtils } from 'xdl';
 
 import ipAddress from 'address';
 import chalk from 'chalk';
@@ -19,7 +19,7 @@ packager.run(printServerInfo);
 async function printServerInfo() {
   const settings = await ProjectSettings.readPackagerInfoAsync(process.cwd());
   // who knows why qrcode-terminal takes a callback instead of just returning a string
-  const address = `exp://${ipAddress.ip()}:${settings.exponentServerPort}`;
+  const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
   qr.generate(address, (qrCode) => {
     console.log(`${chalk.green('Packager started!')}
 
