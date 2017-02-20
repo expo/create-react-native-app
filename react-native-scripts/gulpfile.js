@@ -3,6 +3,7 @@ const gulp = require('gulp');
 const babel = require('gulp-babel');
 const changed = require('gulp-changed');
 const plumber = require('gulp-plumber');
+const shell = require('gulp-shell');
 const sourcemaps = require('gulp-sourcemaps');
 const rimraf = require('rimraf');
 
@@ -35,5 +36,10 @@ gulp.task('watch', tasks.watchBabel);
 gulp.task('clean', done => {
   rimraf(paths.build, done);
 });
+
+gulp.task(
+  "publish",
+  gulp.series((done) => rimraf(paths.build, done), tasks.babel, shell.task(["npm publish"]))
+);
 
 gulp.task('default', gulp.series('watch'));
