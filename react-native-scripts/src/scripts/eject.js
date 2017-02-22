@@ -150,14 +150,15 @@ Ejecting is permanent! Please be careful with your selection.
     // FIXME now we need to provide platform-specific entry points until upstream uses a single one
     console.log(chalk.blue(`Adding platform-specific entry points...`));
 
-    const lolThatsSomeComplexCode = `require('./index.js')`;
+    const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
+import App from './root.js';
+AppRegistry.registerComponent('${newName}', () => App);
+`;
 
     await fsp.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
     await fsp.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
 
     console.log(chalk.green('Added new entry points!'));
-
-    await attemptMainTransform(appJson.name);
 
     console.log(`
 Note that using \`${npmOrYarn} start\` will now require you to run Xcode and/or
@@ -212,71 +213,6 @@ async function filesUsingExponentSdk(): Promise<Array<string>> {
   filesUsingExponent.sort();
 
   return filesUsingExponent;
-}
-
-async function attemptMainTransform(moduleName: string) {
-  const indexPath = path.resolve('index.js');
-
-  let xformError = null;
-  try {
-    const indexSource = (await fsp.readFile(indexPath)).toString();
-    const xformedSource = transformMainForEject(indexSource, moduleName);
-
-    console.log(
-      `There are some small changes you'll need to make to ${chalk.cyan(indexPath)}
-for your app to continue working after ejecting.
-
-We can attempt to make them automatically for you -- it's usually a very small diff.`)
-
-    const { showDiff } = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'showDiff',
-        message: 'Would you like to see the patch we would apply for you?',
-        default: true,
-      }
-    ]);
-
-    if (!showDiff) {
-      return;
-    }
-
-    const patch = generatePatchesForMainForEject(indexPath, indexSource, xformedSource);
-
-    console.log(`
-This is the patch we would apply:
-
-${patch}`);
-
-    const { proceed } = await inquirer.prompt([
-      {
-        type: 'confirm',
-        name: 'proceed',
-        message: 'Should we apply this patch to make sure your code works after ejecting?',
-        default: true,
-      },
-    ]);
-
-    if (proceed) {
-      console.log(chalk.blue(`Writing to ${indexPath}...`));
-      await fsp.writeFile(indexPath, xformedSource);
-      console.log(chalk.green(`Successfully updated ${indexPath}!`));
-    } else {
-      return;
-    }
-  } catch (e) {
-    xformError = e;
-  }
-
-  if (xformError) {
-    console.log(chalk.yellow(`
-We were unable to automatically make the necessary changes to your code for ejection.
-(${xformError})
-
-You can read
-  ${chalk.cyan('https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md')}
-for information about what steps you may need to take after ejection is finished.`));
-  }
 }
 
 function stripDashes(s: string): string {

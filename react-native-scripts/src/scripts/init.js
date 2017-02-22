@@ -32,7 +32,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   const appPackage = JSON.parse(await fsp.readFile(appPackagePath));
 
   // mutate the default package.json in any ways we need to
-  appPackage.main = 'index.js';
+  appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry.js';
   appPackage.scripts = {
     start: "react-native-scripts start",
     build: "react-native-scripts build",
