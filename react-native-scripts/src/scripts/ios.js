@@ -1,4 +1,4 @@
-import { Config, ProjectSettings, Simulator } from 'xdl';
+import { Config, ProjectSettings, Simulator, UrlUtils } from 'xdl';
 
 import chalk from 'chalk';
 import ipAddress from 'address';
@@ -24,7 +24,7 @@ packager.run(startSimulatorAndPrintInfo);
 // print a nicely formatted message with setup information
 async function startSimulatorAndPrintInfo() {
   const settings = await ProjectSettings.readPackagerInfoAsync(process.cwd());
-  const address = `exp://${ipAddress.ip()}:${settings.exponentServerPort}`;
+  const address = UrlUtils.constructManifestUrlAsync(process.cwd());
 
   console.log(chalk.blue('Starting simulator...'));
   const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(address);
