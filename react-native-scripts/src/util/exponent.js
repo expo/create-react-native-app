@@ -66,6 +66,13 @@ publish it there. See this StackOverflow question for more information:
   // yesno lib doesn't properly shut down. without this the command won't exit
   process.stdin.pause();
 
+  const pkgJson = JSON.parse((await fsp.readFile(path.resolve('package.json'))).toString());
+  delete pkgJson.scripts.start;
+  delete pkgJson.scripts.build;
+  delete pkgJson.scripts.eject;
+  delete pkgJson.scripts.ios;
+  await fsp.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
+
   console.log(`${chalk.green('Successfully set up ExponentKit!')}
 
 You'll need to use Exponent's XDE to run this project:
