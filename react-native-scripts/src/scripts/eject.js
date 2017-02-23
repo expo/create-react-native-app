@@ -124,15 +124,35 @@ Ejecting is permanent! Please be careful with your selection.
       console.log(chalk.green('Successfully copied template native code.'));
     }
 
-    // remove exponent from package.json, print reminder to rm -rf node_modules?
-    // also add babel-exponent at an appropriate version
-    pkgJson.devDependencies['babel-preset-exponent'] = '1.0.0';
+    // if the project .babelrc matches the template one, then we don't need to have it around anymore
+    // if it doesn't, then print a warning
+    try {
+      const projectBabelPath = path.resolve(process.cwd(), '.babelrc');
+      const projectBabelRc = (await fsp.readFile(projectBabelPath)).toString();
+
+      const templateBabelPath = path.resolve(__dirname, '..', '..', 'template', '.babelrc');
+      const templateBabelRc = (await fsp.readFile(templateBabelPath)).toString();
+
+      if (projectBabelRc === templateBabelRc) {
+        await fsp.unlink(projectBabelPath);
+        console.log(chalk.green(`The template .babelrc is no longer necessary after ejecting.
+It has been successfully deleted.`));
+      } else {
+        console.log(chalk.yellow(`It looks like you modified your .babelrc file.
+Make sure to change your babel preset to \`react-native\`.`));
+      }
+    } catch (e) {
+      console.log(chalk.yellow(`We had an issue preparing your .babelrc for ejection.
+If you have a .babelrc in your project, make sure to change the preset to \`react-native\`.`));
+      console.log(chalk.red(e));
+    }
 
     // NOTE: exponent won't work after performing a raw eject, so we should delete this
+    // it will be a better error message for the module to not be found than for whatever problems
+    // missing native modules will cause
     delete pkgJson.dependencies.exponent;
     delete pkgJson.devDependencies['react-native-scripts'];
 
-    // rewrite scripts to use react-native-cli
     pkgJson.scripts.start = 'react-native start';
     pkgJson.scripts.ios = 'react-native run-ios';
     pkgJson.scripts.android = 'react-native run-android';
