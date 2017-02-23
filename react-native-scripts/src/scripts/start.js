@@ -2,7 +2,6 @@
 
 import { Config, ProjectSettings, UrlUtils } from 'xdl';
 
-import ipAddress from 'address';
 import chalk from 'chalk';
 import indent from 'indent-string';
 import qr from 'qrcode-terminal';

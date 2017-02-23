@@ -1,9 +1,10 @@
 import { Config, ProjectSettings, Simulator, UrlUtils } from 'xdl';
 
 import chalk from 'chalk';
-import ipAddress from 'address';
+import indent from "indent-string";
 import path from 'path';
 import pathExists from 'path-exists';
+import qr from "qrcode-terminal";
 
 import packager from '../util/packager';
 
@@ -23,19 +24,35 @@ packager.run(startSimulatorAndPrintInfo);
 
 // print a nicely formatted message with setup information
 async function startSimulatorAndPrintInfo() {
-  const settings = await ProjectSettings.readPackagerInfoAsync(process.cwd());
-  const address = UrlUtils.constructManifestUrlAsync(process.cwd());
+  const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
+  const localAddress = await UrlUtils.constructManifestUrlAsync(process.cwd(), {
+    hostType: 'localhost',
+  });
 
   console.log(chalk.blue('Starting simulator...'));
-  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(address);
+  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(localAddress);
 
   if (success) {
-    console.log(`${chalk.green('Packager and simulator started!')}
+    qr.generate(address, (qrCode) => {
+      console.log(`To view your app with live reloading, point the Exponent app to this QR code:
+
+${indent(qrCode, 2)}
+
+You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
+
+Or enter this address in the Exponent app's search bar:
+
+  ${chalk.underline(chalk.cyan(address))}
+
+Your phone will need to be on the same local network as this computer.
+
+For links to install the Exponent app, please visit ${chalk.underline(chalk.cyan('https://getexponent.com'))}.
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
 
 If you restart the simulator or change the simulated hardware, you may need to restart this process.
 `);
+      });
   } else {
     console.log(`${chalk.red('Failed to start simulator:')}
 
