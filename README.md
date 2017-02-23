@@ -109,7 +109,7 @@ If you're having issues with Create React Native App, please make sure:
 * The issue is not covered in the [Getting Started](https://github.com/react-community/create-react-native-app#getting-started) or [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) documentation
 * There is not already an [open issue](https://github.com/react-community/create-react-native-app/issues) for your particular problem
 
-If you've checked the documentation and currently open issues, please either open a new GitHub issue or ping `dikaiosune` on [Reactiflux](https://www.reactiflux.com/)'s #react-native channel on Discord. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
+If you've checked the documentation and currently open issues, please either open a new GitHub issue, [find @dika10sune on Twitter](https://twitter.com/dika10sune), or ping `dikaiosune` on [Reactiflux](https://www.reactiflux.com/)'s #react-native channel on Discord. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
 
 ## Contributing
 
