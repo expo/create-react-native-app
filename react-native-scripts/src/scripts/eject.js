@@ -8,7 +8,6 @@ import path from 'path';
 import spawn from 'cross-spawn';
 
 import { detach } from '../util/exponent';
-import { generatePatchesForMainForEject, transformMainForEject } from '../util/xforms';
 
 async function eject() {
   try {
