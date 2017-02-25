@@ -23,7 +23,7 @@ export async function detach() {
   const appJsonPath = path.join(process.cwd(), 'app.json');
   const appJson = JSON.parse(await fsp.readFile(appJsonPath));
 
-  if (!appJson.exponent.ios || !appJson.exponent.ios.bundleIdentifier) {
+  if ((!appJson.exponent.ios || !appJson.exponent.ios.bundleIdentifier) && process.platform === 'darwin') {
     console.log(`
 You'll need to specify an iOS bundle identifier. It must be unique on the App Store if you want to
 publish it there. See this StackOverflow question for more information:
