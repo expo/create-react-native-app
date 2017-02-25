@@ -146,6 +146,8 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
       console.log(chalk.red(e));
     }
 
+    delete pkgJson.main;
+
     // NOTE: exponent won't work after performing a raw eject, so we should delete this
     // it will be a better error message for the module to not be found than for whatever problems
     // missing native modules will cause
