@@ -75,10 +75,6 @@ acorn@^3.1.0:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/acorn/-/acorn-3.3.0.tgz#45e37fb39e8da3f25baee3ff5369e2bb5f22017a"
 
-address@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/address/-/address-1.0.1.tgz#363f5d3f2be26d0655d8afd5a9562e4fc2194537"
-
 agent-base@2:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-2.0.1.tgz#bd8f9e86a8eb221fffa07bd14befd55df142815e"
@@ -2277,9 +2273,9 @@ gulp-util@^3, gulp-util@^3.0.0, gulp-util@^3.0.7:
     through2 "^2.0.0"
     vinyl "^0.5.0"
 
-"gulp@git+https://github.com/gulpjs/gulp#4.0":
+"gulp@https://s3-us-west-1.amazonaws.com/crna-assets/gulp-4.0.0-alpha.2.tgz":
   version "4.0.0-alpha.2"
-  resolved "git+https://github.com/gulpjs/gulp#3f5aba28718dc19e4bf600fb88f128158ff2ff83"
+  resolved "https://s3-us-west-1.amazonaws.com/crna-assets/gulp-4.0.0-alpha.2.tgz#1551b05723326559cfd4037f449ad72bc1a89c58"
   dependencies:
     glob-watcher "^3.0.0"
     gulp-cli "^1.0.0"
@@ -4753,9 +4749,9 @@ write-file-atomic@^1.2.0:
     imurmurhash "^0.1.4"
     slide "^1.1.5"
 
-xdl@^30.0.1:
-  version "30.0.1"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-30.0.1.tgz#c45228cf624b2e33d985a954348d3944460b8eab"
+xdl@^31.1.0:
+  version "31.1.0"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-31.1.0.tgz#76b56f65516c4fa7aaa2eb25e31c072e5dab2c8f"
   dependencies:
     "@ccheever/crayon" "^5.0.0"
     "@exponent/json-file" "^5.3.0"
