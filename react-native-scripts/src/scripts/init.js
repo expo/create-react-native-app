@@ -130,9 +130,13 @@ Inside that directory, you can run several commands:
     app on your phone.
 
   ${chalk.cyan(command + ' run ios')}
-    (Mac only) Starts the development server and loads your app in an iOS
-    simulator. Requires that Xcode and the Xcode Command Line Tools are
-    installed.
+    (Mac only, requires Xcode)
+    Starts the development server and loads your app in an iOS simulator.
+
+  ${chalk.cyan(command + 'run android')}
+    (Requires Android build tools)
+    Starts the development server and loads your app on a connected Android
+    device or emulator.
 
   ${chalk.cyan(command + ' test')}
     Starts the test runner.
