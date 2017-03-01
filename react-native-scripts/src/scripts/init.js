@@ -35,7 +35,6 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry.js';
   appPackage.scripts = {
     start: "react-native-scripts start",
-    build: "react-native-scripts build",
     eject: "react-native-scripts eject",
     android: "react-native-scripts android",
     ios: "react-native-scripts ios",

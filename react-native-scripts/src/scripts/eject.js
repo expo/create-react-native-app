@@ -158,8 +158,7 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
     pkgJson.scripts.ios = 'react-native run-ios';
     pkgJson.scripts.android = 'react-native run-android';
 
-    // these are no longer relevant to an ejected project (maybe build is?)
-    delete pkgJson.scripts.build;
+    // no longer relevant to an ejected project (maybe build is?)
     delete pkgJson.scripts.eject;
 
     console.log(chalk.blue(`Updating your ${npmOrYarn} scripts in package.json...`));
