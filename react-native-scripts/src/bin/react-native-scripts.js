@@ -8,6 +8,7 @@ const args = process.argv.slice(3);
 const validCommands = [
   'build',
   'eject',
+  'android',
   'ios',
   'start',
   'test',

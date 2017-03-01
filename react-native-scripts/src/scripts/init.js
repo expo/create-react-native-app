@@ -37,6 +37,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
     start: "react-native-scripts start",
     build: "react-native-scripts build",
     eject: "react-native-scripts eject",
+    android: "react-native-scripts android",
     ios: "react-native-scripts ios",
     test: "node node_modules/jest/bin/jest.js",
   };
