@@ -26,32 +26,7 @@ npm i -g react-native-cli
 yarn global add react-native-cli
 ```
 
-Also, please note that if you did make use of any Exponent APIs before ejecting, you'll need to remove or replace them. The CRNA template project currently comes with one usage of the Exponent API, for registering a root app component:
-
-```js
-import Exponent from 'exponent';
-import {
-  // modules...
-} from 'react-native';
-
-// ... your app goes here, probably with an App class
-
-Exponent.registerRootComponent(App);
-```
-
-The eject process will attempt to rewrite this for you if possible, but if it needs to be done manually, it should look something like this:
-
-```js
-// no more Exponent line
-import {
-  // modules...
-  AppRegistry,
-} from 'react-native';
-
-// ... your app goes here, probably with an App class
-
-AppRegistry.registerComponent('MyAppName', () => App);
-```
+Also, please note that if you did make use of any Exponent APIs before ejecting, you'll need to remove or replace them.
 
 ### Ejecting to ExponentKit
 
