@@ -1,4 +1,4 @@
 import Exponent from "exponent";
-import App from "../../../../root.js";
+import App from "../../../../App";
 
 Exponent.registerRootComponent(App);
