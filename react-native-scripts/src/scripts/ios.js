@@ -1,10 +1,10 @@
 import { Config, ProjectSettings, Simulator, UrlUtils } from 'xdl';
 
 import chalk from 'chalk';
-import indent from "indent-string";
+import indent from 'indent-string';
 import path from 'path';
 import pathExists from 'path-exists';
-import qr from "qrcode-terminal";
+import qr from 'qrcode-terminal';
 
 import packager from '../util/packager';
 
@@ -12,11 +12,21 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock')) ? 'yarnpkg' : 'npm';
+const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock'))
+  ? 'yarnpkg'
+  : 'npm';
 
 if (!Simulator.isPlatformSupported()) {
-  console.log(chalk.red('\nThis command only works on macOS computers with Xcode and the iOS simulator installed.'));
-  console.log(chalk.yellow(`If you run \`${chalk.cyan(command + ' start')}\` then you can view your app on a physical device.\n`));
+  console.log(
+    chalk.red(
+      '\nThis command only works on macOS computers with Xcode and the iOS simulator installed.'
+    )
+  );
+  console.log(
+    chalk.yellow(
+      `If you run \`${chalk.cyan(command + ' start')}\` then you can view your app on a physical device.\n`
+    )
+  );
   process.exit(1);
 }
 
@@ -30,11 +40,14 @@ async function startSimulatorAndPrintInfo() {
   });
 
   console.log(chalk.blue('Starting simulator...'));
-  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(localAddress);
+  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(
+    localAddress
+  );
 
   if (success) {
-    qr.generate(address, (qrCode) => {
-      console.log(`To view your app with live reloading, point the Exponent app to this QR code:
+    qr.generate(address, qrCode => {
+      console.log(
+        `To view your app with live reloading, point the Exponent app to this QR code:
 
 ${indent(qrCode, 2)}
 
@@ -51,14 +64,17 @@ For links to install the Exponent app, please visit ${chalk.underline(chalk.cyan
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
 
 If you restart the simulator or change the simulated hardware, you may need to restart this process.
-`);
-      });
+`
+      );
+    });
   } else {
-    console.log(`${chalk.red('Failed to start simulator:')}
+    console.log(
+      `${chalk.red('Failed to start simulator:')}
 
 ${msg}
 
-${chalk.red('Exiting...')}`);
+${chalk.red('Exiting...')}`
+    );
     process.exit(0);
   }
 }

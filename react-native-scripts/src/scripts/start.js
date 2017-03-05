@@ -19,8 +19,9 @@ async function printServerInfo() {
   const settings = await ProjectSettings.readPackagerInfoAsync(process.cwd());
   // who knows why qrcode-terminal takes a callback instead of just returning a string
   const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
-  qr.generate(address, (qrCode) => {
-    console.log(`${chalk.green('Packager started!')}
+  qr.generate(address, qrCode => {
+    console.log(
+      `${chalk.green('Packager started!')}
 
 To view your app with live reloading, point the Exponent app to this QR code:
 
@@ -37,6 +38,7 @@ Your phone will need to be on the same local network as this computer.
 For links to install the Exponent app, please visit ${chalk.underline(chalk.cyan('https://getexponent.com'))}.
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
-`);
+`
+    );
   });
 }

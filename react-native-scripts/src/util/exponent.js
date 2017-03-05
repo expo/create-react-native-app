@@ -5,14 +5,9 @@ import fsp from 'fs-promise';
 import inquirer from 'inquirer';
 import path from 'path';
 
-import {
-  Detach,
-  User as UserManager,
-} from 'xdl';
+import { Detach, User as UserManager } from 'xdl';
 
-import type {
-  User,
-} from 'xdl/build/User';
+import type { User } from 'xdl/build/User';
 
 const AUTH_CLIENT_ID = 'MGQh3rK3WZFWhJ91BShagHggMOhrE6nR';
 UserManager.initialize(AUTH_CLIENT_ID);
@@ -23,12 +18,17 @@ export async function detach() {
   const appJsonPath = path.join(process.cwd(), 'app.json');
   const appJson = JSON.parse(await fsp.readFile(appJsonPath));
 
-  if ((!appJson.exponent.ios || !appJson.exponent.ios.bundleIdentifier) && process.platform === 'darwin') {
-    console.log(`
+  if (
+    (!appJson.exponent.ios || !appJson.exponent.ios.bundleIdentifier) &&
+    process.platform === 'darwin'
+  ) {
+    console.log(
+      `
 You'll need to specify an iOS bundle identifier. It must be unique on the App Store if you want to
 publish it there. See this StackOverflow question for more information:
   ${chalk.cyan('https://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project')}
-`);
+`
+    );
     const { iosBundleIdentifier } = await inquirer.prompt([
       {
         name: 'iosBundleIdentifier',
@@ -42,11 +42,13 @@ publish it there. See this StackOverflow question for more information:
 
   // check for android.package field, prompt interactively
   if (!appJson.exponent.android || !appJson.exponent.android.package) {
-    console.log(`
+    console.log(
+      `
 You'll need to specify an Android package name. It must be unique on the Play Store if you want to
 publish it there. See this StackOverflow question for more information:
   ${chalk.cyan('https://stackoverflow.com/questions/6273892/android-package-name-convention')}
-`);
+`
+    );
 
     const { androidPackage } = await inquirer.prompt([
       {
@@ -66,7 +68,9 @@ publish it there. See this StackOverflow question for more information:
   // yesno lib doesn't properly shut down. without this the command won't exit
   process.stdin.pause();
 
-  const pkgJson = JSON.parse((await fsp.readFile(path.resolve('package.json'))).toString());
+  const pkgJson = JSON.parse(
+    (await fsp.readFile(path.resolve('package.json'))).toString()
+  );
 
   const entryPoint = `import Exponent from "exponent";
 import App from "../../../../root.js";
@@ -82,14 +86,16 @@ Exponent.registerRootComponent(App);
   delete pkgJson.scripts.ios;
   await fsp.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
 
-  console.log(`${chalk.green('Successfully set up ExponentKit!')}
+  console.log(
+    `${chalk.green('Successfully set up ExponentKit!')}
 
 You'll need to use Exponent's XDE to run this project:
   ${chalk.cyan('https://docs.getexponent.com/versions/latest/introduction/installation.html')}
 
 For further instructions, please read ExponentKit's build documentation:
   ${chalk.cyan('https://docs.getexponent.com/versions/latest/guides/exponentkit.html#rerun-the-project-in-xde-or-exp')}
-`);
+`
+  );
 }
 
 async function loginOrRegister(): Promise<?User> {
@@ -109,7 +115,7 @@ ${chalk.green(currentUser.nickname)}, would you like to continue with this accou
             value: true,
           },
           {
-            name: 'No, I\'d like to start a new session.',
+            name: "No, I'd like to start a new session.",
             value: false,
           },
         ],
@@ -148,8 +154,8 @@ ${chalk.green(currentUser.nickname)}, would you like to continue with this accou
           name: 'Cancel',
           value: 'cancel',
         },
-      ]
-    }
+      ],
+    },
   ];
 
   const { action } = await inquirer.prompt(questions);
@@ -168,10 +174,12 @@ ${chalk.green(currentUser.nickname)}, would you like to continue with this accou
 async function githubAuthAsync(): Promise<User> {
   let user = await UserManager.loginAsync('github');
   if (user) {
-    console.log(chalk.green(`\nSuccessfully logged in as ${user.nickname} with GitHub!`));
+    console.log(
+      chalk.green(`\nSuccessfully logged in as ${user.nickname} with GitHub!`)
+    );
     return user;
   } else {
-    throw new Error("Unexpected Error: No user returned from the API");
+    throw new Error('Unexpected Error: No user returned from the API');
   }
 }
 
@@ -195,7 +203,7 @@ async function usernamePasswordAuthAsync(): Promise<User> {
       name: 'password',
       message: 'Password:',
       validate: validator,
-    }
+    },
   ];
 
   const answers = await inquirer.prompt(questions);
@@ -211,15 +219,17 @@ async function usernamePasswordAuthAsync(): Promise<User> {
     console.log(chalk.green(`\nSuccessfully logged in as ${user.nickname}!`));
     return user;
   } else {
-    throw new Error("Unexpected Error: No user returned from the Exponent API");
+    throw new Error('Unexpected Error: No user returned from the Exponent API');
   }
 }
 
 async function registerAsync(): Promise<User> {
-    console.log(`
+  console.log(
+    `
 Thanks for signing up for Exponent!
 Just a few questions:
-`);
+`
+  );
 
   const questions = [
     {
@@ -265,7 +275,7 @@ Just a few questions:
         }
         return true;
       },
-    }
+    },
   ];
 
   const answers = await inquirer.prompt(questions);

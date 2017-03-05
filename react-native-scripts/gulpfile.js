@@ -15,12 +15,15 @@ const paths = {
 
 const tasks = {
   babel() {
-    return gulp.src(paths.source)
+    return gulp
+      .src(paths.source)
       .pipe(changed(paths.build))
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(babel())
-      .pipe(sourcemaps.write('__sourcemaps__', { sourceRoot: paths.sourceRoot }))
+      .pipe(
+        sourcemaps.write('__sourcemaps__', { sourceRoot: paths.sourceRoot })
+      )
       .pipe(gulp.dest(paths.build));
   },
 
@@ -38,8 +41,12 @@ gulp.task('clean', done => {
 });
 
 gulp.task(
-  "publish",
-  gulp.series((done) => rimraf(paths.build, done), tasks.babel, shell.task(["npm publish"]))
+  'publish',
+  gulp.series(
+    done => rimraf(paths.build, done),
+    tasks.babel,
+    shell.task(['npm publish'])
+  )
 );
 
 gulp.task('default', gulp.series('watch'));
