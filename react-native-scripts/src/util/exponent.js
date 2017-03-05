@@ -69,7 +69,7 @@ publish it there. See this StackOverflow question for more information:
   const pkgJson = JSON.parse((await fsp.readFile(path.resolve('package.json'))).toString());
 
   const entryPoint = `import Exponent from "exponent";
-import App from "../../../../root.js";
+import App from "../../../../App";
 
 Exponent.registerRootComponent(App);
 `;
