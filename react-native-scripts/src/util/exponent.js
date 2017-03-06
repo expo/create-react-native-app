@@ -137,10 +137,6 @@ ${chalk.green(currentUser.nickname)}, would you like to continue with this accou
       message: 'How would you like to authenticate?',
       choices: [
         {
-          name: 'Log in with GitHub (opens a browser tab)',
-          value: 'github',
-        },
-        {
           name: 'Make a new Exponent account',
           value: 'register',
         },
