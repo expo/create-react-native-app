@@ -196,8 +196,8 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
       // FIXME now we need to provide platform-specific entry points until upstream uses a single one
       console.log(chalk.blue(`Adding platform-specific entry points...`));
 
-      const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
-import App from './root.js';
+    const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
+import App from './App';
 AppRegistry.registerComponent('${newName}', () => App);
 `;
 
