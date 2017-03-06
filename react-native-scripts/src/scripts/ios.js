@@ -43,11 +43,9 @@ async function startSimulatorAndPrintInfo() {
   if (success) {
     qr.generate(address, qrCode => {
       console.log(
-        `To view your app with live reloading, point the Exponent app to this QR code:
+        `To view your app with live reloading, point the Exponent app to this QR code. You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
 
 ${indent(qrCode, 2)}
-
-You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
 
 Or enter this address in the Exponent app's search bar:
 
