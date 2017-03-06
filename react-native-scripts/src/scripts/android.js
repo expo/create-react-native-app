@@ -25,7 +25,10 @@ async function startAndroidAndPrintInfo() {
 
   qr.generate(address, qrCode => {
     console.log(
-      `To view your app with live reloading, point the Expo app to this QR code. You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
+      `${chalk.green('Packager started!')}
+
+To view your app with live reloading, point the Expo app to this QR code.
+You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
 
 ${indent(qrCode, 2)}
 

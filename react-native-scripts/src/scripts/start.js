@@ -23,7 +23,8 @@ async function printServerInfo() {
     console.log(
       `${chalk.green('Packager started!')}
 
-To view your app with live reloading, point the Expo app to this QR code. You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
+To view your app with live reloading, point the Expo app to this QR code.
+You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
 
 ${indent(qrCode, 2)}
 
