@@ -4,6 +4,8 @@ This doc is woefully under-written and needs to be fleshed out. If you're intere
 
 ## Developing
 
+Run `yarn` in the repo root to install prettier. Use `yarn run format` before submitting any PRs to ensure consistent code style.
+
 You'll need to install dependencies in both `create-react-native-app` and `react-native-scripts` and also start the gulp builders in both. It's also a good idea to tell npm/yarn that your local copy of react-native-scripts can be linked into projects where it's a dependency:
 
 ```

@@ -32,9 +32,7 @@ if (commands.length === 0) {
     console.log(`create-react-native-app version: ${version}`);
     process.exit();
   }
-  console.error(
-    'Usage: create-react-native-app <project-directory> [--verbose]'
-  );
+  console.error('Usage: create-react-native-app <project-directory> [--verbose]');
   process.exit(1);
 }
 
@@ -63,10 +61,7 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
     version: '0.1.0',
     private: true,
   };
-  await fsp.writeFile(
-    path.join(root, 'package.json'),
-    JSON.stringify(packageJson, null, 2)
-  );
+  await fsp.writeFile(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2));
   process.chdir(root);
 
   console.log('Installing packages. This might take a couple minutes.');
@@ -76,16 +71,13 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
   await run(root, appName, version, verbose, packageToInstall, packageName);
 }
 
-function install(packageToInstall: string, verbose: boolean,
-                       callback: (code: number, command: string, args: Array<string>) => Promise<void>
-                       ): void {
-  let args = [
-    'add',
-    '--dev',
-    '--exact',
-    packageToInstall,
-  ];
-  const proc = spawn('yarnpkg', args, {stdio: 'inherit'});
+function install(
+  packageToInstall: string,
+  verbose: boolean,
+  callback: (code: number, command: string, args: Array<string>) => Promise<void>
+): void {
+  let args = ['add', '--dev', '--exact', packageToInstall];
+  const proc = spawn('yarnpkg', args, { stdio: 'inherit' });
 
   let yarnExists = true;
   proc.on('error', function(err) {
@@ -96,7 +88,12 @@ function install(packageToInstall: string, verbose: boolean,
 
   proc.on('close', function(code) {
     if (yarnExists) {
-      callback(code, 'yarnpkg', args).then(() => {}, (e) => { throw e; });
+      callback(code, 'yarnpkg', args).then(
+        () => {},
+        e => {
+          throw e;
+        }
+      );
       return;
     }
     // No Yarn installed, continuing with npm.
@@ -106,22 +103,28 @@ function install(packageToInstall: string, verbose: boolean,
       args.push('--verbose');
     }
 
-    args = args.concat([
-      '--save-dev',
-      '--save-exact',
-      packageToInstall,
-    ]);
+    args = args.concat(['--save-dev', '--save-exact', packageToInstall]);
 
-    const npmProc = spawn('npm', args, {stdio: 'inherit'});
+    const npmProc = spawn('npm', args, { stdio: 'inherit' });
     npmProc.on('close', function(code) {
-      callback(code, 'npm', args).then(() => {}, (e) => { throw e; });;
+      callback(code, 'npm', args).then(
+        () => {},
+        e => {
+          throw e;
+        }
+      );
     });
   });
 }
 
-async function run(root: string, appName: string, version: ?string, verbose: boolean,
-                   packageToInstall: string, packageName: string): Promise<void> {
-
+async function run(
+  root: string,
+  appName: string,
+  version: ?string,
+  verbose: boolean,
+  packageToInstall: string,
+  packageName: string
+): Promise<void> {
   install(packageToInstall, verbose, async (code: number, command: string, args: Array<string>) => {
     if (code !== 0) {
       console.error(`\`${command} ${args.join(' ')}\` failed`);
@@ -166,7 +169,9 @@ function getPackageName(installPackage: string): string {
     if (matches && matches.length >= 2) {
       return matches[1];
     } else {
-      throw new Error(`Provided scripts package (${installPackage}) doesn't have a valid filename.`);
+      throw new Error(
+        `Provided scripts package (${installPackage}) doesn't have a valid filename.`
+      );
     }
   } else if (installPackage.indexOf('@') > 0) {
     // Do not match @scope/ when stripping off @version or @tag
@@ -176,12 +181,7 @@ function getPackageName(installPackage: string): string {
 }
 
 async function checkNodeVersion(packageName: string): Promise<void> {
-  const packageJsonPath = path.resolve(
-    process.cwd(),
-    'node_modules',
-    packageName,
-    'package.json'
-  );
+  const packageJsonPath = path.resolve(process.cwd(), 'node_modules', packageName, 'package.json');
 
   const packageJson = JSON.parse(await fsp.readFile(packageJsonPath));
   if (!packageJson.engines || !packageJson.engines.node) {
@@ -192,7 +192,7 @@ async function checkNodeVersion(packageName: string): Promise<void> {
     console.error(
       chalk.red(
         'You are currently running Node %s but create-react-native-app requires %s.' +
-        ' Please use a supported version of Node.\n'
+          ' Please use a supported version of Node.\n'
       ),
       process.version,
       packageJson.engines.node
@@ -202,20 +202,30 @@ async function checkNodeVersion(packageName: string): Promise<void> {
 }
 
 function checkAppName(appName: string, packageName: string): void {
-  const allDependencies = ['react-native-scripts', 'exponent', 'vector-icons', 'react', 'react-native'];
+  const allDependencies = [
+    'react-native-scripts',
+    'exponent',
+    'vector-icons',
+    'react',
+    'react-native',
+  ];
 
   if (allDependencies.indexOf(appName) >= 0) {
     console.error(
       chalk.red(
-        'We cannot create a project called `' + appName + '` because a dependency with the same name exists.\n' +
-        'Due to the way npm works, the following names are not allowed:\n\n'
+        'We cannot create a project called `' +
+          appName +
+          '` because a dependency with the same name exists.\n' +
+          'Due to the way npm works, the following names are not allowed:\n\n'
       ) +
-      chalk.cyan(
-        allDependencies.map((depName) => {
-          return '  ' + depName;
-        }).join('\n')
-      ) +
-      chalk.red('\n\nPlease choose a different project name.')
+        chalk.cyan(
+          allDependencies
+            .map(depName => {
+              return '  ' + depName;
+            })
+            .join('\n')
+        ) +
+        chalk.red('\n\nPlease choose a different project name.')
     );
     process.exit(1);
   }
@@ -224,8 +234,7 @@ function checkAppName(appName: string, packageName: string): void {
 // If project only contains files generated by GH, it’s safe
 async function isSafeToCreateProjectIn(root: string): Promise<boolean> {
   const validFiles = ['.DS_Store', 'Thumbs.db', '.git', '.gitignore', 'README.md', 'LICENSE'];
-  return (await fsp.readdir(root))
-    .every((file) => {
-      return validFiles.indexOf(file) >= 0;
-    });
+  return (await fsp.readdir(root)).every(file => {
+    return validFiles.indexOf(file) >= 0;
+  });
 }

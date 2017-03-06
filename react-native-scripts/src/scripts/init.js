@@ -8,14 +8,14 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  "exponent": "14.0.0",
-  "react": "~15.4.0",
-  "react-native": "0.41.2"
+  exponent: '14.0.0',
+  react: '~15.4.0',
+  'react-native': '0.41.2',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  "jest-exponent": "^0.2.0",
+  'jest-exponent': '^0.2.0',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean) => {
@@ -34,15 +34,15 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   // mutate the default package.json in any ways we need to
   appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry.js';
   appPackage.scripts = {
-    start: "react-native-scripts start",
-    eject: "react-native-scripts eject",
-    android: "react-native-scripts android",
-    ios: "react-native-scripts ios",
-    test: "node node_modules/jest/bin/jest.js",
+    start: 'react-native-scripts start',
+    eject: 'react-native-scripts eject',
+    android: 'react-native-scripts android',
+    ios: 'react-native-scripts ios',
+    test: 'node node_modules/jest/bin/jest.js',
   };
 
   appPackage.jest = {
-    preset: "jest-exponent",
+    preset: 'jest-exponent',
   };
 
   if (!appPackage.dependencies) {
@@ -59,10 +59,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   Object.assign(appPackage.devDependencies, DEFAULT_DEV_DEPENDENCIES);
 
   // Write the new appPackage after copying so that we can include any existing
-  await fsp.writeFile(
-    appPackagePath,
-    JSON.stringify(appPackage, null, 2)
-  );
+  await fsp.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
 
   // Copy the files for the user
   await fsp.copy(path.join(ownPath, 'template'), appPath);
@@ -104,8 +101,8 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
     command = 'yarn';
   }
 
-  const proc = spawn(command, args, {stdio: 'inherit'});
-  proc.on('close', (code) => {
+  const proc = spawn(command, args, { stdio: 'inherit' });
+  proc.on('close', code => {
     if (code !== 0) {
       console.error(`\`${command} ${args.join(' ')}\` failed`);
       return;
@@ -120,7 +117,8 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
       cdpath = appPath;
     }
 
-    console.log(`
+    console.log(
+      `
 
 Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
@@ -148,11 +146,14 @@ Inside that directory, you can run several commands:
 We suggest that you begin by typing:
 
   ${chalk.cyan('cd ' + cdpath)}
-  ${chalk.cyan(command + ' start')}`);
+  ${chalk.cyan(command + ' start')}`
+    );
 
     if (readmeExists) {
-      console.log(`
-${chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`')}`);
+      console.log(
+        `
+${chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`')}`
+      );
     }
 
     console.log();

@@ -14,7 +14,8 @@ const paths = {
 
 const tasks = {
   babel() {
-    return gulp.src(paths.source)
+    return gulp
+      .src(paths.source)
       .pipe(changed(paths.build))
       .pipe(plumber())
       .pipe(sourcemaps.init())

@@ -1,22 +1,19 @@
 // @flow
 
-import {
-  Project,
-  ProjectSettings,
-  ProjectUtils,
-} from 'xdl';
+import { Project, ProjectSettings, ProjectUtils } from 'xdl';
 
 import bunyan from 'bunyan';
 import chalk from 'chalk';
 
 function installExitHooks(projectDir) {
   if (process.platform === 'win32') {
-    require('readline').createInterface({
+    require('readline')
+      .createInterface({
         input: process.stdin,
         output: process.stdout,
       })
-      .on("SIGINT", () => {
-        process.emit("SIGINT");
+      .on('SIGINT', () => {
+        process.emit('SIGINT');
       });
   }
 
@@ -54,8 +51,7 @@ function run(onReady: () => ?any, options: Object = {}) {
   const projectDir = process.cwd();
   ProjectUtils.attachLoggerStream(projectDir, {
     stream: {
-      write: (chunk) => {
-
+      write: chunk => {
         // don't show the initial packager setup, so that we can display a nice getting started message
         // note: it's possible for the RN packager to log its setup before the express server is done
         // this is a potential race condition but it'll work for now
@@ -66,7 +62,7 @@ function run(onReady: () => ?any, options: Object = {}) {
         }
 
         if (packagerReady) {
-          const message = `${(new Date()).toLocaleString()}: ${chunk.msg}`;
+          const message = `${new Date().toLocaleString()}: ${chunk.msg}`;
           if (chunk.level <= bunyan.INFO) {
             console.log(message);
           } else if (chunk.level === bunyan.WARN) {
@@ -92,10 +88,13 @@ function run(onReady: () => ?any, options: Object = {}) {
   installExitHooks(projectDir);
   console.log(chalk.blue('Starting packager...'));
 
-  Project.startAsync(projectDir, options).then(() => {}, (reason) => {
-    console.log(chalk.red(`Error starting packager: ${reason.stack}`));
-    process.exit(1);
-  });
+  Project.startAsync(projectDir, options).then(
+    () => {},
+    reason => {
+      console.log(chalk.red(`Error starting packager: ${reason.stack}`));
+      process.exit(1);
+    }
+  );
 }
 
 export default { run };
