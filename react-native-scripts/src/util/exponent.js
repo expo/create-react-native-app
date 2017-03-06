@@ -69,11 +69,7 @@ publish it there. See this StackOverflow question for more information:
   const pkgJson = JSON.parse((await fsp.readFile(path.resolve('package.json'))).toString());
 
   const entryPoint = `import Exponent from "exponent";
-<<<<<<< Updated upstream
-import App from "../../../../App";
-=======
 import App from "./App";
->>>>>>> Stashed changes
 
 Exponent.registerRootComponent(App);
 `;
