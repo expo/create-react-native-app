@@ -67,13 +67,10 @@ Create React Native App does a lot of work to make app setup and development sim
 
 Exponent provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Exponent client app. This requires registration for an Exponent account.
 
-```
-# install the exp CLI tool
-$ yarn global add exp
-# OR
-$ npm i -g exp
+Install the `exp` command-line tool, and run the publish command:
 
-# run this in your project, you'll be prompted to register if you haven't already
+```
+$ npm i -g exp
 $ exp publish
 ```
 
