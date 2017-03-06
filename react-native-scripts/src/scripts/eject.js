@@ -68,13 +68,9 @@ Ejecting is permanent! Please be careful with your selection.
     const { ejectMethod } = await inquirer.prompt(questions);
 
     if (ejectMethod === 'raw') {
-      const npmOrYarn = (await fsp.exists(path.resolve('yarn.lock')))
-        ? 'yarnpkg'
-        : 'npm';
+      const npmOrYarn = (await fsp.exists(path.resolve('yarn.lock'))) ? 'yarnpkg' : 'npm';
       const appJson = JSON.parse(await fsp.readFile(path.resolve('app.json')));
-      const pkgJson = JSON.parse(
-        await fsp.readFile(path.resolve('package.json'))
-      );
+      const pkgJson = JSON.parse(await fsp.readFile(path.resolve('package.json')));
       let {
         name: newName,
         displayName: newDisplayName,
@@ -108,9 +104,7 @@ Ejecting is permanent! Please be careful with your selection.
           message: 'What should your Android Studio and Xcode projects be called?',
           default: newName,
           validate: s => {
-            return s.length > 0 &&
-              s.indexOf('-') === -1 &&
-              s.indexOf(' ') === -1;
+            return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1;
           },
         },
       ]);
@@ -120,15 +114,8 @@ Ejecting is permanent! Please be careful with your selection.
 
       console.log(chalk.blue('Writing your selections to app.json...'));
       // write the updated app.json file
-      await fsp.writeFile(
-        path.resolve('app.json'),
-        JSON.stringify(appJson, null, 2)
-      );
-      console.log(
-        chalk.green(
-          'Wrote to app.json, please update it manually in the future.'
-        )
-      );
+      await fsp.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
+      console.log(chalk.green('Wrote to app.json, please update it manually in the future.'));
 
       const ejectCommand = 'node';
       const ejectArgs = [
@@ -142,15 +129,9 @@ Ejecting is permanent! Please be careful with your selection.
 
       if (status !== 0) {
         console.log(
-          chalk.red(
-            `Eject failed with exit code ${status}, see above output for any issues.`
-          )
+          chalk.red(`Eject failed with exit code ${status}, see above output for any issues.`)
         );
-        console.log(
-          chalk.yellow(
-            'You may want to delete the `ios` and/or `android` directories.'
-          )
-        );
+        console.log(chalk.yellow('You may want to delete the `ios` and/or `android` directories.'));
         process.exit(1);
       } else {
         console.log(chalk.green('Successfully copied template native code.'));
@@ -160,20 +141,10 @@ Ejecting is permanent! Please be careful with your selection.
       // if it doesn't, then print a warning
       try {
         const projectBabelPath = path.resolve(process.cwd(), '.babelrc');
-        const projectBabelRc = (await fsp.readFile(
-          projectBabelPath
-        )).toString();
+        const projectBabelRc = (await fsp.readFile(projectBabelPath)).toString();
 
-        const templateBabelPath = path.resolve(
-          __dirname,
-          '..',
-          '..',
-          'template',
-          '.babelrc'
-        );
-        const templateBabelRc = (await fsp.readFile(
-          templateBabelPath
-        )).toString();
+        const templateBabelPath = path.resolve(__dirname, '..', '..', 'template', '.babelrc');
+        const templateBabelRc = (await fsp.readFile(templateBabelPath)).toString();
 
         if (projectBabelRc === templateBabelRc) {
           await fsp.unlink(projectBabelPath);
@@ -216,14 +187,9 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
       // no longer relevant to an ejected project (maybe build is?)
       delete pkgJson.scripts.eject;
 
-      console.log(
-        chalk.blue(`Updating your ${npmOrYarn} scripts in package.json...`)
-      );
+      console.log(chalk.blue(`Updating your ${npmOrYarn} scripts in package.json...`));
 
-      await fsp.writeFile(
-        path.resolve('package.json'),
-        JSON.stringify(pkgJson, null, 2)
-      );
+      await fsp.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
 
       console.log(chalk.green('Your package.json is up to date!'));
 
@@ -235,14 +201,8 @@ import App from './root.js';
 AppRegistry.registerComponent('${newName}', () => App);
 `;
 
-      await fsp.writeFile(
-        path.resolve('index.ios.js'),
-        lolThatsSomeComplexCode
-      );
-      await fsp.writeFile(
-        path.resolve('index.android.js'),
-        lolThatsSomeComplexCode
-      );
+      await fsp.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
+      await fsp.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
 
       console.log(chalk.green('Added new entry points!'));
 
@@ -264,9 +224,7 @@ to ensure that the changes we made to package.json persist correctly.
       await detach();
     } else {
       // we don't want to print the survey for cancellations
-      console.log(
-        'OK! If you change your mind you can run this command again.'
-      );
+      console.log('OK! If you change your mind you can run this command again.');
       return;
     }
 
@@ -319,9 +277,7 @@ function stripDashes(s: string): string {
   return ret;
 }
 
-async function findJavaScriptProjectFilesInRoot(
-  root: string
-): Promise<Array<string>> {
+async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<string>> {
   // ignore node_modules
   if (root.includes('node_modules')) {
     return [];

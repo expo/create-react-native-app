@@ -68,9 +68,7 @@ publish it there. See this StackOverflow question for more information:
   // yesno lib doesn't properly shut down. without this the command won't exit
   process.stdin.pause();
 
-  const pkgJson = JSON.parse(
-    (await fsp.readFile(path.resolve('package.json'))).toString()
-  );
+  const pkgJson = JSON.parse((await fsp.readFile(path.resolve('package.json'))).toString());
 
   const entryPoint = `import Exponent from "exponent";
 import App from "../../../../root.js";
@@ -174,9 +172,7 @@ ${chalk.green(currentUser.nickname)}, would you like to continue with this accou
 async function githubAuthAsync(): Promise<User> {
   let user = await UserManager.loginAsync('github');
   if (user) {
-    console.log(
-      chalk.green(`\nSuccessfully logged in as ${user.nickname} with GitHub!`)
-    );
+    console.log(chalk.green(`\nSuccessfully logged in as ${user.nickname} with GitHub!`));
     return user;
   } else {
     throw new Error('Unexpected Error: No user returned from the API');

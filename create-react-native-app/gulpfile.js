@@ -20,9 +20,7 @@ const tasks = {
       .pipe(plumber())
       .pipe(sourcemaps.init())
       .pipe(babel())
-      .pipe(
-        sourcemaps.write('__sourcemaps__', { sourceRoot: paths.sourceRoot })
-      )
+      .pipe(sourcemaps.write('__sourcemaps__', { sourceRoot: paths.sourceRoot }))
       .pipe(gulp.dest(paths.build));
   },
 

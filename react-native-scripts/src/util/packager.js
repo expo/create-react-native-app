@@ -35,9 +35,7 @@ async function cleanUpPackager(projectDir) {
   if (result === 'stopFailed') {
     // find RN packager pid, attempt to kill manually
     try {
-      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(
-        projectDir
-      );
+      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(projectDir);
       process.kill(packagerPid);
     } catch (e) {
       process.exit(1);

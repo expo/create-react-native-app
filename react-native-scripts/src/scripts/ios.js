@@ -12,9 +12,7 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock'))
-  ? 'yarnpkg'
-  : 'npm';
+const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock')) ? 'yarnpkg' : 'npm';
 
 if (!Simulator.isPlatformSupported()) {
   console.log(
@@ -40,9 +38,7 @@ async function startSimulatorAndPrintInfo() {
   });
 
   console.log(chalk.blue('Starting simulator...'));
-  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(
-    localAddress
-  );
+  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(localAddress);
 
   if (success) {
     qr.generate(address, qrCode => {

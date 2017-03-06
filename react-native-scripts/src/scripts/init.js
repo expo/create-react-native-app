@@ -23,14 +23,9 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
   const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
 
-  const readmeExists: boolean = await pathExists(
-    path.join(appPath, 'README.md')
-  );
+  const readmeExists: boolean = await pathExists(path.join(appPath, 'README.md'));
   if (readmeExists) {
-    await fsp.rename(
-      path.join(appPath, 'README.md'),
-      path.join(appPath, 'README.old.md')
-    );
+    await fsp.rename(path.join(appPath, 'README.md'), path.join(appPath, 'README.old.md'));
   }
 
   const appPackagePath: string = path.join(appPath, 'package.json');
@@ -71,10 +66,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   try {
-    await fsp.rename(
-      path.join(appPath, 'gitignore'),
-      path.join(appPath, '.gitignore')
-    );
+    await fsp.rename(path.join(appPath, 'gitignore'), path.join(appPath, '.gitignore'));
   } catch (err) {
     // Append if there's already a `.gitignore` file there
     if (err.code === 'EEXIST') {

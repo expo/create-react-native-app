@@ -12,9 +12,7 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock'))
-  ? 'yarnpkg'
-  : 'npm';
+const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock')) ? 'yarnpkg' : 'npm';
 
 packager.run(startAndroidAndPrintInfo);
 
