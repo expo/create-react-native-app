@@ -5,7 +5,7 @@ export default class App extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text>Open up root.js to start working on your app!</Text>
+        <Text>Open up App.js to start working on your app!</Text>
         <Text>Changes you make will automatically reload.</Text>
       </View>
     );

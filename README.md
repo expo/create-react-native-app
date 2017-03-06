@@ -18,9 +18,9 @@ $ cd my-app/
 $ npm start
 ```
 
-Install the [Exponent](https://getexponent.com) app on your iOS or Android phone, and use the QR code in the terminal to open your app. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment) section of the User Guide.
+Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment) section of the User Guide.
 
-Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.getexponent.com/versions/latest/sdk/index.html) that the Exponent App provides.
+Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the Expo App provides.
 
 ## Sections
 
@@ -63,7 +63,7 @@ If you're familiar with React Native already, you won't find any `ios` or `andro
 
 Runs your app in development mode.
 
-Open it in the [Exponent app](https://getexponent.com) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
+Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
 
 #### `npm test`
 
@@ -100,11 +100,11 @@ The main limitation of a CRNA project is that it must be written in pure JavaScr
 
 Apps made with Create React Native App support everything in the Components and APIs sections of the [React Native Documentation](https://facebook.github.io/react-native/docs/getting-started.html).
 
-Apps made with Create React Native App also support most of the JavaScript-to-Native APIs provided by the [Exponent SDK](https://docs.getexponent.com/versions/latest/sdk/index.html), since they are loaded by the Exponent app.
+Apps made with Create React Native App also support most of the JavaScript-to-Native APIs provided by the [Expo SDK](https://docs.expo.io/versions/latest/sdk/index.html), since they are loaded by the Expo app.
 
 If you're sure that you need custom native code, please read the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md).
 
-If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Exponent's standalone app builds](https://docs.getexponent.com/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
+If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Expo's standalone app builds](https://docs.expo.io/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
 
 ## Support and Contact
 

@@ -23,17 +23,17 @@ async function printServerInfo() {
     console.log(
       `${chalk.green('Packager started!')}
 
-To view your app with live reloading, point the Exponent app to this QR code. You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
+To view your app with live reloading, point the Expo app to this QR code. You'll find the QR scanner on the Projects tab of the app, under the '+' menu.
 
 ${indent(qrCode, 2)}
 
-Or enter this address in the Exponent app's search bar:
+Or enter this address in the Expo app's search bar:
 
   ${chalk.underline(chalk.cyan(address))}
 
 Your phone will need to be on the same local network as this computer.
 
-For links to install the Exponent app, please visit ${chalk.underline(chalk.cyan('https://getexponent.com'))}.
+For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('https://expo.io'))}.
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
 `

@@ -7,33 +7,33 @@ import matchRequire from 'match-require';
 import path from 'path';
 import spawn from 'cross-spawn';
 
-import { detach } from '../util/exponent';
+import { detach } from '../util/expo';
 
 async function eject() {
   try {
-    const filesWithExponent = await filesUsingExponentSdk();
-    const usingExponent = filesWithExponent.length > 0;
+    const filesWithExpo = await filesUsingExpoSdk();
+    const usingExpo = filesWithExpo.length > 0;
 
-    let exponentSdkWarning;
-    if (usingExponent) {
-      exponentSdkWarning = `${chalk.bold('Warning!')} We found at least one file where your project imports the Exponent SDK:
+    let expoSdkWarning;
+    if (usingExpo) {
+      expoSdkWarning = `${chalk.bold('Warning!')} We found at least one file where your project imports the Expo SDK:
 `;
 
-      for (let filename of filesWithExponent) {
-        exponentSdkWarning += `  ${chalk.cyan(filename)}\n`;
+      for (let filename of filesWithExpo) {
+        expoSdkWarning += `  ${chalk.cyan(filename)}\n`;
       }
 
-      exponentSdkWarning += `
+      expoSdkWarning += `
 ${chalk.yellow.bold('If you choose the "plain" React Native option below, these imports will stop working.')}`;
     } else {
-      exponentSdkWarning = `\
-We didn't find any uses of the Exponent SDK in your project, so you should be fine to eject to
+      expoSdkWarning = `\
+We didn't find any uses of the Expo SDK in your project, so you should be fine to eject to
 "Plain" React Native. (This check isn't very sophisticated, though.)`;
     }
 
     console.log(
       `
-${exponentSdkWarning}
+${expoSdkWarning}
 
 We ${chalk.italic('strongly')} recommend that you read this document before you proceed:
   ${chalk.cyan('https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md')}
@@ -47,15 +47,15 @@ Ejecting is permanent! Please be careful with your selection.
         type: 'list',
         name: 'ejectMethod',
         message: 'How would you like to eject from create-react-native-app?',
-        default: usingExponent ? 'exponentKit' : 'raw',
+        default: usingExpo ? 'expoKit' : 'raw',
         choices: [
           {
             name: "React Native: I'd like a regular React Native project.",
             value: 'raw',
           },
           {
-            name: "ExponentKit: I'll create or log in with an Exponent account to use React Native and the Exponent SDK.",
-            value: 'exponentKit',
+            name: "ExpoKit: I'll create or log in with an Expo account to use React Native and the Expo SDK.",
+            value: 'expoKit',
           },
           {
             name: "Cancel: I'll continue with my current project structure.",
@@ -74,7 +74,7 @@ Ejecting is permanent! Please be careful with your selection.
       let {
         name: newName,
         displayName: newDisplayName,
-        exponent: { name: expName },
+        expo: { name: expName },
       } = appJson;
 
       // we ask user to provide a project name (default is package name stripped of dashes)
@@ -174,10 +174,10 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
 
       delete pkgJson.main;
 
-      // NOTE: exponent won't work after performing a raw eject, so we should delete this
+      // NOTE: expo won't work after performing a raw eject, so we should delete this
       // it will be a better error message for the module to not be found than for whatever problems
       // missing native modules will cause
-      delete pkgJson.dependencies.exponent;
+      delete pkgJson.dependencies.expo;
       delete pkgJson.devDependencies['react-native-scripts'];
 
       pkgJson.scripts.start = 'react-native start';
@@ -196,7 +196,7 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
       // FIXME now we need to provide platform-specific entry points until upstream uses a single one
       console.log(chalk.blue(`Adding platform-specific entry points...`));
 
-    const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
+      const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
 import App from './App';
 AppRegistry.registerComponent('${newName}', () => App);
 `;
@@ -220,7 +220,7 @@ to ensure that the changes we made to package.json persist correctly.
 `
         )
       );
-    } else if (ejectMethod === 'exponentKit') {
+    } else if (ejectMethod === 'expoKit') {
       await detach();
     } else {
       // we don't want to print the survey for cancellations
@@ -238,7 +238,7 @@ Please consider letting us know why you ejected in this survey:
   }
 }
 
-async function filesUsingExponentSdk(): Promise<Array<string>> {
+async function filesUsingExpoSdk(): Promise<Array<string>> {
   const projectJsFiles = await findJavaScriptProjectFilesInRoot(process.cwd());
 
   const jsFileContents = (await Promise.all(
@@ -250,19 +250,19 @@ async function filesUsingExponentSdk(): Promise<Array<string>> {
     };
   });
 
-  const filesUsingExponent = [];
+  const filesUsingExpo = [];
 
   for (let { filename, contents } of jsFileContents) {
     const requires = matchRequire.findAll(contents);
 
-    if (requires.includes('exponent')) {
-      filesUsingExponent.push(filename);
+    if (requires.includes('expo')) {
+      filesUsingExpo.push(filename);
     }
   }
 
-  filesUsingExponent.sort();
+  filesUsingExpo.sort();
 
-  return filesUsingExponent;
+  return filesUsingExpo;
 }
 
 function stripDashes(s: string): string {
@@ -308,7 +308,7 @@ async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<str
 
 eject()
   .then(() => {
-    // the exponent local github auth server leaves a setTimeout for 5 minutes
+    // the expo local github auth server leaves a setTimeout for 5 minutes
     // so we need to explicitly exit (for now, this will be resolved in the nearish future)
     process.exit(0);
   })

@@ -205,6 +205,7 @@ function checkAppName(appName: string, packageName: string): void {
   const allDependencies = [
     'react-native-scripts',
     'exponent',
+    'expo',
     'vector-icons',
     'react',
     'react-native',

@@ -8,14 +8,14 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  exponent: '14.0.0',
+  expo: '14.0.2',
   react: '~15.4.0',
   'react-native': '0.41.2',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-exponent': '^0.2.0',
+  'jest-expo': '^0.2.1',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean) => {
@@ -42,7 +42,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
   };
 
   appPackage.jest = {
-    preset: 'jest-exponent',
+    preset: 'jest-expo',
   };
 
   if (!appPackage.dependencies) {
@@ -124,14 +124,14 @@ Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
 
   ${chalk.cyan(command + ' start')}
-    Starts the development server so you can open your app in the Exponent
+    Starts the development server so you can open your app in the Expo
     app on your phone.
 
   ${chalk.cyan(command + ' run ios')}
     (Mac only, requires Xcode)
     Starts the development server and loads your app in an iOS simulator.
 
-  ${chalk.cyan(command + 'run android')}
+  ${chalk.cyan(command + ' run android')}
     (Requires Android build tools)
     Starts the development server and loads your app on a connected Android
     device or emulator.

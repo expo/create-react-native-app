@@ -56,7 +56,7 @@ You'll specify a CLI config file in your test project's app.json:
 
 ```
 {
-  "exponent": {
+  "expo": {
     "sdkVersion": "12.0.0",
     "packagerOpts": {
       "config": "rn-cli.config.js"

@@ -13,11 +13,11 @@ Below you'll find information about performing common tasks. The most recent ver
   * [npm run eject](#npm-run-eject)
 * [Writing and Running Tests](#writing-and-running-tests)
 * [Sharing and Deployment](#sharing-and-deployment)
-  * [Publishing to Exponent's React Native Community](#publishing-to-exponents-react-native-community)
-  * [Building an Exponent "standalone" app](#building-an-exponent-standalone-app)
+  * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
+  * [Building an Expo "standalone" app](#building-an-expo-standalone-app)
   * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
     * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
-    * [Should I Use ExponentKit?](#should-i-use-exponentkit)
+    * [Should I Use ExpoKit?](#should-i-use-expokit)
 
 ## Updating to New Releases
 
@@ -25,7 +25,7 @@ You should only need to update the global installation of `create-react-native-a
 
 Updating the `react-native-scripts` dependency of your app should be as simple as bumping the version number in `package.json` and reinstalling your project's dependencies.
 
-Upgrading to a new version of React Native requires updating the `react-native`, `react`, and `exponent` package versions, and setting the correct `sdkVersion` in `app.json`. See the [versioning guide](https://github.com/react-community/create-react-native-app/blob/master/VERSIONS.md) for up-to-date information about package version compatibility.
+Upgrading to a new version of React Native requires updating the `react-native`, `react`, and `expo` package versions, and setting the correct `sdkVersion` in `app.json`. See the [versioning guide](https://github.com/react-community/create-react-native-app/blob/master/VERSIONS.md) for up-to-date information about package version compatibility.
 
 ## Available Scripts
 
@@ -35,7 +35,7 @@ If yarn was installed when the project was initialized, then dependencies will h
 
 Runs your app in development mode.
 
-Open it in the [Exponent app](https://getexponent.com) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
+Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
 
 #### `npm test`
 
@@ -63,9 +63,9 @@ This project is set up to use [jest](https://facebook.github.io/jest/) for tests
 
 Create React Native App does a lot of work to make app setup and development simple and straightforward, but it's very difficult to do the same for deploying to Apple's App Store or Google's Play Store without relying on a hosted service.
 
-### Publishing to Exponent's React Native Community
+### Publishing to Expo's React Native Community
 
-Exponent provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Exponent client app. This requires registration for an Exponent account.
+Expo provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Expo client app. This requires registration for an Expo account.
 
 Install the `exp` command-line tool, and run the publish command:
 
@@ -74,9 +74,9 @@ $ npm i -g exp
 $ exp publish
 ```
 
-### Building an Exponent "standalone" app
+### Building an Expo "standalone" app
 
-You can also use a service like [Exponent's standalone builds](https://docs.getexponent.com/versions/latest/guides/building-standalone-apps.html) if you want to get an IPA/APK for distribution without having to build the native code yourself.
+You can also use a service like [Expo's standalone builds](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) if you want to get an IPA/APK for distribution without having to build the native code yourself.
 
 ### Ejecting from Create React Native App
 
@@ -84,6 +84,6 @@ If you want to build and deploy your app yourself, you'll need to eject from CRN
 
 This is usually as simple as running `npm run eject` in your project, which will walk you through the process. Make sure to install `react-native-cli` and follow the [native code getting started guide for React Native](https://facebook.github.io/react-native/docs/getting-started.html).
 
-#### Should I Use ExponentKit?
+#### Should I Use ExpoKit?
 
-If you have made use of Exponent APIs while working on your project (aside from `Exponent.registerRootComponent`), then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExponentKit" which will still allow you to build your own native code and continue using the Exponent APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
+If you have made use of Expo APIs while working on your project, then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExpoKit" which will still allow you to build your own native code and continue using the Expo APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
