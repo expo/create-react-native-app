@@ -171,7 +171,7 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
     console.log(chalk.blue(`Adding platform-specific entry points...`));
 
     const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
-import App from './root.js';
+import App from './App';
 AppRegistry.registerComponent('${newName}', () => App);
 `;
 
