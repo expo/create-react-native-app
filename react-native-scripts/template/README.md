@@ -12,7 +12,7 @@ Below you'll find information about performing common tasks. The most recent ver
   * [npm run android](#npm-run-android)
   * [npm run eject](#npm-run-eject)
 * [Writing and Running Tests](#writing-and-running-tests)
-* [Sharing & Deployment](#sharing-deployment)
+* [Sharing and Deployment](#sharing-and-deployment)
   * [Publishing to Exponent's React Native Community](#publishing-to-exponents-react-native-community)
   * [Building an Exponent "standalone" app](#building-an-exponent-standalone-app)
   * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
@@ -59,7 +59,7 @@ This will start the process of "ejecting" from Create React Native App's build s
 
 This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/tree/master/react-native-scripts/template/__tests__) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/getting-started.html) is also a wonderful resource.
 
-## Sharing & Deployment
+## Sharing and Deployment
 
 Create React Native App does a lot of work to make app setup and development simple and straightforward, but it's very difficult to do the same for deploying to Apple's App Store or Google's Play Store without relying on a hosted service.
 
@@ -67,7 +67,15 @@ Create React Native App does a lot of work to make app setup and development sim
 
 Exponent provides free hosting for the JS-only apps created by CRNA, allowing you to share your app through the Exponent client app. This requires registration for an Exponent account.
 
-TODO provide instructions
+```
+# install the exp CLI tool
+$ yarn global add exp
+# OR
+$ npm i -g exp
+
+# run this in your project, you'll be prompted to register if you haven't already
+$ exp publish
+```
 
 ### Building an Exponent "standalone" app
 
