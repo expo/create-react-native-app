@@ -1,11 +1,5 @@
 # Create React Native App
 
-## Warning
-
-Create React Native App is currently at an alpha/preview level of reliability. If you're interested in helping us move it towards a release, please check out [`help-wanted` issues](https://github.com/react-community/create-react-native-app/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+wanted%22)! In the meantime we'd love to get [feedback and bug reports](https://github.com/react-community/create-react-native-app/issues/new) if you do try it out.
-
----
-
 Create React Native apps with no build configuration.
 
 ## tl;dr
