@@ -4,7 +4,10 @@ Create React Native apps with no build configuration.
 
 ## tl;dr
 
+Make sure you have Node 6 or later installed. No Xcode or Android Studio installation is required.
+
 ```sh
+# substitute for appropriate yarn commands if it's installed
 $ npm install -g create-react-native-app
 
 $ create-react-native-app my-app
@@ -12,7 +15,7 @@ $ cd my-app/
 $ npm start
 ```
 
-Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment) section of the User Guide.
+Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. Find the QR scanner by pressing the '+' menu on the Projects tab. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-deployment) section of the User Guide.
 
 Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the Expo App provides.
 
