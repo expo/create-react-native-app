@@ -1,4 +1,25 @@
-import Expo from 'expo';
+import Expo, {
+  Components
+} from 'expo';
 import App from '../../../../App';
+import React from 'react';
+import {
+  View
+} from 'react-native';
 
-Expo.registerRootComponent(App);
+// we don't want this to require transformation
+class AwakeApp extends React.Component {
+  render() {
+    return React.createElement(
+      View, {
+        style: {
+          flex: 1,
+        }
+      },
+      React.createElement(App, null),
+      React.createElement(Components.KeepAwake, null),
+    );
+  }
+}
+
+Expo.registerRootComponent(AwakeApp);
