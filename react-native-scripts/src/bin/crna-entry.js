@@ -1,23 +1,20 @@
-import Expo, {
-  Components
-} from 'expo';
+import Expo, { Components } from 'expo';
 import App from '../../../../App';
 import React from 'react';
-import {
-  View
-} from 'react-native';
+import { View } from 'react-native';
 
 // we don't want this to require transformation
 class AwakeApp extends React.Component {
   render() {
     return React.createElement(
-      View, {
+      View,
+      {
         style: {
           flex: 1,
-        }
+        },
       },
       React.createElement(App, null),
-      React.createElement(Components.KeepAwake, null),
+      React.createElement(Components.KeepAwake, null)
     );
   }
 }
