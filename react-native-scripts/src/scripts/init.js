@@ -16,6 +16,7 @@ const DEFAULT_DEPENDENCIES = {
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
   'jest-expo': '^0.2.1',
+  'react-test-renderer': '~15.4.0',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean) => {
