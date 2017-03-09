@@ -134,7 +134,7 @@ Ejecting is permanent! Please be careful with your selection.
         console.log(chalk.yellow('You may want to delete the `ios` and/or `android` directories.'));
         process.exit(1);
       } else {
-        console.log(chalk.green('Successfully copied template native code.'));
+        console.log('Successfully copied template native code.');
       }
 
       // if the project .babelrc matches the template one, then we don't need to have it around anymore
