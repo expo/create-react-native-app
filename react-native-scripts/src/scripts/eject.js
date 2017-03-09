@@ -112,7 +112,7 @@ Ejecting is permanent! Please be careful with your selection.
       appJson.name = enteredName;
       appJson.displayName = enteredDisplayname;
 
-      console.log(chalk.blue('Writing your selections to app.json...'));
+      console.log('Writing your selections to app.json...');
       // write the updated app.json file
       await fsp.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
       console.log(chalk.green('Wrote to app.json, please update it manually in the future.'));
@@ -187,14 +187,14 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
       // no longer relevant to an ejected project (maybe build is?)
       delete pkgJson.scripts.eject;
 
-      console.log(chalk.blue(`Updating your ${npmOrYarn} scripts in package.json...`));
+      console.log(`Updating your ${npmOrYarn} scripts in package.json...`);
 
       await fsp.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
 
       console.log(chalk.green('Your package.json is up to date!'));
 
       // FIXME now we need to provide platform-specific entry points until upstream uses a single one
-      console.log(chalk.blue(`Adding platform-specific entry points...`));
+      console.log(`Adding platform-specific entry points...`);
 
       const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
 import App from './App';

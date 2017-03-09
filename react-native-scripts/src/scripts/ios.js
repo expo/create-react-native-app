@@ -37,7 +37,7 @@ async function startSimulatorAndPrintInfo() {
     hostType: 'localhost',
   });
 
-  console.log(chalk.blue('Starting simulator...'));
+  console.log('Starting simulator...');
   const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(localAddress);
 
   if (success) {

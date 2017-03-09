@@ -25,7 +25,7 @@ function installExitHooks(projectDir) {
   }
 
   process.on('SIGINT', () => {
-    console.log(chalk.blue('\nStopping packager...'));
+    console.log('\nStopping packager...');
     cleanUpPackager(projectDir).then(() => {
       console.log(chalk.green('Packager stopped.'));
       process.exit();
@@ -108,7 +108,7 @@ function run(onReady: () => ?any, options: Object = {}) {
   });
 
   installExitHooks(projectDir);
-  console.log(chalk.blue('Starting packager...'));
+  console.log('Starting packager...');
 
   Project.startAsync(projectDir, options).then(
     () => {},

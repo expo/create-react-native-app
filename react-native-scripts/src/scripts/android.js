@@ -19,7 +19,7 @@ packager.run(startAndroidAndPrintInfo);
 // print a nicely formatted message with setup information
 async function startAndroidAndPrintInfo() {
   const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
-  console.log(chalk.blue('Starting Android...'));
+  console.log('Starting Android...');
 
   const { success, error } = await Android.openProjectAsync(process.cwd());
 
