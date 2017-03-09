@@ -5,6 +5,13 @@ import { Project, ProjectSettings, ProjectUtils } from 'xdl';
 import bunyan from 'bunyan';
 import chalk from 'chalk';
 
+// TODO get babel output that's nice enough to let it take over the console
+function clearConsole() {
+  process.stdout.write(
+    process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H'
+  );
+}
+
 function installExitHooks(projectDir) {
   if (process.platform === 'win32') {
     require('readline')
@@ -44,9 +51,8 @@ async function cleanUpPackager(projectDir) {
 }
 
 function run(onReady: () => ?any, options: Object = {}) {
-  // TODO check to see if packager is running already and run onready if it is
-
   let packagerReady = false;
+  let needsClear = false;
   let logBuffer = '';
   const projectDir = process.cwd();
   ProjectUtils.attachLoggerStream(projectDir, {
@@ -57,18 +63,34 @@ function run(onReady: () => ?any, options: Object = {}) {
         // this is a potential race condition but it'll work for now
         if (chunk.msg.indexOf('Loading dependency graph, done.') >= 0) {
           packagerReady = true;
+          // TODO clearConsole();
           onReady();
           return;
         }
 
+        const messagePrefix = chalk.dim(new Date().toLocaleTimeString()) + ':';
+
+        // we don't need to print the entire manifest when loading the app
+        if (chunk.msg.indexOf(' with appParams: ') >= 0) {
+          if (needsClear) {
+            // this is set when we previously encountered an error
+            // TODO clearConsole();
+          }
+          console.log(`${messagePrefix} Loading your app...\n`);
+          return;
+        }
+
         if (packagerReady) {
-          const message = `${new Date().toLocaleString()}: ${chunk.msg}`;
+          const message = `${messagePrefix} ${chunk.msg}\n`;
           if (chunk.level <= bunyan.INFO) {
             console.log(message);
           } else if (chunk.level === bunyan.WARN) {
             console.log(chalk.yellow(message));
           } else {
             console.log(chalk.red(message));
+
+            // if you run into a syntax error then we should clear log output on reload
+            needsClear = message.indexOf('SyntaxError') >= 0;
           }
         } else {
           if (chunk.level >= bunyan.ERROR) {
