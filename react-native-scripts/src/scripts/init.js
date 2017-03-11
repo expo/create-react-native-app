@@ -18,7 +18,7 @@ const DEFAULT_DEV_DEPENDENCIES = {
   'jest-expo': '^0.2.1',
 };
 
-module.exports = async (appPath: string, appName: string, verbose: boolean) => {
+module.exports = async (appPath: string, appName: string, cwd: string, verbose: boolean) => {
   const ownPackageName: string = require('../../package.json').name;
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
   const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
@@ -111,7 +111,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean) => {
     // display the cleanest way to get to the app dir
     // if the cwd + appName is equal to the full path, then just cd into appName
     let cdpath;
-    if (path.resolve(appName) === appPath) {
+    if (path.resolve(cwd, appName) === appPath) {
       cdpath = appName;
     } else {
       cdpath = appPath;
