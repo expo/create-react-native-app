@@ -26,6 +26,8 @@ const argv = minimist(process.argv.slice(2));
  *     - a package from `tasks/clean_pack.sh`: "/home/adam/create-react-native-app/react-native-scripts-0.22.0.tgz"
  */
 const commands = argv._;
+const cwd = process.cwd();
+
 if (commands.length === 0) {
   if (argv.version) {
     const version = require('../package.json').version;
@@ -144,7 +146,7 @@ async function run(
 
     // $FlowFixMe (dikaiosune) maybe there's a way to convince flow this is legit?
     const init = require(scriptsPath);
-    await init(root, appName, verbose);
+    await init(root, appName, cwd, verbose);
   });
 }
 
