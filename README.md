@@ -24,7 +24,6 @@ Create React Native App allows you to work with all of the [Components and APIs]
 * [Getting Started](#getting-started)
 * [User Guide](#user-guide)
 * [Philosophy](#philosophy)
-* [Why Use This?](#why-use-this)
 * [Limitations and Capabilities](#limitations-and-capabilities)
 * [Support and Contact](#support-and-contact)
 * [Contributing](#contributing)
