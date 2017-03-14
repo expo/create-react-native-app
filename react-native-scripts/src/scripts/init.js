@@ -18,7 +18,7 @@ const DEFAULT_DEV_DEPENDENCIES = {
   'jest-expo': '^0.2.1',
 };
 
-module.exports = async (appPath: string, appName: string, cwd: string, verbose: boolean) => {
+module.exports = async (appPath: string, appName: string, verbose: boolean, cwd = '': string) => {
   const ownPackageName: string = require('../../package.json').name;
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
   const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
