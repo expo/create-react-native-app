@@ -5,7 +5,7 @@ Create React Native apps with no build configuration.
 * [Getting Started](#getting-started)
 * [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md)
 
-Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native. 
+Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native.
 
 ## Quick Overview
 
@@ -43,7 +43,7 @@ $ npm install -g create-react-native-app
 $ yarn global add create-react-native-app
 ```
 
-You'll need to have Node v6 or later on your machine. We strongly recommend using v3 or later, or a recent version of yarn.
+You'll need to have Node v6 or later on your machine. We strongly recommend using NPM v3 or later, or a recent version of Yarn.
 
 ### Creating an App
 
