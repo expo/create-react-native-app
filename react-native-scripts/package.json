@@ -20,7 +20,7 @@
     "react-native-scripts": "./build/bin/react-native-scripts.js"
   },
   "scripts": {
-    "start": "gulp"
+    "start": "fly"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",

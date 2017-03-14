@@ -20,7 +20,7 @@
     "create-react-native-app": "./build/index.js"
   },
   "scripts": {
-    "start": "gulp"
+    "start": "fly"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
