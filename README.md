@@ -40,7 +40,7 @@ $ npm install -g create-react-native-app
 $ yarn global add create-react-native-app
 ```
 
-**You'll need to have Node >= 6 on your machine. We strongly recommend using npm >= 3 or a recent version of yarn.**
+**You'll need to have Node v6 or later on your machine. We strongly recommend using v3 or later, or a recent version of yarn.**
 
 ### Creating an App
 
