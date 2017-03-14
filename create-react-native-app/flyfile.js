@@ -21,7 +21,3 @@ export async function clean(fly) {
 export async function build(fly) {
 	await fly.start('babel');
 }
-
-export async function publish(fly) {
-	await fly.serial(['clear', 'babel']).shell('npm publish');
-}
