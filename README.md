@@ -81,9 +81,9 @@ This will start the process of "ejecting" from Create React Native App's build s
 
 ## User Guide
 
-Please refer to the [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) for more details about CRNA specifically.
+Please refer to the [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) for more details about Create React Native App specifically.
 
-Once you're up and running with CRNA, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native. 
+Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native. 
 
 ## Philosophy
 
@@ -94,7 +94,7 @@ Once you're up and running with CRNA, visit [this tutorial](https://facebook.git
 
 ## Limitations and Capabilities
 
-The main limitation of a CRNA project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
+The main limitation of a Create React Native App project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
 
 Apps made with Create React Native App support everything in the Components and APIs sections of the [React Native Documentation](https://facebook.github.io/react-native/docs/getting-started.html).
 
