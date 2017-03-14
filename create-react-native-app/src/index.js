@@ -78,7 +78,7 @@ function install(
   verbose: boolean,
   callback: (code: number, command: string, args: Array<string>) => Promise<void>
 ): void {
-  let args = ['add', '--dev', '--exact', packageToInstall];
+  let args = ['add', '--dev', '--exact', '--ignore-optional', packageToInstall];
   const proc = spawn('yarnpkg', args, { stdio: 'inherit' });
 
   let yarnExists = true;
@@ -105,7 +105,7 @@ function install(
       args.push('--verbose');
     }
 
-    args = args.concat(['--save-dev', '--save-exact', '--ignore-optional', packageToInstall]);
+    args = args.concat(['--save-dev', '--save-exact', packageToInstall]);
 
     const npmProc = spawn('npm', args, { stdio: 'inherit' });
     npmProc.on('close', function(code) {
