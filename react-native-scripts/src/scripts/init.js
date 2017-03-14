@@ -19,7 +19,7 @@ const DEFAULT_DEV_DEPENDENCIES = {
   'react-test-renderer': '~15.4.0',
 };
 
-module.exports = async (appPath: string, appName: string, verbose: boolean, cwd = '': string) => {
+module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
   const ownPackageName: string = require('../../package.json').name;
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
   const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
