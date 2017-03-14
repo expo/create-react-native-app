@@ -100,6 +100,12 @@ If you've checked the documentation and currently open issues, please either ope
 
 ## FAQs
 
+**Q: What API specification should I be looking at while developing?**
+
+Apps made with Create React Native App support everything in the Components and APIs sections of the [React Native Documentation](https://facebook.github.io/react-native/docs/getting-started.html).
+
+Apps made with Create React Native App also support most of the JavaScript-to-Native APIs provided by the [Expo SDK](https://docs.expo.io/versions/latest/sdk/index.html), since they are loaded by the Expo app.
+
 **Q: What are the limitations of Create React Native App?**
 
 A: The main limitation of a Create React Native App project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
@@ -107,12 +113,6 @@ A: The main limitation of a Create React Native App project is that it must be w
 **Q: What if I want to write custom native code for my app?**
 
 A: If you're sure that you need custom native code, please read the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md).
-
-**Q: What API specification should I be looking at while developing?**
-
-Apps made with Create React Native App support everything in the Components and APIs sections of the [React Native Documentation](https://facebook.github.io/react-native/docs/getting-started.html).
-
-Apps made with Create React Native App also support most of the JavaScript-to-Native APIs provided by the [Expo SDK](https://docs.expo.io/versions/latest/sdk/index.html), since they are loaded by the Expo app.
 
 **Q: How do I get my app into the Play Store/App Store?**
 
