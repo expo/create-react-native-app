@@ -7,7 +7,6 @@ Create React Native apps with no build configuration.
 Make sure you have Node 6 or later installed. No Xcode or Android Studio installation is required.
 
 ```sh
-# substitute for appropriate yarn commands if it's installed
 $ npm install -g create-react-native-app
 
 $ create-react-native-app my-app
