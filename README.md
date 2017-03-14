@@ -28,7 +28,7 @@ Create React Native App allows you to work with all of the [Components and APIs]
 * [Getting Started](#getting-started)
 * [Philosophy](#philosophy)
 * [Support and Contact](#support-and-contact)
-* [Limitations and Capabilities](#limitations-and-capabilities)
+* [FAQs](#faqs)
 * [Contributing](#contributing)
 
 ## Getting Started
@@ -98,17 +98,25 @@ If you're having issues with Create React Native App, please make sure:
 
 If you've checked the documentation and currently open issues, please either open a new GitHub issue, [find @dika10sune on Twitter](https://twitter.com/dika10sune), or ping `dikaiosune` on [Reactiflux](https://www.reactiflux.com/)'s #react-native channel on Discord. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
 
-## Limitations and Capabilities
+## FAQs
 
-The main limitation of a Create React Native App project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
+**Q: What are the limitations of Create React Native App?**
+
+A: The main limitation of a Create React Native App project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
+
+**Q: What if I want to write custom native code for my app?**
+
+A: If you're sure that you need custom native code, please read the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md).
+
+**Q: What API specification should I be looking at while developing?**
 
 Apps made with Create React Native App support everything in the Components and APIs sections of the [React Native Documentation](https://facebook.github.io/react-native/docs/getting-started.html).
 
 Apps made with Create React Native App also support most of the JavaScript-to-Native APIs provided by the [Expo SDK](https://docs.expo.io/versions/latest/sdk/index.html), since they are loaded by the Expo app.
 
-If you're sure that you need custom native code, please read the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md).
+**Q: How do I get my app into the Play Store/App Store?**
 
-If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Expo's standalone app builds](https://docs.expo.io/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
+A: If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Expo's standalone app builds](https://docs.expo.io/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
 
 ## Contributing
 
