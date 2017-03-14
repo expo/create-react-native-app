@@ -2,7 +2,12 @@
 
 Create React Native apps with no build configuration.
 
-## tl;dr
+* [Getting Started](#getting-started)
+* [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md)
+
+Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native. 
+
+## Quick Overview
 
 Make sure you have Node 6 or later installed. No Xcode or Android Studio installation is required.
 
@@ -21,7 +26,6 @@ Create React Native App allows you to work with all of the [Components and APIs]
 ## Sections
 
 * [Getting Started](#getting-started)
-* [User Guide](#user-guide)
 * [Philosophy](#philosophy)
 * [Limitations and Capabilities](#limitations-and-capabilities)
 * [Support and Contact](#support-and-contact)
@@ -77,12 +81,6 @@ Like `npm start`, but also attempts to open your app on a connected Android devi
 This will start the process of "ejecting" from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project.
 
 **Warning:** Running eject is a **permanent** action. Please use a version control system, such as git, so you can revert back if necessary. An ejected app will require you to have an [Xcode and/or Android Studio environment](https://facebook.github.io/react-native/docs/getting-started.html) set up.
-
-## User Guide
-
-Please refer to the [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) for more details about Create React Native App specifically.
-
-Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native. 
 
 ## Philosophy
 
