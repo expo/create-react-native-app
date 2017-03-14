@@ -146,7 +146,7 @@ async function run(
 
     // $FlowFixMe (dikaiosune) maybe there's a way to convince flow this is legit?
     const init = require(scriptsPath);
-    await init(root, appName, cwd, verbose);
+    await init(root, appName, verbose, cwd);
   });
 }
 
