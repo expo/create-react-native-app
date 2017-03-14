@@ -105,7 +105,7 @@ function install(
       args.push('--verbose');
     }
 
-    args = args.concat(['--save-dev', '--save-exact', packageToInstall]);
+    args = args.concat(['--save-dev', '--save-exact', '--ignore-optional', packageToInstall]);
 
     const npmProc = spawn('npm', args, { stdio: 'inherit' });
     npmProc.on('close', function(code) {
