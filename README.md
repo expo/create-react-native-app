@@ -27,8 +27,8 @@ Create React Native App allows you to work with all of the [Components and APIs]
 
 * [Getting Started](#getting-started)
 * [Philosophy](#philosophy)
-* [Limitations and Capabilities](#limitations-and-capabilities)
 * [Support and Contact](#support-and-contact)
+* [Limitations and Capabilities](#limitations-and-capabilities)
 * [Contributing](#contributing)
 
 ## Getting Started
@@ -89,6 +89,15 @@ This will start the process of "ejecting" from Create React Native App's build s
 * **One Build Tool**: If you just want to get started with React Native, you shouldn't need to install Xcode, Android Studio, NDKs, or mess with environment variables.
 * **No Lock-In**: You can always "eject" to your own build setup if you need to write custom native code or modify how your app is built.
 
+## Support and Contact
+
+If you're having issues with Create React Native App, please make sure:
+
+* The issue is not covered in the [Getting Started](https://github.com/react-community/create-react-native-app#getting-started) or [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) documentation
+* There is not already an [open issue](https://github.com/react-community/create-react-native-app/issues) for your particular problem
+
+If you've checked the documentation and currently open issues, please either open a new GitHub issue, [find @dika10sune on Twitter](https://twitter.com/dika10sune), or ping `dikaiosune` on [Reactiflux](https://www.reactiflux.com/)'s #react-native channel on Discord. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
+
 ## Limitations and Capabilities
 
 The main limitation of a Create React Native App project is that it must be written in pure JavaScript and not have any dependencies which rely on custom native code (i.e. ones which require running `react-native link` to work). This allows the projects to load directly on a phone without native compilation, and also means that it's not necessary to install or use Android Studio or Xcode.
@@ -100,15 +109,6 @@ Apps made with Create React Native App also support most of the JavaScript-to-Na
 If you're sure that you need custom native code, please read the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md).
 
 If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Expo's standalone app builds](https://docs.expo.io/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
-
-## Support and Contact
-
-If you're having issues with Create React Native App, please make sure:
-
-* The issue is not covered in the [Getting Started](https://github.com/react-community/create-react-native-app#getting-started) or [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md) documentation
-* There is not already an [open issue](https://github.com/react-community/create-react-native-app/issues) for your particular problem
-
-If you've checked the documentation and currently open issues, please either open a new GitHub issue, [find @dika10sune on Twitter](https://twitter.com/dika10sune), or ping `dikaiosune` on [Reactiflux](https://www.reactiflux.com/)'s #react-native channel on Discord. **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
 
 ## Contributing
 
