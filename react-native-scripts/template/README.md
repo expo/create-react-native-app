@@ -12,6 +12,7 @@ Below you'll find information about performing common tasks. The most recent ver
   * [npm run android](#npm-run-android)
   * [npm run eject](#npm-run-eject)
 * [Writing and Running Tests](#writing-and-running-tests)
+* [Adding Flow](#adding-flow)
 * [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
 * [Sharing and Deployment](#sharing-and-deployment)
   * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
@@ -68,6 +69,24 @@ To set an app icon, set the `expo.icon` key in `app.json` to be either a local p
 ## Writing and Running Tests
 
 This project is set up to use [jest](https://facebook.github.io/jest/) for tests. You can configure whatever testing strategy you like, but jest works out of the box. Create test files in directories called `__tests__` to have the files loaded by jest. See the [the template project](https://github.com/react-community/create-react-native-app/tree/master/react-native-scripts/template/__tests__) for an example test. The [jest documentation](https://facebook.github.io/jest/docs/getting-started.html) is also a wonderful resource, as is the [React Native testing tutorial](https://facebook.github.io/jest/docs/tutorial-react-native.html).
+
+## Adding Flow
+
+Flow is a static type checker that helps you write code with fewer bugs. Check out this [introduction to using static types in JavaScript](https://medium.com/@preethikasireddy/why-use-static-types-in-javascript-part-1-8382da1e0adb) if you are new to this concept.
+
+React Native works with [Flow](http://flowtype.org/) out of the box, as long as your Flow version matches the one used in the version of React Native.
+
+To add a local dependency to the correct Flow version to a Create React Native App project, follow these steps:
+
+1. Find the Flow `[version]` at the bottom of the included [.flowconfig](.flowconfig)
+2. Run `npm install --save-dev flow-bin@x.y.z` (or `yarn add --dev flow-bin@x.y.z`), where `x.y.z` is the .flowconfig version number.
+3. Add `"flow": "flow"` to the `scripts` section of your `package.json`.
+4. Add `// @flow` to any files you want to type check (for example, to `App.js`).
+
+Now you can run `npm run flow` (or `yarn flow`) to check the files for type errors.
+You can optionally use a plugin for your IDE for a better integrated experience.
+
+To learn more about Flow, check out [its documentation](https://flowtype.org/).
 
 ## Sharing and Deployment
 
