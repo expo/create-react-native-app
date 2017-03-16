@@ -14,6 +14,19 @@
 .*/Libraries/react-native/React.js
 .*/Libraries/react-native/ReactNative.js
 
+; Additional create-react-native-app ignores
+
+; Ignore duplicate module providers
+.*/node_modules/fbemitter/lib/*
+
+; Ignore misbehaving dev-dependencies
+.*/node_modules/xdl/build/*
+.*/node_modules/reqwest/tests/*
+
+; Ignore missing expo-sdk dependencies (temporarily)
+; https://github.com/exponent/exponent-sdk/issues/36
+.*/node_modules/expo/src/*
+
 [include]
 
 [libs]
