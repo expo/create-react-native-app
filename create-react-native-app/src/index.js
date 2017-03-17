@@ -40,6 +40,19 @@ if (commands.length === 0) {
 
 createApp(commands[0], !!argv.verbose, argv['scripts-version']).then(() => {});
 
+// use yarn if it's available, otherwise use npm
+function shouldUseYarn() {
+  try {
+    const result = spawn.sync('yarnpkg', ['--version'], { stdio: 'ignore' });
+    if (result.error || result.status !== 0) {
+      return false;
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 async function createApp(name: string, verbose: boolean, version: ?string): Promise<void> {
   const root = path.resolve(name);
   const appName = path.basename(root);
@@ -78,45 +91,37 @@ function install(
   verbose: boolean,
   callback: (code: number, command: string, args: Array<string>) => Promise<void>
 ): void {
-  let args = ['add', '--dev', '--exact', '--ignore-optional', packageToInstall];
-  const proc = spawn('yarnpkg', args, { stdio: 'inherit' });
+  const useYarn = shouldUseYarn();
+  let args, cmd, result;
 
-  let yarnExists = true;
-  proc.on('error', function(err) {
-    if (err.code === 'ENOENT') {
-      yarnExists = false;
-    }
-  });
-
-  proc.on('close', function(code) {
-    if (yarnExists) {
-      callback(code, 'yarnpkg', args).then(
-        () => {},
-        e => {
-          throw e;
-        }
-      );
-      return;
-    }
-    // No Yarn installed, continuing with npm.
-    args = ['install'];
+  if (useYarn) {
+    cmd = 'yarnpkg';
+    args = ['add'];
 
     if (verbose) {
       args.push('--verbose');
     }
 
+    args = args.concat(['--dev', '--exact', '--ignore-optional', packageToInstall]);
+    result = spawn.sync(cmd, args, { stdio: 'inherit' });
+  } else {
+    args = ['install'];
+
+    if (verbose) {
+      args.push('--verbose');
+    }
+    cmd = 'npm';
     args = args.concat(['--save-dev', '--save-exact', packageToInstall]);
 
-    const npmProc = spawn('npm', args, { stdio: 'inherit' });
-    npmProc.on('close', function(code) {
-      callback(code, 'npm', args).then(
-        () => {},
-        e => {
-          throw e;
-        }
-      );
-    });
-  });
+    result = spawn.sync(cmd, args, { stdio: 'inherit' });
+  }
+
+  callback(result.status, cmd, args).then(
+    () => {},
+    e => {
+      throw e;
+    }
+  );
 }
 
 async function run(
