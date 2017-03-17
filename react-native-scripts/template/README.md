@@ -21,6 +21,7 @@ Below you'll find information about performing common tasks. The most recent ver
     * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
     * [Should I Use ExpoKit?](#should-i-use-expokit)
 * [Tips and Tricks](#tips-and-tricks)
+* [Troubleshooting](#troubleshooting)
 
 ## Updating to New Releases
 
@@ -120,3 +121,15 @@ If you have made use of Expo APIs while working on your project, then those API 
 ## Tips and Tricks
 
 * If you have a local network the prevents your phone from accessing the address that is printed when running the packager, you can often work around this issue by "tethering" your computer to your phone's internet connection. Some phones call this feature "mobile hotspot." While it's very convenient, if you have a data plan where you pay for data transfer you should be careful when using this feature, especially when installing dependencies from NPM.
+
+## Troubleshooting
+
+* **QR code doesn't work when using Webstorm's built-in terminal**
+
+    Webstorm's built-in terminal is known to render the bash color codes differently for themes that use a **dark** scheme.
+
+    So, if you are using a **dark** scheme based theme, please switch to a different terminal app. (Your **OS's terminal** works like a charm.) That way you don't have to switch to another IDE, and yet you get the benefits of `create-react-native-app`.
+
+    The default theme of Webstorm works as well, since it is based on **light** scheme.
+
+    If you are using a **light** scheme based theme and the QR code still doesn't work, please notify us by opening an issue.
