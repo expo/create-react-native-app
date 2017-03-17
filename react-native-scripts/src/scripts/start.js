@@ -5,6 +5,7 @@ import { Config, ProjectSettings, UrlUtils } from 'xdl';
 import chalk from 'chalk';
 import indent from 'indent-string';
 import qr from 'qrcode-terminal';
+import qrImage from 'qr-image';
 
 import packager from '../util/packager';
 
@@ -38,6 +39,14 @@ For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('ht
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
 `
+    );
+
+    var qrCodeImage = qrImage.image(address, { type: 'png' });
+
+    qrCodeImage.pipe(require('fs').createWriteStream('qrCodeImage.png'));
+
+    console.log(
+      `If the above QR code doesn't work, an image of the same has been saved to your project's root.`
     );
   });
 }
