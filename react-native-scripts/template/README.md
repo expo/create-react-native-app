@@ -20,7 +20,7 @@ Below you'll find information about performing common tasks. The most recent ver
   * [Ejecting from Create React Native App](#ejecting-from-create-react-native-app)
     * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
     * [Should I Use ExpoKit?](#should-i-use-expokit)
-* [Tips and Tricks](#tips-and-tricks)
+* [Troubleshooting](#troubleshooting)
 
 ## Updating to New Releases
 
@@ -117,6 +117,22 @@ This is usually as simple as running `npm run eject` in your project, which will
 
 If you have made use of Expo APIs while working on your project, then those API calls will stop working if you eject to a regular React Native project. If you want to continue using those APIs, you can eject to "React Native + ExpoKit" which will still allow you to build your own native code and continue using the Expo APIs. See the [ejecting guide](https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md) for more details about this option.
 
-## Tips and Tricks
+## Troubleshooting
 
-* If you have a local network the prevents your phone from accessing the address that is printed when running the packager, you can often work around this issue by "tethering" your computer to your phone's internet connection. Some phones call this feature "mobile hotspot." While it's very convenient, if you have a data plan where you pay for data transfer you should be careful when using this feature, especially when installing dependencies from NPM.
+### Networking
+
+If you're unable to load your app on your phone due to a network timeout or a refused connection, a good first step is to verify that your phone and computer are on the same network and that they can reach each other. Try opening a web browser on your phone and opening the URL that the packager script prints, replacing `exp://` with `http://`. So, for example, if underneath the QR code in your terminal you see:
+
+```
+exp://192.168.0.1:19000
+```
+
+Try opening Safari or Chrome on your phone and loading
+
+```
+http://192.168.0.1:19000
+```
+
+If this works, but you're still unable to load your app by scanning the QR code, please open an issue on the [Create React Native App repository](https://github.com/react-community/create-react-native-app) with details about these steps and any other error messages you may have received.
+
+If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager.
