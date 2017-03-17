@@ -21,6 +21,8 @@ Below you'll find information about performing common tasks. The most recent ver
     * [Build Dependencies (Xcode & Android Studio)](#build-dependencies-xcode-android-studio)
     * [Should I Use ExpoKit?](#should-i-use-expokit)
 * [Troubleshooting](#troubleshooting)
+  * [Networking](#networking)
+  * [iOS Simulator won't open](#ios-simulator-wont-open)
 
 ## Updating to New Releases
 
@@ -136,3 +138,17 @@ http://192.168.0.1:19000
 If this works, but you're still unable to load your app by scanning the QR code, please open an issue on the [Create React Native App repository](https://github.com/react-community/create-react-native-app) with details about these steps and any other error messages you may have received.
 
 If you're not able to load the `http` URL in your phone's web browser, try using the tethering/mobile hotspot feature on your phone (beware of data usage, though), connecting your computer to that WiFi network, and restarting the packager.
+
+### iOS Simulator won't open
+
+If you're on a Mac, there are a few errors that users sometimes see when attempting to `npm run ios`:
+
+* "non-zero exit code: 107"
+* "You may need to install Xcode" but it is already installed
+* and others
+
+There are a few steps you may want to take to troubleshoot these kinds of errors:
+
+1. Make sure Xcode is installed and open it to accept the license agreement if it prompts you. You can install it from the Mac App Store.
+2. Open Xcode's Preferences, the Locations tab, and make sure that the `Command Line Tools` menu option is set to something. Sometimes when the CLI tools are first installed by Homebrew this option is left blank, which can prevent Apple utilities from finding the simulator. Make sure to re-run `npm/yarn run ios` after doing so.
+3. If that doesn't work, open the Simulator, and under the app menu select `Reset Contents and Settings...`. After that has finished, quit the Simulator, and re-run `npm/yarn run ios`.
