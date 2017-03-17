@@ -3,7 +3,10 @@
   "version": "0.0.6",
   "description": "Create React Native apps with no build configuration.",
   "license": "BSD-3-Clause",
-  "keywords": ["react-native", "react"],
+  "keywords": [
+    "react-native",
+    "react"
+  ],
   "homepage": "https://github.com/react-community/create-react-native-app",
   "bugs": "https://github.com/react-community/create-react-native-app",
   "preferGlobal": true,
@@ -17,7 +20,7 @@
     "create-react-native-app": "./build/index.js"
   },
   "scripts": {
-    "start": "gulp"
+    "start": "fly"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
@@ -35,11 +38,10 @@
     "babel-plugin-transform-runtime": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-stage-1": "^6.5.0",
-    "gulp": "git+https://github.com/gulpjs/gulp#4.0",
-    "gulp-babel": "^6.1.2",
-    "gulp-changed": "^1.3.0",
-    "gulp-plumber": "^1.1.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "rimraf": "^2.5.2"
+    "fly": "^2.0.5",
+    "fly-babel": "^2.1.1",
+    "fly-clear": "^1.0.1",
+    "fly-esnext": "^2.0.0",
+    "fly-watch": "^1.1.1"
   }
 }
