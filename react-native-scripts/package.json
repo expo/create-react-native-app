@@ -20,7 +20,10 @@
     "react-native-scripts": "./build/bin/react-native-scripts.js"
   },
   "scripts": {
-    "start": "fly"
+    "start": "fly",
+    "build": "fly babel",
+    "clean": "fly clean",
+    "publish": "fly publish"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",

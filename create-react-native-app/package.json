@@ -20,7 +20,10 @@
     "create-react-native-app": "./build/index.js"
   },
   "scripts": {
-    "start": "fly"
+    "start": "fly",
+    "build": "fly babel",
+    "clean": "fly clean",
+    "publish": "fly publish"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
@@ -42,6 +45,7 @@
     "fly-babel": "^2.1.1",
     "fly-clear": "^1.0.1",
     "fly-esnext": "^2.0.0",
+    "fly-shell": "^2.1.0",
     "fly-watch": "^1.1.1"
   }
 }
