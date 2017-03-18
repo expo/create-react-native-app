@@ -8,15 +8,15 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '14.0.2',
+  expo: '^15.0.0',
   react: '~15.4.0',
-  'react-native': '0.41.2',
+  'react-native': '0.42.3',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '^0.2.1',
-  'react-test-renderer': '~15.4.0',
+  'jest-expo': '^0.3.0',
+  'react-test-renderer': '~15.4.1',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {

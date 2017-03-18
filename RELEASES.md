@@ -2,9 +2,24 @@
 
 This document contains checklists to be done before releasing new versions.
 
-**TODO**: This is not an exhaustive list. At the moment it contains easy-to-forget steps, so that they would not be forgotten.
+**WARNING**: Just don't release `create-react-native-app`. Just don't do it.
 
-## Verify .flowconfig is up to date after updating expo-sdk
+The rest of these instructions are for releasing `react-native-scripts`.
+
+## Update Dependency Versions
+
+This section only applies when bumping the Expo SDK and React Native versions.
+
+* react-native
+* react
+* expo
+* jest-expo
+* react-test-renderer
+* app.json:expo.sdkVersion
+
+Also, update VERSIONS.md.
+
+### Verify .flowconfig is up to date after updating expo-sdk
 
 After upgrading the [expo-sdk](https://github.com/exponent/exponent-sdk) version (which transitively updates the `react-native` version), ensure that the [.flowconfig](react-native-scripts/template/.flowconfig) template is up to date.
 
@@ -14,3 +29,7 @@ Easiest way to do this, is:
 3. If there are changes, land diff to CRNA [.flowconfig](react-native-scripts/template/.flowconfig) template
 4. To test, follow instructions in [README/Adding Flow](react-native-scripts/README.md#adding-flow) on a freshly generated project, and do `npm run flow` to ensure the process exits without error.
 5. If there are new issues with third-party dependencies, fix them upstream or add necessary `[ignore]` fields to .flowconfig.
+
+## Clean, Build, Pack, Test, Publish
+
+Run `yarn run build && npm pack` in the scripts package to get a tarball. Test this tarball with a clean yarn cache on Mac and Windows at a minimum. If everything checks out, run `yarn run publish` after bumping the version in package.json.

@@ -13,5 +13,4 @@ Each version of these dependencies is only compatible with a narrow version rang
 | `react-native` | `react` | `expo` | `sdkVersion` in app.json |
 |----------------|---------|--------|--------------------------|
 | 0.41.x         | 15.4.x  | 14.x.x | `"14.0.0"`               |
-|                |         |        |                          |
-|                |         |        |                          |
+| 0.42.x         | 15.4.x  | 15.x.x | `"15.0.0"`               |
