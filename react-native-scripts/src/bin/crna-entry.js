@@ -1,4 +1,4 @@
-import Expo, { Components } from 'expo';
+import Expo from 'expo';
 import App from '../../../../App';
 import React from 'react';
 import { View } from 'react-native';
@@ -14,7 +14,7 @@ class AwakeApp extends React.Component {
         },
       },
       React.createElement(App, null),
-      React.createElement(Components.KeepAwake, null)
+      React.createElement(Expo.KeepAwake, null)
     );
   }
 }
