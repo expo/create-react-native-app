@@ -6,7 +6,7 @@ This doc is woefully under-written and needs to be fleshed out. If you're intere
 
 Run `yarn` in the repo root to install prettier. Use `yarn run format` before submitting any PRs to ensure consistent code style.
 
-You'll need to install dependencies in both `create-react-native-app` and `react-native-scripts` and also start the gulp builders in both. It's also a good idea to tell npm/yarn that your local copy of react-native-scripts can be linked into projects where it's a dependency:
+You'll need to install dependencies in both `create-react-native-app` and `react-native-scripts` and also start the watchers in both. It's also a good idea to tell npm/yarn that your local copy of react-native-scripts can be linked into projects where it's a dependency:
 
 ```
 # you may need to yarn unlink react-native-scripts before this will work
@@ -46,7 +46,7 @@ $ cd path-to-project-dir/testing-my-change
 $ yarn link react-native-scripts
 ```
 
-Once this is linked and the gulp watcher is running, you should be able to see any changes you make to the project scripts when you run them inside your test project.
+Once this is linked and the watcher is running, you should be able to see any changes you make to the project scripts when you run them inside your test project.
 
 ## Working on dependencies of react-native-scripts
 
