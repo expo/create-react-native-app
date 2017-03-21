@@ -22,7 +22,6 @@
   "scripts": {
     "start": "fly",
     "build": "fly babel",
-    "clean": "fly clean",
     "publish": "fly publish"
   },
   "dependencies": {

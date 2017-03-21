@@ -8,7 +8,7 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^15.0.0',
+  expo: '^15.1.0',
   react: '~15.4.0',
   'react-native': '0.42.3',
 };
