@@ -28,6 +28,7 @@ Please run these commands in the project folder and fill in their results:
 * `node -v`:
 * `npm -v`:
 * `yarn -v`:
+* `watchman version`:
 
 Also specify:
 
