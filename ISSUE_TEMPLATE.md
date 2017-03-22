@@ -36,6 +36,6 @@ Also specify:
 
 ## Reproducible Demo
 
-If you're able, please provide a minimized reproducible demonstration of the problem you're reporting.
+Please provide a minimized reproducible demonstration of the problem you're reporting.
 
 Issues that come with minimal repro's are resolved much more quickly than issues where a maintainer has to reproduce themselves.
