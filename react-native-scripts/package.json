@@ -1,6 +1,6 @@
 {
   "name": "react-native-scripts",
-  "version": "0.0.23",
+  "version": "0.0.25",
   "description": "Configuration and scripts for Create React Native App.",
   "license": "BSD-3-Clause",
   "keywords": [
@@ -21,8 +21,7 @@
   },
   "scripts": {
     "start": "fly",
-    "build": "fly babel",
-    "publish": "fly publish"
+    "build": "fly babel"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
