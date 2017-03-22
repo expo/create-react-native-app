@@ -17,7 +17,3 @@ export async function babel(fly, opts) {
 export async function clean(fly) {
   await fly.clear(paths.build);
 }
-
-export async function publish(fly) {
-  await fly.serial(['clean', 'babel']).shell('npm publish');
-}
