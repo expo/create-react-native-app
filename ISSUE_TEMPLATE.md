@@ -27,7 +27,7 @@ Please run these commands in the project folder and fill in their results:
 * `npm ls expo`:
 * `node -v`:
 * `npm -v`:
-* `yarn -v`:
+* `yarn --version`:
 * `watchman version`:
 
 Also specify:
