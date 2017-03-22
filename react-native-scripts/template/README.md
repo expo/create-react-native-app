@@ -91,8 +91,16 @@ The "manifest" at that URL tells the Expo app how to retrieve and load your app'
 
 In some cases, this is less than ideal. This might be the case if you need to run your project inside of a virtual machine and you have to access the packager via a different IP address than the one which prints by default. In order to override the IP address or hostname that is detected by Create React Native App, you can specify your own hostname via the `REACT_NATIVE_PACKAGER_HOSTNAME` environment variable:
 
+Mac and Linux:
+
 ```
 REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname' npm start
+```
+
+Windows:
+```
+set REACT_NATIVE_PACKAGER_HOSTNAME='my-custom-ip-address-or-hostname'
+npm start
 ```
 
 The above example would cause the development server to listen on `exp://my-custom-ip-address-or-hostname:19000`.
