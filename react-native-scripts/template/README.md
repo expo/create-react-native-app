@@ -118,9 +118,9 @@ The above example would cause the development server to listen on `exp://my-cust
 
 ### Adding Custom Environment Variables
 
-You may run into a situation where you'd like to set environment variables for your app's usage.  For example, you might want the URL to your Web API to be driven by environment variables, as recommended by [12FA](https://12factor.net/).
+You may run into a situation where you'd like to set environment variables for your app's usage. For example, you might want the URL to your Web API to be driven by environment variables, as recommended by [12FA](https://12factor.net/).
 
-`create-react-native-app` treats environment variables [similarly to `create-react-app`](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables).  However, instead of expecting variables beginning with `REACT_APP_`, you must define your custom environment variables starting with `REACT_NATIVE_`.
+`create-react-native-app` treats environment variables [similarly to `create-react-app`](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables). However, instead of expecting variables beginning with `REACT_APP_`, you must define your custom environment variables starting with `REACT_NATIVE_`.
 
 Let's say you had a Component defined as follows:
 
