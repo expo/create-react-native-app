@@ -116,6 +116,29 @@ npm start
 
 The above example would cause the development server to listen on `exp://my-custom-ip-address-or-hostname:19000`.
 
+### Adding Custom Environment Variables
+
+You may run into a situation where you'd like to set environment variables for your app's usage.  For example, you might want the URL to your Web API to be driven by environment variables, as recommended by [12FA](https://12factor.net/).
+
+`create-react-native-app` treats environment variables [similarly to `create-react-app`](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables).  However, instead of expecting variables beginning with `REACT_APP_`, you must define your custom environment variables starting with `REACT_NATIVE_`.
+
+Let's say you had a Component defined as follows:
+
+```
+export default class App extends React.Component {
+  render() {
+    return (
+      <View style={styles.container}>
+        <Text>Open up App.js to start working on your app!</Text>
+        <Text>{process.env.REACT_NATIVE_CUSTOM_MESSAGE}</Text>
+      </View>
+    );
+  }
+}
+```
+
+To set the `REACT_NATIVE_CUSTOM_MESSAGE` environment variable before running the Packager, execute `REACT_NATIVE_CUSTOM_MESSAGE=Hello! npm start`.
+
 ## Adding Flow
 
 Flow is a static type checker that helps you write code with fewer bugs. Check out this [introduction to using static types in JavaScript](https://medium.com/@preethikasireddy/why-use-static-types-in-javascript-part-1-8382da1e0adb) if you are new to this concept.
