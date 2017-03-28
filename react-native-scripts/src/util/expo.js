@@ -5,7 +5,7 @@ import fsp from 'fs-promise';
 import inquirer from 'inquirer';
 import path from 'path';
 
-import { Detach, User as UserManager } from 'xdl';
+import { Detach, User as UserManager, Versions } from 'xdl';
 
 import type { User } from 'xdl/build/User';
 
@@ -75,10 +75,20 @@ Expo.registerRootComponent(App);
   await fsp.writeFile('index.js', entryPoint);
   pkgJson.main = 'index.js';
 
+  delete pkgJson.devDependencies['react-native-scripts'];
   delete pkgJson.scripts.start;
   delete pkgJson.scripts.build;
   delete pkgJson.scripts.eject;
+  delete pkgJson.scripts.android;
   delete pkgJson.scripts.ios;
+
+  const versions = await Versions.versionsAsync();
+  const sdkTag = versions.sdkVersions[appJson.expo.sdkVersion].expoReactNativeTag;
+
+  pkgJson.dependencies[
+    'react-native'
+  ] = `https://github.com/expo/react-native/archive/${sdkTag}.tar.gz`;
+
   await fsp.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
 
   console.log(
@@ -88,7 +98,7 @@ You'll need to use Expo's XDE to run this project:
   ${chalk.cyan('https://docs.expo.io/versions/latest/introduction/installation.html')}
 
 For further instructions, please read ExpoKit's build documentation:
-  ${chalk.cyan('https://docs.expo.io/versions/latest/guides/exponentkit.html#rerun-the-project-in-xde-or-exp')}
+  ${chalk.cyan('https://docs.expo.io/versions/latest/guides/expokit.html')}
 `
   );
 }
