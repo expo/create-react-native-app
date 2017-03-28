@@ -124,7 +124,7 @@ You may run into a situation where you'd like to set environment variables for y
 
 Let's say you had a Component defined as follows:
 
-```
+```jsx
 export default class App extends React.Component {
   render() {
     return (
