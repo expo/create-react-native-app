@@ -12,7 +12,7 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-const args = require('minimist')(process.argv.slice(2), { boolean: ['--reset-cache']});
+const args = require('minimist')(process.argv.slice(2), { boolean: ['--reset-cache'] });
 
 const options = {};
 if (args['reset-cache']) {
