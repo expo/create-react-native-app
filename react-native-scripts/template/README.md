@@ -130,9 +130,9 @@ To add a local dependency to the correct Flow version to a Create React Native A
 4. Add `// @flow` to any files you want to type check (for example, to `App.js`).
 
 Now you can run `npm run flow` (or `yarn flow`) to check the files for type errors.
-You can optionally use a plugin for your IDE for a better integrated experience.
+You can optionally use a [plugin for your IDE or editor](https://flow.org/en/docs/editors/) for a better integrated experience.
 
-To learn more about Flow, check out [its documentation](https://flowtype.org/).
+To learn more about Flow, check out [its documentation](https://flow.org/).
 
 ## Sharing and Deployment
 
