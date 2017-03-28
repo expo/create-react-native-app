@@ -31,6 +31,7 @@
     "indent-string": "^3.0.0",
     "inquirer": "^3.0.1",
     "match-require": "^2.0.0",
+    "minimist": "^1.2.0",
     "path-exists": "^3.0.0",
     "qrcode-terminal": "^0.11.0",
     "xdl": "^37.0.0"

@@ -12,7 +12,15 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-packager.run(printServerInfo);
+const args = require('minimist')(process.argv.slice(2), { boolean: ['--reset-cache']});
+
+const options = {};
+if (args['reset-cache']) {
+  options.reset = true;
+  console.log('Asking packager to reset its cache...');
+}
+
+packager.run(printServerInfo, options);
 
 // print a nicely formatted message with setup information
 async function printServerInfo() {

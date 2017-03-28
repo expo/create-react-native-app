@@ -3649,9 +3649,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@^36.0.0:
-  version "36.0.1"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-36.0.1.tgz#f977d4d0bb67576fc35b5971e758abf76398f58b"
+xdl@^37.0.0:
+  version "37.0.1"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-37.0.1.tgz#d0b945ce57f5a07559402bdb1b624aff5f3fa674"
   dependencies:
     "@ccheever/crayon" "^5.0.0"
     "@exponent/json-file" "^5.3.0"
