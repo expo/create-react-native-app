@@ -8,9 +8,9 @@ import spawn from 'cross-spawn';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^15.1.0',
+  expo: '^16.0.0-beta.0',
   react: '~15.4.0',
-  'react-native': '0.42.3',
+  'react-native': 'github:expo/react-native#exp-latest',
 };
 
 // TODO figure out how this interacts with ejection
