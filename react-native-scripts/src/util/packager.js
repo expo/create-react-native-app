@@ -70,7 +70,10 @@ function run(onReady: () => ?any, options: Object = {}) {
       return;
     }
 
-    if (chunk.msg === 'Dependency graph loaded') {
+    if (
+      chunk.msg === 'Dependency graph loaded' ||
+      chunk.msg.indexOf('Loading dependency graph, done.') >= 0
+    ) {
       packagerReady = true;
       onReady();
       return;
@@ -100,6 +103,7 @@ function run(onReady: () => ?any, options: Object = {}) {
     }
   };
 
+  // Subscribe to packager/server logs
   let packagerLogsStream = new PackagerLogsStream({
     projectRoot: projectDir,
     onStartBuildBundle: () => {
@@ -110,7 +114,7 @@ function run(onReady: () => ?any, options: Object = {}) {
         incomplete: ' ',
       });
 
-      progressBar.setBundleProgressBar(progressBar);
+      log.setBundleProgressBar(progressBar);
     },
     onProgressBuildBundle: percent => {
       if (!progressBar || progressBar.complete) return;
@@ -130,15 +134,16 @@ function run(onReady: () => ?any, options: Object = {}) {
     },
     updateLogs: updater => {
       let newLogChunks = updater([]);
-      newLogChunks.map(commitLog);
+      newLogChunks.map(handleLogChunk);
     },
   });
 
+  // Subscribe to device updates separately from packager/server updates
   ProjectUtils.attachLoggerStream(projectDir, {
     stream: {
       write: chunk => {
         if (chunk.tag === 'device') {
-          commitLog(chunk);
+          handleLogChunk(chunk);
         }
       },
     },
