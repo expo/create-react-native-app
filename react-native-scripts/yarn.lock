@@ -2717,6 +2717,10 @@ process-nextick-args@~1.0.6:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-1.0.7.tgz#150e20b756590ad3f91093f25a4f2ad8bff30ba3"
 
+progress@^1.1.8:
+  version "1.1.8"
+  resolved "https://registry.yarnpkg.com/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
+
 promise-props@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/promise-props/-/promise-props-1.0.0.tgz#e4c673e65a9b0339ded85b1c5ad47e34349c5a1c"
@@ -3649,9 +3653,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@^37.0.0:
-  version "37.0.1"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-37.0.1.tgz#d0b945ce57f5a07559402bdb1b624aff5f3fa674"
+xdl@38.0.0-beta.1:
+  version "38.0.0-beta.1"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-38.0.0-beta.1.tgz#19d68f418e6f5578323a3318df58582e8646f8d3"
   dependencies:
     "@ccheever/crayon" "^5.0.0"
     "@exponent/json-file" "^5.3.0"
