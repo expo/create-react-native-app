@@ -66,7 +66,7 @@ function run(onReady: () => ?any, options: Object = {}) {
         // this is set when we previously encountered an error
         // TODO clearConsole();
       }
-      log(`Loading your app...\n`);
+      log(`Running app on ${chunk.deviceName}\n`);
       return;
     }
 
