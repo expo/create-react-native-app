@@ -1,6 +1,28 @@
+// @flow
+
 import chalk from 'chalk';
 
+function log() {
+  const args = Array.prototype.slice.call(arguments, 0);
+
+  respectProgressBars(() => {
+    console.log(...args);
+  });
+};
+
+log.withTimestamp = function() {
+  const prefix = chalk.dim(new Date().toLocaleTimeString()) + ':';
+  const args = [prefix].concat(Array.prototype.slice.call(arguments, 0));
+
+  respectProgressBars(() => {
+    console.log(...args);
+  });
+}
+
 let _bundleProgressBar;
+log.setBundleProgressBar = function(bundleProgressBar) {
+  _bundleProgressBar = bundleProgressBar;
+};
 
 function respectProgressBars(commitLogs) {
   if (_bundleProgressBar) {
@@ -12,24 +34,5 @@ function respectProgressBars(commitLogs) {
     commitLogs();
   }
 }
-
-log.setBundleProgressBar = function setBundleProgressBar(bar) {
-  _bundleProgressBar = bar;
-};
-
-function log() {
-  const prefix = chalk.dim(new Date().toLocaleTimeString()) + ':';
-  var args = [prefix].concat(Array.prototype.slice.call(arguments, 0));
-
-  respectProgressBars(() => {
-    console.log(...args);
-  });
-}
-
-log.withoutPrefix = function(...args) {
-  respectProgressBars(() => {
-    console.log(...args);
-  });
-};
 
 export default log;

@@ -26,10 +26,10 @@ function installExitHooks(projectDir) {
   }
 
   process.on('SIGINT', () => {
-    log('\nStopping packager...');
+    log.withTimestamp('\nStopping packager...');
     cleanUpPackager(projectDir).then(() => {
       // TODO: this shows up after process exits, fix it
-      log(chalk.green('Packager stopped.'));
+      log.withTimestamp(chalk.green('Packager stopped.'));
       process.exit();
     });
   });
@@ -66,7 +66,7 @@ function run(onReady: () => ?any, options: Object = {}) {
         // this is set when we previously encountered an error
         // TODO clearConsole();
       }
-      log(`Running app on ${chunk.deviceName}\n`);
+      log.withTimestamp(`Running app on ${chunk.deviceName}\n`);
       return;
     }
 
@@ -82,20 +82,20 @@ function run(onReady: () => ?any, options: Object = {}) {
     if (packagerReady) {
       const message = `${chunk.msg.trim()}\n`;
       if (chunk.level <= bunyan.INFO) {
-        log(message);
+        log.withTimestamp(message);
       } else if (chunk.level === bunyan.WARN) {
-        log(chalk.yellow(message));
+        log.withTimestamp(chalk.yellow(message));
       } else {
-        log(chalk.red(message));
+        log.withTimestamp(chalk.red(message));
 
         // if you run into a syntax error then we should clear log output on reload
         needsClear = message.indexOf('SyntaxError') >= 0;
       }
     } else {
       if (chunk.level >= bunyan.ERROR) {
-        log.withoutPrefix(chalk.yellow('***ERROR STARTING PACKAGER***'));
-        log.withoutPrefix(logBuffer);
-        log.withoutPrefix(chalk.red(chunk.msg));
+        log(chalk.yellow('***ERROR STARTING PACKAGER***'));
+        log(logBuffer);
+        log(chalk.red(chunk.msg));
         logBuffer = '';
       } else {
         logBuffer += chunk.msg + '\n';
@@ -129,7 +129,7 @@ function run(onReady: () => ?any, options: Object = {}) {
       if (progressBar) {
         log.setBundleProgressBar(null);
         progressBar = null;
-        log(chalk.green('Finished building JavaScript bundle'));
+        log.withTimestamp(chalk.green('Finished building JavaScript bundle'));
       }
     },
     updateLogs: updater => {
@@ -151,12 +151,12 @@ function run(onReady: () => ?any, options: Object = {}) {
   });
 
   installExitHooks(projectDir);
-  log('Starting packager...');
+  log.withTimestamp('Starting packager...');
 
   Project.startAsync(projectDir, options).then(
     () => {},
     reason => {
-      log(chalk.red(`Error starting packager: ${reason.stack}`));
+      log.withTimestamp(chalk.red(`Error starting packager: ${reason.stack}`));
       process.exit(1);
     }
   );
