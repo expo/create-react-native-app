@@ -5,6 +5,7 @@ import { Config, ProjectSettings, UrlUtils } from 'xdl';
 import chalk from 'chalk';
 import indent from 'indent-string';
 import qr from 'qrcode-terminal';
+import log from '../util/log';
 
 import packager from '../util/packager';
 
@@ -17,7 +18,7 @@ const args = require('minimist')(process.argv.slice(2), { boolean: ['--reset-cac
 const options = {};
 if (args['reset-cache']) {
   options.reset = true;
-  console.log('Asking packager to reset its cache...');
+  log('Asking packager to reset its cache...');
 }
 
 packager.run(printServerInfo, options);
@@ -28,7 +29,7 @@ async function printServerInfo() {
   // who knows why qrcode-terminal takes a callback instead of just returning a string
   const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
   qr.generate(address, qrCode => {
-    console.log(
+    log(
       `${chalk.green('Packager started!')}
 
 To view your app with live reloading, point the Expo app to this QR code.

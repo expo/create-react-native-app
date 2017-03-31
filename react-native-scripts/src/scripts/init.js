@@ -5,6 +5,7 @@ import fsp from 'fs-promise';
 import path from 'path';
 import pathExists from 'path-exists';
 import spawn from 'cross-spawn';
+import log from '../util/log';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
@@ -94,8 +95,8 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
     }
   }
 
-  console.log(`Installing dependencies using ${command}...`);
-  console.log();
+  log(`Installing dependencies using ${command}...`);
+  log(); // why is this here
 
   if (command === 'yarnpkg') {
     // it's weird to print a yarn alias that no one uses
@@ -118,7 +119,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
       cdpath = appPath;
     }
 
-    console.log(
+    log(
       `
 
 Success! Created ${appName} at ${appPath}
@@ -151,13 +152,13 @@ We suggest that you begin by typing:
     );
 
     if (readmeExists) {
-      console.log(
+      log(
         `
 ${chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`')}`
       );
     }
 
-    console.log();
-    console.log('Happy hacking!');
+    log();
+    log('Happy hacking!');
   });
 };

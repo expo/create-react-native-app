@@ -1,3 +1,5 @@
+// @flow
+
 import { Android, Config, ProjectSettings, UrlUtils } from 'xdl';
 
 import chalk from 'chalk';
@@ -5,6 +7,7 @@ import indent from 'indent-string';
 import path from 'path';
 import pathExists from 'path-exists';
 import qr from 'qrcode-terminal';
+import log from '../util/log';
 
 import packager from '../util/packager';
 
@@ -19,12 +22,12 @@ packager.run(startAndroidAndPrintInfo);
 // print a nicely formatted message with setup information
 async function startAndroidAndPrintInfo() {
   const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
-  console.log('Starting Android...');
+  log('Starting Android...');
 
   const { success, error } = await Android.openProjectAsync(process.cwd());
 
   qr.generate(address, qrCode => {
-    console.log(
+    log(
       `${chalk.green('Packager started!')}
 
 To view your app with live reloading, point the Expo app to this QR code.
@@ -46,6 +49,6 @@ Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
   });
 
   if (!success) {
-    console.log(chalk.red(error.message));
+    log(chalk.red(error.message));
   }
 }
