@@ -43,6 +43,14 @@ Ejecting is permanent! Please be careful with your selection.
 `
     );
 
+    let reactNativeOptionMessage = "React Native: I'd like a regular React Native project.";
+
+    if (usingExpo) {
+      reactNativeOptionMessage = chalk.italic(
+        "(WARNING: See above message for why this option may break your project's build)\n  "
+      ) + reactNativeOptionMessage;
+    }
+
     const questions = [
       {
         type: 'list',
@@ -51,7 +59,7 @@ Ejecting is permanent! Please be careful with your selection.
         default: usingExpo ? 'expoKit' : 'raw',
         choices: [
           {
-            name: "React Native: I'd like a regular React Native project.",
+            name: reactNativeOptionMessage,
             value: 'raw',
           },
           {
