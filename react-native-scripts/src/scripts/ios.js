@@ -40,14 +40,13 @@ async function startSimulatorAndPrintInfo() {
     hostType: 'localhost',
   });
 
-  log('Starting simulator...');
+  log.withTimestamp('Starting simulator...');
   const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(localAddress);
 
   if (success) {
     qr.generate(address, qrCode => {
-      log(
-        `${chalk.green('Packager started!')}
-
+      log.withTimestamp(`${chalk.green('Packager started!')}`);
+      log(`
 To view your app with live reloading, point the Expo app to this QR code.
 You'll find the QR scanner on the Projects tab of the app.
 
@@ -68,7 +67,7 @@ If you restart the simulator or change the simulated hardware, you may need to r
       );
     });
   } else {
-    log(
+    log.withTimestamp(
       `${chalk.red('Failed to start simulator:')}
 
 ${msg}

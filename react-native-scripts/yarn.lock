@@ -2383,13 +2383,9 @@ mout@^0.11.0:
   version "0.11.1"
   resolved "https://registry.yarnpkg.com/mout/-/mout-0.11.1.tgz#ba3611df5f0e5b1ffbfd01166b8f02d1f5fa2b99"
 
-ms@0.7.2:
+ms@0.7.2, ms@^0.7.1:
   version "0.7.2"
   resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.2.tgz#ae25cf2512b3885a1d95d7f037868d8431124765"
-
-ms@^0.7.1:
-  version "0.7.3"
-  resolved "https://registry.yarnpkg.com/ms/-/ms-0.7.3.tgz#708155a5e44e33f5fd0fc53e81d0d40a91be1fff"
 
 mute-stream@0.0.7:
   version "0.0.7"
@@ -2447,10 +2443,6 @@ node-pre-gyp@^0.6.29:
     semver "^5.3.0"
     tar "^2.2.1"
     tar-pack "^3.4.0"
-
-node-uuid@^1.4.7:
-  version "1.4.8"
-  resolved "https://registry.yarnpkg.com/node-uuid/-/node-uuid-1.4.8.tgz#b040eb0923968afabf8d32fb1f17f1167fdab907"
 
 nopt@^3.0.1:
   version "3.0.6"
@@ -3539,7 +3531,7 @@ uuid@^2.0.1:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
 
-uuid@^3.0.0:
+uuid@^3.0.0, uuid@^3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.0.1.tgz#6544bba2dfda8c1cf17e629a3a305e2bb1fee6c1"
 
@@ -3596,9 +3588,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@38.0.0-beta.2:
-  version "38.0.0-beta.2"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-38.0.0-beta.2.tgz#0594da521ff57153979d41dfa0c4f6933e770c4a"
+xdl@^40.0.0:
+  version "40.0.0"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-40.0.0.tgz#9fee04de06012ecac1b543b10d49090f8accf78c"
   dependencies:
     "@ccheever/crayon" "^5.0.0"
     "@exponent/json-file" "^5.3.0"
@@ -3636,7 +3628,6 @@ xdl@38.0.0-beta.2:
     mkdirp-promise "^5.0.0"
     mz "^2.6.0"
     ncp "^2.0.0"
-    node-uuid "^1.4.7"
     opn "^4.0.2"
     promise-props "^1.0.0"
     react "^15.4.2"
@@ -3653,6 +3644,7 @@ xdl@38.0.0-beta.2:
     tar.gz "^1.0.5"
     tree-kill "^1.1.0"
     url "^0.11.0"
+    uuid "^3.0.1"
     xhr2 "^0.1.3"
     yesno "^0.0.1"
 

@@ -70,10 +70,7 @@ function run(onReady: () => ?any, options: Object = {}) {
       return;
     }
 
-    if (
-      chunk.msg === 'Dependency graph loaded' ||
-      chunk.msg.indexOf('Loading dependency graph, done.') >= 0
-    ) {
+    if (chunk.msg === 'Dependency graph loaded.') {
       packagerReady = true;
       onReady();
       return;
@@ -121,7 +118,7 @@ function run(onReady: () => ?any, options: Object = {}) {
       let ticks = percent - progressBar.curr;
       ticks > 0 && progressBar.tick(ticks);
     },
-    onFinishBuildBundle: () => {
+    onFinishBuildBundle: (err, startTime, endTime) => {
       if (progressBar && !progressBar.complete) {
         progressBar.tick(100 - progressBar.curr);
       }
@@ -129,7 +126,8 @@ function run(onReady: () => ?any, options: Object = {}) {
       if (progressBar) {
         log.setBundleProgressBar(null);
         progressBar = null;
-        log.withTimestamp(chalk.green('Finished building JavaScript bundle'));
+        let duration = endTime - startTime;
+        log.withTimestamp(chalk.green(`Finished building JavaScript bundle in ${duration}ms`));
       }
     },
     updateLogs: updater => {
