@@ -9,15 +9,15 @@ import log from '../util/log';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^16.0.0-beta.0',
-  react: '~15.4.0',
-  'react-native': 'github:expo/react-native#exp-latest',
+  expo: '^16.0.0',
+  react: '16.0.0-alpha.6',
+  'react-native': '^0.43.3',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '^0.3.0',
-  'react-test-renderer': '~15.4.1',
+  'jest-expo': '^0.4.0',
+  'react-test-renderer': '16.0.0-alpha.6',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
