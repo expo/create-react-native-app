@@ -11,7 +11,7 @@ import log from '../util/log';
 const DEFAULT_DEPENDENCIES = {
   expo: '^16.0.0',
   react: '16.0.0-alpha.6',
-  'react-native': 'expo/react-native#0.43-stable',
+  'react-native': '^0.43.4',
 };
 
 // TODO figure out how this interacts with ejection
