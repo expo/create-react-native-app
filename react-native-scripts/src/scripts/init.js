@@ -10,7 +10,7 @@ import spawn from 'cross-spawn';
 const DEFAULT_DEPENDENCIES = {
   expo: '^15.1.0',
   react: '~15.4.0',
-  'react-native': '0.42.3',
+  'react-native': '~0.43.0',
 };
 
 // TODO figure out how this interacts with ejection
