@@ -26,7 +26,7 @@ function installExitHooks(projectDir) {
   }
 
   process.on('SIGINT', () => {
-    log.withTimestamp('\nStopping packager...');
+    log.withTimestamp('Stopping packager...');
     cleanUpPackager(projectDir).then(() => {
       // TODO: this shows up after process exits, fix it
       log.withTimestamp(chalk.green('Packager stopped.'));
@@ -126,12 +126,35 @@ function run(onReady: () => ?any, options: Object = {}) {
       if (progressBar) {
         log.setBundleProgressBar(null);
         progressBar = null;
-        let duration = endTime - startTime;
-        log.withTimestamp(chalk.green(`Finished building JavaScript bundle in ${duration}ms`));
+
+        if (err) {
+          log.withTimestamp(
+            chalk.red(`Failed building JavaScript bundle`)
+          );
+        } else {
+          let duration = endTime - startTime;
+          log.withTimestamp(
+            chalk.green(`Finished building JavaScript bundle in ${duration}ms`)
+          );
+        }
       }
     },
     updateLogs: updater => {
       let newLogChunks = updater([]);
+
+      if (progressBar) {
+        // Restarting watchman causes `onFinishBuildBundle` to not fire. Until
+        // this is handled upstream in xdl, reset progress bar with error here.
+        newLogChunks.forEach(chunk => {
+          if (chunk.msg === 'Restarted watchman.') {
+            progressBar.tick(100 - progressBar.curr);
+            log.setBundleProgressBar(null);
+            progressBar = null;
+            log.withTimestamp(chalk.red('Failed building JavaScript bundle'));
+          }
+        });
+      }
+
       newLogChunks.map(handleLogChunk);
     },
   });
