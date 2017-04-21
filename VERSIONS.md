@@ -10,7 +10,8 @@ The `app.json` file in a CRNA project also specifies `sdkVersion` which is neces
 
 Each version of these dependencies is only compatible with a narrow version range of the other two. See the below table for the correct versions to use with each other:
 
-| `react-native` | `react` | `expo` | `sdkVersion` in app.json |
-|----------------|---------|--------|--------------------------|
-| 0.41.x         | 15.4.x  | 14.x.x | `"14.0.0"`               |
-| 0.42.x         | 15.4.x  | 15.x.x | `"15.0.0"`               |
+| `react-native` | `react`        | `expo` | `sdkVersion` in app.json |
+|----------------|----------------|--------|--------------------------|
+| 0.41.x         | 15.4.x         | 14.x.x | `"14.0.0"`               |
+| 0.42.x         | 15.4.x         | 15.x.x | `"15.0.0"`               |
+| 0.43.x         | 16.0.0-alpha.6 | 16.x.x | `"16.0.0"`               |
