@@ -8,7 +8,7 @@ function log() {
   respectProgressBars(() => {
     console.log(...args);
   });
-};
+}
 
 log.withTimestamp = function() {
   const prefix = chalk.dim(new Date().toLocaleTimeString()) + ':';
@@ -17,7 +17,7 @@ log.withTimestamp = function() {
   respectProgressBars(() => {
     console.log(...args);
   });
-}
+};
 
 let _bundleProgressBar;
 log.setBundleProgressBar = function(bundleProgressBar) {

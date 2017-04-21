@@ -128,14 +128,10 @@ function run(onReady: () => ?any, options: Object = {}) {
         progressBar = null;
 
         if (err) {
-          log.withTimestamp(
-            chalk.red(`Failed building JavaScript bundle`)
-          );
+          log.withTimestamp(chalk.red(`Failed building JavaScript bundle`));
         } else {
           let duration = endTime - startTime;
-          log.withTimestamp(
-            chalk.green(`Finished building JavaScript bundle in ${duration}ms`)
-          );
+          log.withTimestamp(chalk.green(`Finished building JavaScript bundle in ${duration}ms`));
         }
       }
     },

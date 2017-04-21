@@ -27,8 +27,9 @@ async function startAndroidAndPrintInfo() {
   const { success, error } = await Android.openProjectAsync(process.cwd());
 
   qr.generate(address, qrCode => {
-      log.withTimestamp(`${chalk.green('Packager started!')}`);
-      log(`
+    log.withTimestamp(`${chalk.green('Packager started!')}`);
+    log(
+      `
 To view your app with live reloading, point the Expo app to this QR code.
 You'll find the QR scanner on the Projects tab of the app.
 

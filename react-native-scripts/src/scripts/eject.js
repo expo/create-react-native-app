@@ -96,9 +96,7 @@ Ejecting is permanent! Please be careful with your selection.
         newDisplayName = expName;
       }
 
-      log(
-        "We have a couple of questions to ask you about how you'd like to name your app:"
-      );
+      log("We have a couple of questions to ask you about how you'd like to name your app:");
       const { enteredName, enteredDisplayname } = await inquirer.prompt([
         {
           name: 'enteredDisplayname',
@@ -137,9 +135,7 @@ Ejecting is permanent! Please be careful with your selection.
       });
 
       if (status !== 0) {
-        log(
-          chalk.red(`Eject failed with exit code ${status}, see above output for any issues.`)
-        );
+        log(chalk.red(`Eject failed with exit code ${status}, see above output for any issues.`));
         log(chalk.yellow('You may want to delete the `ios` and/or `android` directories.'));
         process.exit(1);
       } else {
