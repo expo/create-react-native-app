@@ -1,3 +1,5 @@
+// @flow
+
 import { Config, ProjectSettings, Simulator, UrlUtils } from 'xdl';
 
 import chalk from 'chalk';
@@ -5,6 +7,7 @@ import indent from 'indent-string';
 import path from 'path';
 import pathExists from 'path-exists';
 import qr from 'qrcode-terminal';
+import log from '../util/log';
 
 import packager from '../util/packager';
 
@@ -15,12 +18,12 @@ Config.offline = true;
 const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock')) ? 'yarnpkg' : 'npm';
 
 if (!Simulator.isPlatformSupported()) {
-  console.log(
+  log(
     chalk.red(
       '\nThis command only works on macOS computers with Xcode and the iOS simulator installed.'
     )
   );
-  console.log(
+  log(
     chalk.yellow(
       `If you run \`${chalk.cyan(command + ' start')}\` then you can view your app on a physical device.\n`
     )
@@ -37,14 +40,13 @@ async function startSimulatorAndPrintInfo() {
     hostType: 'localhost',
   });
 
-  console.log('Starting simulator...');
+  log.withTimestamp('Starting simulator...');
   const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(localAddress);
 
   if (success) {
     qr.generate(address, qrCode => {
-      console.log(
-        `${chalk.green('Packager started!')}
-
+      log.withTimestamp(`${chalk.green('Packager started!')}`);
+      log(`
 To view your app with live reloading, point the Expo app to this QR code.
 You'll find the QR scanner on the Projects tab of the app.
 
@@ -65,7 +67,7 @@ If you restart the simulator or change the simulated hardware, you may need to r
       );
     });
   } else {
-    console.log(
+    log.withTimestamp(
       `${chalk.red('Failed to start simulator:')}
 
 ${msg}

@@ -6,6 +6,7 @@ import inquirer from 'inquirer';
 import matchRequire from 'match-require';
 import path from 'path';
 import spawn from 'cross-spawn';
+import log from '../util/log';
 
 import { detach } from '../util/expo';
 
@@ -31,7 +32,7 @@ We didn't find any uses of the Expo SDK in your project, so you should be fine t
 "Plain" React Native. (This check isn't very sophisticated, though.)`;
     }
 
-    console.log(
+    log(
       `
 ${expoSdkWarning}
 
@@ -95,7 +96,7 @@ Ejecting is permanent! Please be careful with your selection.
         newDisplayName = expName;
       }
 
-      console.log(
+      log(
         "We have a couple of questions to ask you about how you'd like to name your app:"
       );
       const { enteredName, enteredDisplayname } = await inquirer.prompt([
@@ -120,10 +121,10 @@ Ejecting is permanent! Please be careful with your selection.
       appJson.name = enteredName;
       appJson.displayName = enteredDisplayname;
 
-      console.log('Writing your selections to app.json...');
+      log('Writing your selections to app.json...');
       // write the updated app.json file
       await fsp.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
-      console.log(chalk.green('Wrote to app.json, please update it manually in the future.'));
+      log(chalk.green('Wrote to app.json, please update it manually in the future.'));
 
       const ejectCommand = 'node';
       const ejectArgs = [
@@ -136,13 +137,13 @@ Ejecting is permanent! Please be careful with your selection.
       });
 
       if (status !== 0) {
-        console.log(
+        log(
           chalk.red(`Eject failed with exit code ${status}, see above output for any issues.`)
         );
-        console.log(chalk.yellow('You may want to delete the `ios` and/or `android` directories.'));
+        log(chalk.yellow('You may want to delete the `ios` and/or `android` directories.'));
         process.exit(1);
       } else {
-        console.log('Successfully copied template native code.');
+        log('Successfully copied template native code.');
       }
 
       // if the project .babelrc matches the template one, then we don't need to have it around anymore
@@ -156,14 +157,14 @@ Ejecting is permanent! Please be careful with your selection.
 
         if (projectBabelRc === templateBabelRc) {
           await fsp.unlink(projectBabelPath);
-          console.log(
+          log(
             chalk.green(
               `The template .babelrc is no longer necessary after ejecting.
 It has been successfully deleted.`
             )
           );
         } else {
-          console.log(
+          log(
             chalk.yellow(
               `It looks like you modified your .babelrc file.
 Make sure to change your babel preset to \`react-native\`.`
@@ -171,13 +172,13 @@ Make sure to change your babel preset to \`react-native\`.`
           );
         }
       } catch (e) {
-        console.log(
+        log(
           chalk.yellow(
             `We had an issue preparing your .babelrc for ejection.
 If you have a .babelrc in your project, make sure to change the preset to \`react-native\`.`
           )
         );
-        console.log(chalk.red(e));
+        log(chalk.red(e));
       }
 
       delete pkgJson.main;
@@ -195,14 +196,14 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
       // no longer relevant to an ejected project (maybe build is?)
       delete pkgJson.scripts.eject;
 
-      console.log(`Updating your ${npmOrYarn} scripts in package.json...`);
+      log(`Updating your ${npmOrYarn} scripts in package.json...`);
 
       await fsp.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
 
-      console.log(chalk.green('Your package.json is up to date!'));
+      log(chalk.green('Your package.json is up to date!'));
 
       // FIXME now we need to provide platform-specific entry points until upstream uses a single one
-      console.log(`Adding platform-specific entry points...`);
+      log(`Adding platform-specific entry points...`);
 
       const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
 import App from './App';
@@ -212,15 +213,15 @@ AppRegistry.registerComponent('${newName}', () => App);
       await fsp.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
       await fsp.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
 
-      console.log(chalk.green('Added new entry points!'));
+      log(chalk.green('Added new entry points!'));
 
-      console.log(
+      log(
         `
 Note that using \`${npmOrYarn} start\` will now require you to run Xcode and/or
 Android Studio to build the native code for your project.`
       );
 
-      console.log(
+      log(
         chalk.yellow(
           `
 It's recommended to delete your node_modules directory and rerun ${npmOrYarn}
@@ -232,11 +233,11 @@ to ensure that the changes we made to package.json persist correctly.
       await detach();
     } else {
       // we don't want to print the survey for cancellations
-      console.log('OK! If you change your mind you can run this command again.');
+      log('OK! If you change your mind you can run this command again.');
       return;
     }
 
-    console.log(
+    log(
       `${chalk.green('Ejected successfully!')}
 Please consider letting us know why you ejected in this survey:
   ${chalk.cyan('https://goo.gl/forms/iD6pl218r7fn9N0d2')}`

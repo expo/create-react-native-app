@@ -1,9 +1,12 @@
 // @flow
 
-import { Project, ProjectSettings, ProjectUtils } from 'xdl';
+import { PackagerLogsStream, Project, ProjectSettings, ProjectUtils } from 'xdl';
 
+import ProgressBar from 'progress';
 import bunyan from 'bunyan';
 import chalk from 'chalk';
+
+import log from './log';
 
 // TODO get babel output that's nice enough to let it take over the console
 function clearConsole() {
@@ -23,9 +26,10 @@ function installExitHooks(projectDir) {
   }
 
   process.on('SIGINT', () => {
-    console.log('\nStopping packager...');
+    log.withTimestamp('Stopping packager...');
     cleanUpPackager(projectDir).then(() => {
-      console.log(chalk.green('Packager stopped.'));
+      // TODO: this shows up after process exits, fix it
+      log.withTimestamp(chalk.green('Packager stopped.'));
       process.exit();
     });
   });
@@ -52,53 +56,115 @@ function run(onReady: () => ?any, options: Object = {}) {
   let packagerReady = false;
   let needsClear = false;
   let logBuffer = '';
+  let progressBar;
   const projectDir = process.cwd();
+
+  const handleLogChunk = chunk => {
+    // we don't need to print the entire manifest when loading the app
+    if (chunk.msg.indexOf(' with appParams: ') >= 0) {
+      if (needsClear) {
+        // this is set when we previously encountered an error
+        // TODO clearConsole();
+      }
+      log.withTimestamp(`Running app on ${chunk.deviceName}\n`);
+      return;
+    }
+
+    if (chunk.msg === 'Dependency graph loaded.') {
+      packagerReady = true;
+      onReady();
+      return;
+    }
+
+    if (packagerReady) {
+      const message = `${chunk.msg.trim()}\n`;
+      if (chunk.level <= bunyan.INFO) {
+        log.withTimestamp(message);
+      } else if (chunk.level === bunyan.WARN) {
+        log.withTimestamp(chalk.yellow(message));
+      } else {
+        log.withTimestamp(chalk.red(message));
+
+        // if you run into a syntax error then we should clear log output on reload
+        needsClear = message.indexOf('SyntaxError') >= 0;
+      }
+    } else {
+      if (chunk.level >= bunyan.ERROR) {
+        log(chalk.yellow('***ERROR STARTING PACKAGER***'));
+        log(logBuffer);
+        log(chalk.red(chunk.msg));
+        logBuffer = '';
+      } else {
+        logBuffer += chunk.msg + '\n';
+      }
+    }
+  };
+
+  // Subscribe to packager/server logs
+  let packagerLogsStream = new PackagerLogsStream({
+    projectRoot: projectDir,
+    onStartBuildBundle: () => {
+      progressBar = new ProgressBar('Building JavaScript bundle [:bar] :percent', {
+        total: 100,
+        clear: true,
+        complete: '=',
+        incomplete: ' ',
+      });
+
+      log.setBundleProgressBar(progressBar);
+    },
+    onProgressBuildBundle: percent => {
+      if (!progressBar || progressBar.complete) return;
+      let ticks = percent - progressBar.curr;
+      ticks > 0 && progressBar.tick(ticks);
+    },
+    onFinishBuildBundle: (err, startTime, endTime) => {
+      if (progressBar && !progressBar.complete) {
+        progressBar.tick(100 - progressBar.curr);
+      }
+
+      if (progressBar) {
+        log.setBundleProgressBar(null);
+        progressBar = null;
+
+        if (err) {
+          log.withTimestamp(
+            chalk.red(`Failed building JavaScript bundle`)
+          );
+        } else {
+          let duration = endTime - startTime;
+          log.withTimestamp(
+            chalk.green(`Finished building JavaScript bundle in ${duration}ms`)
+          );
+        }
+      }
+    },
+    updateLogs: updater => {
+      let newLogChunks = updater([]);
+
+      if (progressBar) {
+        // Restarting watchman causes `onFinishBuildBundle` to not fire. Until
+        // this is handled upstream in xdl, reset progress bar with error here.
+        newLogChunks.forEach(chunk => {
+          if (chunk.msg === 'Restarted watchman.') {
+            progressBar.tick(100 - progressBar.curr);
+            log.setBundleProgressBar(null);
+            progressBar = null;
+            log.withTimestamp(chalk.red('Failed building JavaScript bundle'));
+          }
+        });
+      }
+
+      newLogChunks.map(handleLogChunk);
+    },
+  });
+
+  // Subscribe to device updates separately from packager/server updates
   ProjectUtils.attachLoggerStream(projectDir, {
     stream: {
       write: chunk => {
-        // don't show the initial packager setup, so that we can display a nice getting started message
-        // note: it's possible for the RN packager to log its setup before the express server is done
-        // this is a potential race condition but it'll work for now
-        if (chunk.msg.indexOf('Loading dependency graph, done.') >= 0) {
-          packagerReady = true;
-          // TODO clearConsole();
-          onReady();
-          return;
-        }
-
-        const messagePrefix = chalk.dim(new Date().toLocaleTimeString()) + ':';
-
-        // we don't need to print the entire manifest when loading the app
-        if (chunk.msg.indexOf(' with appParams: ') >= 0) {
-          if (needsClear) {
-            // this is set when we previously encountered an error
-            // TODO clearConsole();
-          }
-          console.log(`${messagePrefix} Loading your app...\n`);
-          return;
-        }
-
-        if (packagerReady) {
-          const message = `${messagePrefix} ${chunk.msg}\n`;
-          if (chunk.level <= bunyan.INFO) {
-            console.log(message);
-          } else if (chunk.level === bunyan.WARN) {
-            console.log(chalk.yellow(message));
-          } else {
-            console.log(chalk.red(message));
-
-            // if you run into a syntax error then we should clear log output on reload
-            needsClear = message.indexOf('SyntaxError') >= 0;
-          }
-        } else {
-          if (chunk.level >= bunyan.ERROR) {
-            console.log(chalk.yellow('***ERROR STARTING PACKAGER***'));
-            console.log(logBuffer);
-            console.log(chalk.red(chunk.msg));
-            logBuffer = '';
-          } else {
-            logBuffer += chunk.msg + '\n';
-          }
+        if (chunk.tag === 'device') {
+          handleLogChunk(chunk);
         }
       },
     },
@@ -106,12 +172,12 @@ function run(onReady: () => ?any, options: Object = {}) {
   });
 
   installExitHooks(projectDir);
-  console.log('Starting packager...');
+  log.withTimestamp('Starting packager...');
 
   Project.startAsync(projectDir, options).then(
     () => {},
     reason => {
-      console.log(chalk.red(`Error starting packager: ${reason.stack}`));
+      log.withTimestamp(chalk.red(`Error starting packager: ${reason.stack}`));
       process.exit(1);
     }
   );
