@@ -16,6 +16,12 @@ You may also want to distribute your app to coworkers, friends, or customers (sh
 
 If you do need to eject to build your own distribution package or to include your own native code, there are two options at this time. To use either option, make sure to have the appropriate [Xcode and/or Android Studio environment](https://facebook.github.io/react-native/docs/getting-started.html) configured.
 
+### Starting the Ejection Process
+
+`npm run eject`
+
+This will start the process of ejecting from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project. Once this command has successfully run, you should also follow any steps below that are applicable to your situation.
+
 ### Ejecting to Regular React Native
 
 This will give you a project very similar to one created by `react-native init`. Make sure to install the `react-native-cli` tool:
