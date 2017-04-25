@@ -18,9 +18,7 @@ If you do need to eject to build your own distribution package or to include you
 
 ### Starting the Ejection Process
 
-`npm run eject`
-
-This will start the process of ejecting from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project. Once this command has successfully run, you should also follow any steps below that are applicable to your situation.
+`npm run eject` will start the process of ejecting from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project. Once this command has successfully run, you should also follow any steps below that are applicable to your environment.
 
 ### Ejecting to Regular React Native
 
