@@ -12,6 +12,20 @@ import { detach } from '../util/expo';
 
 async function eject() {
   try {
+    const isInteractive = process.argv.indexOf('-eject-params') == -1;
+    const ejectParams = isInteractive ? [] : process.argv[process.argv.indexOf("-eject-params") + 1].split(',');
+    if(!isInteractive) {
+      if(ejectParams.length < 3) {
+          log(chalk.red('You must provide the values for Eject method, App name and Project name in the -eject-params arg'));
+          log(chalk.red('Example usage: npm run eject -- -eject-params raw,MyAppName,MyProjectName'));
+          process.exit(1);
+      }
+      if(!(ejectParams[0] == 'raw' || ejectParams[0] == 'expoKit')) {
+          log(chalk.red('Eject method must be either raw or expoKit'));
+          process.exit(1);
+      }
+
+    }
     const filesWithExpo = await filesUsingExpoSdk();
     const usingExpo = filesWithExpo.length > 0;
 
@@ -74,7 +88,13 @@ Ejecting is permanent! Please be careful with your selection.
       },
     ];
 
-    const { ejectMethod } = await inquirer.prompt(questions);
+    let ejectMethod;
+    if(isInteractive) {
+        ejectMethod = await inquirer.prompt(questions).ejectMethod;
+    }
+    else {
+      ejectMethod = ejectParams[0];
+    }
 
     if (ejectMethod === 'raw') {
       const npmOrYarn = (await fsp.exists(path.resolve('yarn.lock'))) ? 'yarnpkg' : 'npm';
@@ -96,28 +116,33 @@ Ejecting is permanent! Please be careful with your selection.
         newDisplayName = expName;
       }
 
-      log("We have a couple of questions to ask you about how you'd like to name your app:");
-      const { enteredName, enteredDisplayname } = await inquirer.prompt([
-        {
-          name: 'enteredDisplayname',
-          message: "What should your app appear as on a user's home screen?",
-          default: newDisplayName,
-          validate: s => {
-            return s.length > 0;
+      if(isInteractive) {
+        log("We have a couple of questions to ask you about how you'd like to name your app:");
+        const { enteredName, enteredDisplayname } = await inquirer.prompt([
+          {
+            name: 'enteredDisplayname',
+            message: "What should your app appear as on a user's home screen?",
+            default: newDisplayName,
+            validate: s => {
+              return s.length > 0;
+            },
           },
-        },
-        {
-          name: 'enteredName',
-          message: 'What should your Android Studio and Xcode projects be called?',
-          default: newName,
-          validate: s => {
-            return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1;
+          {
+            name: 'enteredName',
+            message: 'What should your Android Studio and Xcode projects be called?',
+            default: newName,
+            validate: s => {
+              return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1;
+            },
           },
-        },
-      ]);
-
-      appJson.name = enteredName;
-      appJson.displayName = enteredDisplayname;
+        ]);
+          appJson.name = enteredName;
+          appJson.displayName = enteredDisplayname;
+      }
+      else {
+          appJson.name = ejectParams[1];
+          appJson.displayName = ejectParams[2];
+      }
 
       log('Writing your selections to app.json...');
       // write the updated app.json file
