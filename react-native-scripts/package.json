@@ -1,6 +1,6 @@
 {
   "name": "react-native-scripts",
-  "version": "0.0.29",
+  "version": "0.0.30",
   "description": "Configuration and scripts for Create React Native App.",
   "license": "BSD-3-Clause",
   "keywords": [
@@ -35,7 +35,7 @@
     "path-exists": "^3.0.0",
     "progress": "^2.0.0",
     "qrcode-terminal": "^0.11.0",
-    "xdl": "^40.0.0"
+    "xdl": "^41.0.0"
   },
   "devDependencies": {
     "babel-plugin-add-module-exports": "^0.2.1",
