@@ -1,7 +1,7 @@
 // @flow
 
 import chalk from 'chalk';
-import fsp from 'fs-promise';
+import fse from 'fs-extra';
 import path from 'path';
 import pathExists from 'path-exists';
 import spawn from 'cross-spawn';
@@ -27,11 +27,11 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
 
   const readmeExists: boolean = await pathExists(path.join(appPath, 'README.md'));
   if (readmeExists) {
-    await fsp.rename(path.join(appPath, 'README.md'), path.join(appPath, 'README.old.md'));
+    await fse.rename(path.join(appPath, 'README.md'), path.join(appPath, 'README.old.md'));
   }
 
   const appPackagePath: string = path.join(appPath, 'package.json');
-  const appPackage = JSON.parse(await fsp.readFile(appPackagePath));
+  const appPackage = JSON.parse(await fse.readFile(appPackagePath));
 
   // mutate the default package.json in any ways we need to
   appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry.js';
@@ -61,20 +61,20 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
   Object.assign(appPackage.devDependencies, DEFAULT_DEV_DEPENDENCIES);
 
   // Write the new appPackage after copying so that we can include any existing
-  await fsp.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
+  await fse.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
 
   // Copy the files for the user
-  await fsp.copy(path.join(ownPath, 'template'), appPath);
+  await fse.copy(path.join(ownPath, 'template'), appPath);
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   try {
-    await fsp.rename(path.join(appPath, 'gitignore'), path.join(appPath, '.gitignore'));
+    await fse.rename(path.join(appPath, 'gitignore'), path.join(appPath, '.gitignore'));
   } catch (err) {
     // Append if there's already a `.gitignore` file there
     if (err.code === 'EEXIST') {
-      const data = await fsp.readFile(path.join(appPath, 'gitignore'));
-      await fsp.appendFile(path.join(appPath, '.gitignore'), data);
-      await fsp.unlink(path.join(appPath, 'gitignore'));
+      const data = await fse.readFile(path.join(appPath, 'gitignore'));
+      await fse.appendFile(path.join(appPath, '.gitignore'), data);
+      await fse.unlink(path.join(appPath, 'gitignore'));
     } else {
       throw err;
     }
