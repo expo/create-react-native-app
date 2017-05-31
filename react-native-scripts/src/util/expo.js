@@ -1,7 +1,7 @@
 // @flow
 
 import chalk from 'chalk';
-import fsp from 'fs-promise';
+import fse from 'fs-extra';
 import inquirer from 'inquirer';
 import path from 'path';
 
@@ -16,7 +16,7 @@ export async function detach() {
   const user = await loginOrRegister();
 
   const appJsonPath = path.join(process.cwd(), 'app.json');
-  const appJson = JSON.parse(await fsp.readFile(appJsonPath));
+  const appJson = JSON.parse(await fse.readFile(appJsonPath));
 
   if ((!appJson.expo.ios || !appJson.expo.ios.bundleIdentifier) && process.platform === 'darwin') {
     console.log(
@@ -59,20 +59,20 @@ publish it there. See this StackOverflow question for more information:
   }
 
   // update app.json file with new contents
-  await fsp.writeFile(appJsonPath, JSON.stringify(appJson, null, 2));
+  await fse.writeFile(appJsonPath, JSON.stringify(appJson, null, 2));
 
   await Detach.detachAsync(process.cwd());
   // yesno lib doesn't properly shut down. without this the command won't exit
   process.stdin.pause();
 
-  const pkgJson = JSON.parse((await fsp.readFile(path.resolve('package.json'))).toString());
+  const pkgJson = JSON.parse((await fse.readFile(path.resolve('package.json'))).toString());
 
   const entryPoint = `import Expo from 'expo';
 import App from './App';
 
 Expo.registerRootComponent(App);
 `;
-  await fsp.writeFile('index.js', entryPoint);
+  await fse.writeFile('index.js', entryPoint);
   pkgJson.main = 'index.js';
 
   delete pkgJson.devDependencies['react-native-scripts'];
@@ -89,7 +89,7 @@ Expo.registerRootComponent(App);
     'react-native'
   ] = `https://github.com/expo/react-native/archive/${sdkTag}.tar.gz`;
 
-  await fsp.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
+  await fse.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
 
   console.log(
     `${chalk.green('Successfully set up ExpoKit!')}

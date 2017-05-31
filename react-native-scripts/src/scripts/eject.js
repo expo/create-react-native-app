@@ -1,7 +1,7 @@
 // @flow
 
 import chalk from 'chalk';
-import fsp from 'fs-promise';
+import fse from 'fs-extra';
 import inquirer from 'inquirer';
 import matchRequire from 'match-require';
 import path from 'path';
@@ -77,9 +77,9 @@ Ejecting is permanent! Please be careful with your selection.
     const { ejectMethod } = await inquirer.prompt(questions);
 
     if (ejectMethod === 'raw') {
-      const npmOrYarn = (await fsp.exists(path.resolve('yarn.lock'))) ? 'yarnpkg' : 'npm';
-      const appJson = JSON.parse(await fsp.readFile(path.resolve('app.json')));
-      const pkgJson = JSON.parse(await fsp.readFile(path.resolve('package.json')));
+      const npmOrYarn = (await fse.exists(path.resolve('yarn.lock'))) ? 'yarnpkg' : 'npm';
+      const appJson = JSON.parse(await fse.readFile(path.resolve('app.json')));
+      const pkgJson = JSON.parse(await fse.readFile(path.resolve('package.json')));
       let {
         name: newName,
         displayName: newDisplayName,
@@ -121,7 +121,7 @@ Ejecting is permanent! Please be careful with your selection.
 
       log('Writing your selections to app.json...');
       // write the updated app.json file
-      await fsp.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
+      await fse.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
       log(chalk.green('Wrote to app.json, please update it manually in the future.'));
 
       const ejectCommand = 'node';
@@ -146,13 +146,13 @@ Ejecting is permanent! Please be careful with your selection.
       // if it doesn't, then print a warning
       try {
         const projectBabelPath = path.resolve(process.cwd(), '.babelrc');
-        const projectBabelRc = (await fsp.readFile(projectBabelPath)).toString();
+        const projectBabelRc = (await fse.readFile(projectBabelPath)).toString();
 
         const templateBabelPath = path.resolve(__dirname, '..', '..', 'template', '.babelrc');
-        const templateBabelRc = (await fsp.readFile(templateBabelPath)).toString();
+        const templateBabelRc = (await fse.readFile(templateBabelPath)).toString();
 
         if (projectBabelRc === templateBabelRc) {
-          await fsp.unlink(projectBabelPath);
+          await fse.unlink(projectBabelPath);
           log(
             chalk.green(
               `The template .babelrc is no longer necessary after ejecting.
@@ -194,7 +194,7 @@ If you have a .babelrc in your project, make sure to change the preset to \`reac
 
       log(`Updating your ${npmOrYarn} scripts in package.json...`);
 
-      await fsp.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
+      await fse.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
 
       log(chalk.green('Your package.json is up to date!'));
 
@@ -206,8 +206,8 @@ import App from './App';
 AppRegistry.registerComponent('${newName}', () => App);
 `;
 
-      await fsp.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
-      await fsp.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
+      await fse.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
+      await fse.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
 
       log(chalk.green('Added new entry points!'));
 
@@ -247,7 +247,7 @@ async function filesUsingExpoSdk(): Promise<Array<string>> {
   const projectJsFiles = await findJavaScriptProjectFilesInRoot(process.cwd());
 
   const jsFileContents = (await Promise.all(
-    projectJsFiles.map(f => fsp.readFile(f))
+    projectJsFiles.map(f => fse.readFile(f))
   )).map((buf, i) => {
     return {
       filename: projectJsFiles[i],
@@ -288,7 +288,7 @@ async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<str
     return [];
   }
 
-  const stats = await fsp.stat(root);
+  const stats = await fse.stat(root);
 
   if (stats.isFile()) {
     if (root.endsWith('.js')) {
@@ -297,7 +297,7 @@ async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<str
       return [];
     }
   } else if (stats.isDirectory()) {
-    const children = await fsp.readdir(root);
+    const children = await fse.readdir(root);
 
     // we want to do this concurrently in large project folders
     const jsFilesInChildren = await Promise.all(
