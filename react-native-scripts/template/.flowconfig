@@ -24,7 +24,7 @@
 .*/node_modules/reqwest/tests/*
 
 ; Ignore missing expo-sdk dependencies (temporarily)
-; https://github.com/exponent/exponent-sdk/issues/36
+; https://github.com/expo/expo/issues/162
 .*/node_modules/expo/src/*
 
 ; Ignore react-native-fbads dependency of the expo sdk
