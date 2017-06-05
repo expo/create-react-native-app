@@ -32,24 +32,26 @@ Create React Native App allows you to work with all of the [Components and APIs]
 
 ## Getting Started
 
-### Installation
-
-Install it once globally:
-
-```sh
-$ npm install -g create-react-native-app
-  # or
-$ yarn global add create-react-native-app
-```
+### Prerequisite
 
 You'll need to have Node v6 or later on your machine. We strongly recommend using npm v3, v4, or a recent version of Yarn. Create React Native App does not currently work with npm v5 due to bugs in npm ([you can track the issue here](https://github.com/react-community/create-react-native-app/issues/233#issuecomment-305638103)).
 
-### Creating an App
+### Initialize a New Project
 
-To create a new app, run:
+Install Create React Native App globally, then create a new project:
+
+##### npm
 
 ```sh
+$ npm install -g create-react-native-app
 $ create-react-native-app my-app
+$ cd my-app
+```
+
+#### Yarn
+
+```sh
+$ yarn create react-native-app my-app
 $ cd my-app
 ```
 
