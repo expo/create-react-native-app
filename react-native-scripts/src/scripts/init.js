@@ -25,6 +25,30 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
   const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
 
+  // FIXME(perry) remove when npm 5 is supported
+  if (!useYarn) {
+    let npmVersion = spawn.sync('npm', ['--version']).stdout.toString().trim();
+
+    if (npmVersion.startsWith('5')) {
+      console.log(chalk.yellow(`
+*******************************************************************************
+ERROR: npm 5 is not supported yet
+*******************************************************************************
+
+It looks like you're using npm 5 which was recently released.
+
+Create React Native App doesn't work with npm 5 yet, unfortunately. We
+recommend using npm 4 or yarn until some bugs are resolved.
+
+You can follow the known issues with npm 5 at:
+https://github.com/npm/npm/issues/16991
+
+*******************************************************************************
+ `));
+      process.exit(1);
+    }
+  }
+
   const readmeExists: boolean = await pathExists(path.join(appPath, 'README.md'));
   if (readmeExists) {
     await fse.rename(path.join(appPath, 'README.md'), path.join(appPath, 'README.old.md'));
