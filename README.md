@@ -9,7 +9,7 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 
 ## Quick Overview
 
-Make sure you have Node 6 or later installed. No Xcode or Android Studio installation is required.
+Make sure you have Node v6 or later installed. No Xcode or Android Studio installation is required.
 
 ```sh
 $ npm install -g create-react-native-app
