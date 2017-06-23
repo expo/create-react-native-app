@@ -52,6 +52,15 @@ async function cleanUpPackager(projectDir) {
   }
 }
 
+function shouldIgnoreMsg(msg) {
+  return (
+    msg.indexOf('Duplicate module name: bser') >= 0 ||
+    msg.indexOf('Duplicate module name: fb-watchman') >= 0 ||
+    msg.indexOf('Warning: React.createClass is no longer supported') >= 0 ||
+    msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0
+  );
+}
+
 function run(onReady: () => ?any, options: Object = {}) {
   let packagerReady = false;
   let needsClear = false;
@@ -60,6 +69,16 @@ function run(onReady: () => ?any, options: Object = {}) {
   const projectDir = process.cwd();
 
   const handleLogChunk = chunk => {
+    // pig, meet lipstick
+    // 1. https://github.com/facebook/react-native/issues/14620
+    // 2. https://github.com/facebook/react-native/issues/14610
+    // 3. https://github.com/react-community/create-react-native-app/issues/229#issuecomment-308654303
+    // @ide is investigating 3), the first two are upstream issues that will
+    // likely be resolved by others
+    if (shouldIgnoreMsg(chunk.msg)) {
+      return;
+    }
+
     // we don't need to print the entire manifest when loading the app
     if (chunk.msg.indexOf(' with appParams: ') >= 0) {
       if (needsClear) {
