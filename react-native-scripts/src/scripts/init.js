@@ -16,7 +16,7 @@ const DEFAULT_DEPENDENCIES = {
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '~1.0.2',
+  'jest-expo': '~18.0.0',
   'react-test-renderer': '16.0.0-alpha.12',
 };
 
