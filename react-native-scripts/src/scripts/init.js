@@ -9,15 +9,15 @@ import log from '../util/log';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^17.0.0',
-  react: '16.0.0-alpha.6',
-  'react-native': '^0.44.0',
+  expo: '^18.0.1',
+  react: '16.0.0-alpha.12',
+  'react-native': '^0.45.1',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '~1.0.1',
-  'react-test-renderer': '16.0.0-alpha.6',
+  'jest-expo': '~1.0.2',
+  'react-test-renderer': '16.0.0-alpha.12',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
@@ -30,7 +30,9 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
     let npmVersion = spawn.sync('npm', ['--version']).stdout.toString().trim();
 
     if (npmVersion.startsWith('5')) {
-      console.log(chalk.yellow(`
+      console.log(
+        chalk.yellow(
+          `
 *******************************************************************************
 ERROR: npm 5 is not supported yet
 *******************************************************************************
@@ -44,7 +46,9 @@ You can follow the known issues with npm 5 at:
 https://github.com/npm/npm/issues/16991
 
 *******************************************************************************
- `));
+ `
+        )
+      );
       process.exit(1);
     }
   }
