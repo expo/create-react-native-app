@@ -9,7 +9,7 @@ import log from '../util/log';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^18.0.1',
+  expo: '^18.0.3',
   react: '16.0.0-alpha.12',
   'react-native': '^0.45.1',
 };
