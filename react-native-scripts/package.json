@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "fly",
-    "build": "fly babel"
+    "build": "fly build"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
