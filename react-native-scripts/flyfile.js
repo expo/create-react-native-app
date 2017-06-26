@@ -11,9 +11,13 @@ export default async function (fly) {
 }
 
 export async function babel(fly, opts) {
-  await fly.clear(paths.build).source(opts.src || paths.source).babel().target(paths.build);
+  await fly.source(opts.src || paths.source).babel().target(paths.build);
 }
 
 export async function clean(fly) {
   await fly.clear(paths.build);
+}
+
+export async function build(fly, opts) {
+  await fly.serial(['clean', 'babel'], opts);
 }
