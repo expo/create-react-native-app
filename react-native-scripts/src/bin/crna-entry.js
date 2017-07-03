@@ -1,10 +1,10 @@
 import Expo from 'expo';
 import App from '../../../../App';
-import React from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
 
 // we don't want this to require transformation
-class AwakeInDevApp extends React.Component {
+class AwakeInDevApp extends Component {
   render() {
     return React.createElement(
       View,
