@@ -36,7 +36,7 @@
     "progress": "^2.0.0",
     "qrcode-terminal": "^0.11.0",
     "xdl": "42.0.0",
-    "bunyan": "1.8.10"
+    "@expo/bunyan": "1.8.10"
   },
   "devDependencies": {
     "babel-plugin-add-module-exports": "^0.2.1",
