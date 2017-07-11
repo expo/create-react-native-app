@@ -3,7 +3,7 @@
 import { PackagerLogsStream, Project, ProjectSettings, ProjectUtils } from 'xdl';
 
 import ProgressBar from 'progress';
-import bunyan from 'bunyan';
+import bunyan from '@expo/bunyan';
 import chalk from 'chalk';
 
 import log from './log';
