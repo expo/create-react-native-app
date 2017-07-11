@@ -159,7 +159,7 @@ function getInstallPackage(version: ?string): string {
   let packageToInstall = 'react-native-scripts';
   const validSemver = semver.valid(version);
   if (validSemver) {
-    packageToInstall += '@' + validSemver;
+    packageToInstall += `@${validSemver}`;
   } else if (version) {
     // for tar.gz or alternative paths
     packageToInstall = version;
