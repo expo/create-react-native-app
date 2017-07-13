@@ -20,7 +20,7 @@ const argv = minimist(process.argv.slice(2));
  *   --version - to print current version
  *   --verbose - to print npm logs during init
  *   --scripts-version <alternative package>
- *   --force-npm - to force to use npm as package manager
+ *   --package-manager <package manager name or path>
  *     Example of valid values:
  *     - a specific npm version: "0.22.0-rc1"
  *     - a .tgz archive from npm: "https://registry.npmjs.org/react-native-scripts/-/react-native-scripts-0.20.0.tgz"
@@ -28,7 +28,7 @@ const argv = minimist(process.argv.slice(2));
  */
 const commands = argv._;
 const cwd = process.cwd();
-const forceNpm = argv['force-npm']
+const packageManager = argv['package-manager'];
 
 if (commands.length === 0) {
   if (argv.version) {
@@ -42,13 +42,8 @@ if (commands.length === 0) {
 
 createApp(commands[0], !!argv.verbose, argv['scripts-version']).then(() => {});
 
-// if --force-npm option is specified, forced to use npm
-// if else, use yarn if it's available, otherwise use npm
-function shouldUseYarn() {
+function isRespondYarn() {
   try {
-    if (forceNpm) {
-      return false
-    }
     const result = spawn.sync('yarnpkg', ['--version'], { stdio: 'ignore' });
     if (result.error || result.status !== 0) {
       return false;
@@ -56,6 +51,31 @@ function shouldUseYarn() {
     return true;
   } catch (e) {
     return false;
+  }
+}
+
+// This decides the 'interface' of the package managing command.
+// Ex: If it guesses the type of package manager as 'yarn', 
+//     then it executes '(yarn) add' command instead of '(npm) install'.
+function packageManagerType() {
+  const defaultType = 'npm';
+  const supportedTypes = ['yarn', 'npm'];
+
+  if (packageManager) {
+    let t = supportedTypes.find(type => {
+      return (packageManager.indexOf(type)>-1);
+    })
+    return t ? t : defaultType;
+  }
+
+  return isRespondYarn() ? 'yarn' : defaultType;
+}
+
+function packageManagerCmd() {
+  if ( packageManager ) {
+    return packageManager;
+  } else {
+    return packageManagerType() === 'yarn' ? 'yarnpkg' : 'npm';
   }
 }
 
@@ -85,6 +105,7 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
   await fse.writeFile(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2));
   process.chdir(root);
 
+  console.log(`Using package manager as ${packageManagerCmd()} with ${packageManagerType()} interface.`)
   console.log('Installing packages. This might take a couple minutes.');
   console.log('Installing react-native-scripts...');
   console.log();
@@ -97,11 +118,11 @@ function install(
   verbose: boolean,
   callback: (code: number, command: string, args: Array<string>) => Promise<void>
 ): void {
-  const useYarn = shouldUseYarn();
-  let args, cmd, result;
+  const type = packageManagerType();
+  let args, result;
+  let cmd = packageManagerCmd();
 
-  if (useYarn) {
-    cmd = 'yarnpkg';
+  if ( type === 'yarn' ) {
     args = ['add'];
 
     if (verbose) {
@@ -116,7 +137,6 @@ function install(
     if (verbose) {
       args.push('--verbose');
     }
-    cmd = 'npm';
     args = args.concat(['--save-dev', '--save-exact', packageToInstall]);
 
     result = spawn.sync(cmd, args, { stdio: 'inherit' });
