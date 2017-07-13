@@ -20,6 +20,7 @@ const argv = minimist(process.argv.slice(2));
  *   --version - to print current version
  *   --verbose - to print npm logs during init
  *   --scripts-version <alternative package>
+ *   --force-npm - to force to use npm as package manager
  *     Example of valid values:
  *     - a specific npm version: "0.22.0-rc1"
  *     - a .tgz archive from npm: "https://registry.npmjs.org/react-native-scripts/-/react-native-scripts-0.20.0.tgz"
@@ -27,6 +28,7 @@ const argv = minimist(process.argv.slice(2));
  */
 const commands = argv._;
 const cwd = process.cwd();
+const forceNpm = argv['force-npm']
 
 if (commands.length === 0) {
   if (argv.version) {
@@ -40,9 +42,13 @@ if (commands.length === 0) {
 
 createApp(commands[0], !!argv.verbose, argv['scripts-version']).then(() => {});
 
-// use yarn if it's available, otherwise use npm
+// if --force-npm option is specified, forced to use npm
+// if else, use yarn if it's available, otherwise use npm
 function shouldUseYarn() {
   try {
+    if (forceNpm) {
+      return false
+    }
     const result = spawn.sync('yarnpkg', ['--version'], { stdio: 'ignore' });
     if (result.error || result.status !== 0) {
       return false;
