@@ -42,7 +42,7 @@ if (commands.length === 0) {
 
 createApp(commands[0], !!argv.verbose, argv['scripts-version']).then(() => {});
 
-function isRespondYarn() {
+function userHasYarn() {
   try {
     const result = spawn.sync('yarnpkg', ['--version'], { stdio: 'ignore' });
     if (result.error || result.status !== 0) {
@@ -68,7 +68,7 @@ function packageManagerType() {
     return t ? t : defaultType;
   }
 
-  return isRespondYarn() ? 'yarn' : defaultType;
+  return userHasYarn() ? 'yarn' : defaultType;
 }
 
 function packageManagerCmd() {
