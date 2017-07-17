@@ -1,4 +1,5 @@
 # Create React Native App
+[![npm version](https://badge.fury.io/js/create-react-native-app.svg)](https://badge.fury.io/js/create-react-native-app)
 
 Create React Native apps with no build configuration.
 
