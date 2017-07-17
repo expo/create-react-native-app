@@ -29,7 +29,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
   if (!useYarn) {
     let npmVersion = spawn.sync('npm', ['--version']).stdout.toString().trim();
 
-    if (npmVersion.startsWith('5')) {
+    if (npmVersion.match(/\d+/)[0] === '5') {
       console.log(
         chalk.yellow(
           `
