@@ -15,6 +15,7 @@ Below you'll find information about performing common tasks. The most recent ver
 * [Environment Variables](#environment-variables)
   * [Configuring Packager IP Address](#configuring-packager-ip-address)
 * [Adding Flow](#adding-flow)
+* [Adding ESLint](#adding-eslint)
 * [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
 * [Sharing and Deployment](#sharing-and-deployment)
   * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
@@ -141,6 +142,47 @@ Now you can run `npm run flow` (or `yarn flow`) to check the files for type erro
 You can optionally use a [plugin for your IDE or editor](https://flow.org/en/docs/editors/) for a better integrated experience.
 
 To learn more about Flow, check out [its documentation](https://flow.org/).
+
+## Adding ESLint
+
+[ESLint](http://eslint.org/) is a configurable javascript linter. ESLint can help standardize a style guide across the team.
+
+To add eslint to a Create React Native App project, follow these steps:
+
+1. Run `npm install --save-dev eslint eslint-plugin-react`
+2. Add `"lint": "eslint ."` to the `scripts` section of your `package.json`.
+3. Create a `.eslintrc` file in the project root which is used to configure how eslint should run.
+
+After configuring eslint, run `npm run lint` (or `yarn lint`) to check for linting erros.
+
+Here's a minimal eslint configuration file:
+
+```json
+{
+    "env": {
+        "es6": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
+    "parserOptions": {
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+            "jsx": true
+        },
+        "sourceType": "module"
+    },
+    "globals": {
+        "it": true,
+        "expect": true
+    },
+    "plugins": [
+        "react"
+    ]
+}
+```
+You can optionally use a [plugin for your IDE or editor](http://eslint.org/docs/user-guide/integrations) for a better integrated experience.
+There are various configurations available for eg: [eslint-config-airbnb](https://github.com/airbnb/javascript/tree/master/packages/eslint-config-airbnb), [eslint-config-standard](https://github.com/standard/eslint-config-standard).
+
+To learn more about eslint, check out [ESLint, Don't Write JavaScript Without It!](https://objectcomputing.com/resources/publications/sett/january-2017-eslint-dont-write-javascript-without-it)
 
 ## Sharing and Deployment
 
