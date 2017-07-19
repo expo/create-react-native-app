@@ -17,7 +17,9 @@ async function eject() {
 
     let expoSdkWarning;
     if (usingExpo) {
-      expoSdkWarning = `${chalk.bold('Warning!')} We found at least one file where your project imports the Expo SDK:
+      expoSdkWarning = `${chalk.bold(
+        'Warning!'
+      )} We found at least one file where your project imports the Expo SDK:
 `;
 
       for (let filename of filesWithExpo) {
@@ -25,7 +27,9 @@ async function eject() {
       }
 
       expoSdkWarning += `
-${chalk.yellow.bold('If you choose the "plain" React Native option below, these imports will stop working.')}`;
+${chalk.yellow.bold(
+        'If you choose the "plain" React Native option below, these imports will stop working.'
+      )}`;
     } else {
       expoSdkWarning = `\
 We didn't find any uses of the Expo SDK in your project, so you should be fine to eject to
@@ -37,7 +41,9 @@ We didn't find any uses of the Expo SDK in your project, so you should be fine t
 ${expoSdkWarning}
 
 We ${chalk.italic('strongly')} recommend that you read this document before you proceed:
-  ${chalk.cyan('https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md')}
+  ${chalk.cyan(
+    'https://github.com/react-community/create-react-native-app/blob/master/EJECTING.md'
+  )}
 
 Ejecting is permanent! Please be careful with your selection.
 `
@@ -46,9 +52,10 @@ Ejecting is permanent! Please be careful with your selection.
     let reactNativeOptionMessage = "React Native: I'd like a regular React Native project.";
 
     if (usingExpo) {
-      reactNativeOptionMessage = chalk.italic(
-        "(WARNING: See above message for why this option may break your project's build)\n  "
-      ) + reactNativeOptionMessage;
+      reactNativeOptionMessage =
+        chalk.italic(
+          "(WARNING: See above message for why this option may break your project's build)\n  "
+        ) + reactNativeOptionMessage;
     }
 
     const questions = [
@@ -63,7 +70,8 @@ Ejecting is permanent! Please be careful with your selection.
             value: 'raw',
           },
           {
-            name: "ExpoKit: I'll create or log in with an Expo account to use React Native and the Expo SDK.",
+            name:
+              "ExpoKit: I'll create or log in with an Expo account to use React Native and the Expo SDK.",
             value: 'expoKit',
           },
           {
@@ -80,11 +88,7 @@ Ejecting is permanent! Please be careful with your selection.
       const npmOrYarn = (await fse.exists(path.resolve('yarn.lock'))) ? 'yarnpkg' : 'npm';
       const appJson = JSON.parse(await fse.readFile(path.resolve('app.json')));
       const pkgJson = JSON.parse(await fse.readFile(path.resolve('package.json')));
-      let {
-        name: newName,
-        displayName: newDisplayName,
-        expo: { name: expName },
-      } = appJson;
+      let { name: newName, displayName: newDisplayName, expo: { name: expName } } = appJson;
 
       // we ask user to provide a project name (default is package name stripped of dashes)
       // but we want to infer some good default choices, especially if they've set them up in app.json

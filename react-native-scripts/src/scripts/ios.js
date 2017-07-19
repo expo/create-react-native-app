@@ -25,7 +25,9 @@ if (!Simulator.isPlatformSupported()) {
   );
   log(
     chalk.yellow(
-      `If you run \`${chalk.cyan(command + ' start')}\` then you can view your app on a physical device.\n`
+      `If you run \`${chalk.cyan(
+        command + ' start'
+      )}\` then you can view your app on a physical device.\n`
     )
   );
   process.exit(1);

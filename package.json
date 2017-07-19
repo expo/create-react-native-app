@@ -4,6 +4,6 @@
     "format": "prettier --single-quote --trailing-comma=es5 --print-width=100 --write '{create-react-native-app,react-native-scripts}/{src,template}/**/*.js'"
   },
   "devDependencies": {
-    "prettier": "^0.21.0"
+    "prettier": "^1.5.3"
   }
 }
