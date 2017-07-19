@@ -23,7 +23,9 @@ export async function detach() {
       `
 You'll need to specify an iOS bundle identifier. It must be unique on the App Store if you want to
 publish it there. See this StackOverflow question for more information:
-  ${chalk.cyan('https://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project')}
+  ${chalk.cyan(
+    'https://stackoverflow.com/questions/11347470/what-does-bundle-identifier-mean-in-the-ios-project'
+  )}
 `
     );
     const { iosBundleIdentifier } = await inquirer.prompt([
