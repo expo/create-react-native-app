@@ -55,7 +55,7 @@ function userHasYarn() {
 }
 
 // This decides the 'interface' of the package managing command.
-// Ex: If it guesses the type of package manager as 'yarn', 
+// Ex: If it guesses the type of package manager as 'yarn',
 //     then it executes '(yarn) add' command instead of '(npm) install'.
 function packageManagerType() {
   const defaultType = 'npm';
@@ -63,8 +63,8 @@ function packageManagerType() {
 
   if (packageManager) {
     let t = supportedTypes.find(type => {
-      return (packageManager.indexOf(type)>-1);
-    })
+      return packageManager.indexOf(type) > -1;
+    });
     return t ? t : defaultType;
   }
 
@@ -72,7 +72,7 @@ function packageManagerType() {
 }
 
 function packageManagerCmd() {
-  if ( packageManager ) {
+  if (packageManager) {
     return packageManager;
   } else {
     return packageManagerType() === 'yarn' ? 'yarnpkg' : 'npm';
@@ -105,7 +105,9 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
   await fse.writeFile(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2));
   process.chdir(root);
 
-  console.log(`Using package manager as ${packageManagerCmd()} with ${packageManagerType()} interface.`)
+  console.log(
+    `Using package manager as ${packageManagerCmd()} with ${packageManagerType()} interface.`
+  );
   console.log('Installing packages. This might take a couple minutes.');
   console.log('Installing react-native-scripts...');
   console.log();
@@ -122,7 +124,7 @@ function install(
   let args, result;
   let cmd = packageManagerCmd();
 
-  if ( type === 'yarn' ) {
+  if (type === 'yarn') {
     args = ['add'];
 
     if (verbose) {
