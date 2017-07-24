@@ -8,11 +8,6 @@ import chalk from 'chalk';
 
 import log from './log';
 
-// TODO get babel output that's nice enough to let it take over the console
-function clearConsole() {
-  process.stdout.write(process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H');
-}
-
 function installExitHooks(projectDir) {
   if (process.platform === 'win32') {
     require('readline')
