@@ -60,8 +60,7 @@ Your phone will need to be on the same local network as this computer.
 
 For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('https://expo.io'))}.
 
-Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
-`
+Logs from serving your app will appear here. Press Ctrl+C at any time to stop.`
     );
     printUsage();
   });
@@ -69,8 +68,8 @@ Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
 
 function printUsage() {
   const devMode = chalk.bold(dev ? 'development' : 'production');
-  log(
-    `${chalk.bold('Usage')}
+  log(`
+${chalk.bold('Usage')}
  ${chalk.dim('\u203A Press')} a ${chalk.dim('to open Android device or emulator.')}
  ${chalk.dim('\u203A Press')} i ${chalk.dim('to open iOS emulator.')}
  ${chalk.dim('\u203A Press')} q ${chalk.dim('to display QR code.')}
@@ -88,6 +87,7 @@ async function handleKeypress(key) {
     case CTRL_C:
     case CTRL_D:
       process.exit();
+      return;
     case 'a': {
       clearConsole();
       log.withTimestamp('Starting Android...');
@@ -130,7 +130,12 @@ async function handleKeypress(key) {
       clearConsole();
       dev = !dev;
       await ProjectSettings.setAsync(process.cwd(), { dev });
-      log(`Packager now running in ${chalk.bold(dev ? 'development' : 'production')} mode.`);
+      log(
+        `Packager now running in ${chalk.bold(dev ? 'development' : 'production')} mode.
+
+Please close and reopen the project in the Expo app for the
+change to take effect.`
+      );
       printUsage();
       return;
   }
