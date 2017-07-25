@@ -57,7 +57,6 @@ Or enter this address in the Expo app's search bar:
   ${chalk.underline(chalk.cyan(address))}
 
 Your phone will need to be on the same local network as this computer.
-
 For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('https://expo.io'))}.
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.`
@@ -67,15 +66,14 @@ Logs from serving your app will appear here. Press Ctrl+C at any time to stop.`
 }
 
 function printUsage() {
+  const { dim } = chalk;
   const devMode = chalk.bold(dev ? 'development' : 'production');
   log(`
-${chalk.bold('Usage')}
- ${chalk.dim('\u203A Press')} a ${chalk.dim('to open Android device or emulator.')}
- ${chalk.dim('\u203A Press')} i ${chalk.dim('to open iOS emulator.')}
- ${chalk.dim('\u203A Press')} q ${chalk.dim('to display QR code.')}
- ${chalk.dim('\u203A Press')} r ${chalk.dim('to restart packager.')}
- ${chalk.dim('\u203A Press')} R ${chalk.dim('to restart packager and clear cache.')}
- ${chalk.dim('\u203A Press')} d ${chalk.dim('to toggle development mode. (current mode: ' + devMode)})`
+ ${dim(`\u203A Press`)} a ${dim(`to open Android device or emulator, or`)} i ${dim(`to open iOS emulator.`)}
+ ${dim(`\u203A Press`)} q ${dim(`to display QR code.`)}
+ ${dim(`\u203A Press`)} r ${dim(`to restart packager, or R to restart packager and clear cache.`)}
+ ${dim(`\u203A Press`)} d ${dim(`to toggle development mode. (current mode: ${devMode})`)}
+`
   );
 }
 
