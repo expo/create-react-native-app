@@ -68,8 +68,11 @@ Logs from serving your app will appear here. Press Ctrl+C at any time to stop.`
 function printUsage() {
   const { dim } = chalk;
   const devMode = chalk.bold(dev ? 'development' : 'production');
+  const iosInfo = process.platform === 'win32' ?
+    dim('.') :
+    `${dim(`, or`)} i ${dim(`to open iOS emulator.`)}`;
   log(`
- ${dim(`\u203A Press`)} a ${dim(`to open Android device or emulator, or`)} i ${dim(`to open iOS emulator.`)}
+ ${dim(`\u203A Press`)} a ${dim(`to open Android device or emulator`)}${iosInfo}
  ${dim(`\u203A Press`)} q ${dim(`to display QR code.`)}
  ${dim(`\u203A Press`)} r ${dim(`to restart packager, or R to restart packager and clear cache.`)}
  ${dim(`\u203A Press`)} d ${dim(`to toggle development mode. (current mode: ${devMode})`)}
