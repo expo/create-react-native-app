@@ -113,7 +113,7 @@ https://github.com/npm/npm/issues/16991
   let args = [];
 
   if (useYarn) {
-    command = 'yarnpkg';
+    command = 'yarn';
   } else {
     command = 'npm';
     args = ['install', '--save'];
@@ -126,9 +126,9 @@ https://github.com/npm/npm/issues/16991
   log(`Installing dependencies using ${command}...`);
   log(); // why is this here
 
-  if (command === 'yarnpkg') {
-    // it's weird to print a yarn alias that no one uses
-    command = 'yarn';
+  if (command === 'yarn') {
+    // Use the more unique `yarnpkg` alias to avoid naming conflicts with other tools.
+    command = 'yarnpkg';
   }
 
   const proc = spawn(command, args, { stdio: 'inherit' });
