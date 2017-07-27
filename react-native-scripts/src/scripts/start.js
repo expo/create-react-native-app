@@ -15,8 +15,10 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-const args = minimist(process.argv.slice(2), { boolean: ['--reset-cache'] });
-
+const args = minimist(process.argv.slice(2), {
+  boolean: ['reset-cache', 'interactive'],
+  default: { interactive: true },
+});
 let dev = true;
 
 const options = {};
@@ -25,12 +27,14 @@ if (args['reset-cache']) {
   log('Asking packager to reset its cache...');
 }
 
+let isInteractive = false;
 const { stdin } = process;
-if (typeof stdin.setRawMode === 'function') {
+if (args.interactive && typeof stdin.setRawMode === 'function') {
   stdin.setRawMode(true);
   stdin.resume();
   stdin.setEncoding('utf8');
   stdin.on('data', handleKeypress);
+  isInteractive = true;
 }
 
 packager.run(onReady, options);
@@ -66,6 +70,9 @@ Logs from serving your app will appear here. Press Ctrl+C at any time to stop.`
 }
 
 function printUsage() {
+  if (!isInteractive) {
+    return;
+  }
   const { dim } = chalk;
   const devMode = chalk.bold(dev ? 'development' : 'production');
   const iosInfo = process.platform === 'win32' ?
