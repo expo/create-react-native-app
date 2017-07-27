@@ -35,6 +35,7 @@
     "path-exists": "^3.0.0",
     "progress": "^2.0.0",
     "qrcode-terminal": "^0.11.0",
+    "rimraf": "^2.6.1",
     "xdl": "43.0.0",
     "@expo/bunyan": "1.8.10"
   },

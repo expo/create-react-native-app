@@ -5,6 +5,7 @@ import fse from 'fs-extra';
 import inquirer from 'inquirer';
 import matchRequire from 'match-require';
 import path from 'path';
+import rimraf from 'rimraf';
 import spawn from 'cross-spawn';
 import log from '../util/log';
 
@@ -77,7 +78,8 @@ Ejecting is permanent! Please be careful with your selection.
     const { ejectMethod } = await inquirer.prompt(questions);
 
     if (ejectMethod === 'raw') {
-      const npmOrYarn = (await fse.exists(path.resolve('yarn.lock'))) ? 'yarnpkg' : 'npm';
+      const useYarn = await fse.exists(path.resolve('yarn.lock'));
+      const npmOrYarn = useYarn ? 'yarn' : 'npm';
       const appJson = JSON.parse(await fse.readFile(path.resolve('app.json')));
       const pkgJson = JSON.parse(await fse.readFile(path.resolve('package.json')));
       let {
@@ -142,36 +144,41 @@ Ejecting is permanent! Please be careful with your selection.
         log('Successfully copied template native code.');
       }
 
-      // if the project .babelrc matches the template one, then we don't need to have it around anymore
-      // if it doesn't, then print a warning
+      const newDevDependencies = [];
+      // Try to replace the Babel preset.
       try {
-        const projectBabelPath = path.resolve(process.cwd(), '.babelrc');
-        const projectBabelRc = (await fse.readFile(projectBabelPath)).toString();
+        const projectBabelPath = path.resolve('.babelrc');
+        // If .babelrc doesn't exist, the app is using the default config and
+        // editing the config is not necessary.
+        if (await fse.exists(projectBabelPath)) {
+          const projectBabelRc = (await fse.readFile(projectBabelPath)).toString();
 
-        const templateBabelPath = path.resolve(__dirname, '..', '..', 'template', '.babelrc');
-        const templateBabelRc = (await fse.readFile(templateBabelPath)).toString();
-
-        if (projectBabelRc === templateBabelRc) {
-          await fse.unlink(projectBabelPath);
-          log(
-            chalk.green(
-              `The template .babelrc is no longer necessary after ejecting.
-It has been successfully deleted.`
-            )
-          );
-        } else {
-          log(
-            chalk.yellow(
-              `It looks like you modified your .babelrc file.
-Make sure to change your babel preset to \`react-native\`.`
-            )
-          );
+          // We assume the .babelrc is valid JSON. If we can't parse it (e.g. if
+          // it's JSON5) the error is caught and a message asking to change it
+          // manually gets printed.
+          const babelRcJson = JSON.parse(projectBabelRc);
+          if (babelRcJson.presets && babelRcJson.presets.includes('babel-preset-expo')) {
+            babelRcJson.presets = babelRcJson.presets.map(
+              preset =>
+                preset === 'babel-preset-expo'
+                  ? 'babel-preset-react-native-stage-0/decorator-support'
+                  : preset
+            );
+            await fse.writeFile(projectBabelPath, JSON.stringify(babelRcJson, null, 2));
+            newDevDependencies.push('babel-preset-react-native-stage-0');
+            log(
+              chalk.green(
+                `Babel preset changed to \`babel-preset-react-native-stage-0/decorator-support\`.`
+              )
+            );
+          }
         }
       } catch (e) {
         log(
           chalk.yellow(
             `We had an issue preparing your .babelrc for ejection.
-If you have a .babelrc in your project, make sure to change the preset to \`react-native\`.`
+If you have a .babelrc in your project, make sure to change the preset
+from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-support\`.`
           )
         );
         log(chalk.red(e));
@@ -217,14 +224,24 @@ Note that using \`${npmOrYarn} start\` will now require you to run Xcode and/or
 Android Studio to build the native code for your project.`
       );
 
-      log(
-        chalk.yellow(
-          `
-It's recommended to delete your node_modules directory and rerun ${npmOrYarn}
-to ensure that the changes we made to package.json persist correctly.
-`
-        )
-      );
+      log('Removing node_modules...');
+      rimraf.sync(path.resolve('node_modules'));
+      if (useYarn) {
+        log('Installing packages with yarn...');
+        const args = newDevDependencies.length > 0 ? ['add', '--dev', ...newDevDependencies] : [];
+        spawn.sync('yarnpkg', args, { stdio: 'inherit' });
+      } else {
+        // npm prints the whole package tree to stdout unless we ignore it.
+        const stdio = [process.stdin, 'ignore', process.stderr];
+
+        log('Installing existing packages with npm...');
+        spawn.sync('npm', ['install'], { stdio });
+
+        if (newDevDependencies.length > 0) {
+          log('Installing new packages with npm...');
+          spawn.sync('npm', ['install', '--save-dev', ...newDevDependencies], { stdio });
+        }
+      }
     } else if (ejectMethod === 'expoKit') {
       await detach();
     } else {

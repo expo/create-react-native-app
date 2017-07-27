@@ -3153,9 +3153,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@42.4.0:
-  version "42.4.0"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-42.4.0.tgz#eeae75398090d642c55fce8e955edbf44ea416a0"
+xdl@43.0.0:
+  version "43.0.0"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-43.0.0.tgz#d73392fcc654ee22a0d466b6acb782453bfb6a2a"
   dependencies:
     "@ccheever/crayon" "^5.0.0"
     "@expo/bunyan" "^1.8.10"
