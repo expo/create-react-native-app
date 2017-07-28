@@ -94,7 +94,7 @@ async function handleKeypress(key) {
   switch (key) {
     case CTRL_C:
     case CTRL_D:
-      process.exit();
+      process.emit('SIGINT');
       return;
     case 'a': {
       clearConsole();
