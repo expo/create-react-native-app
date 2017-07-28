@@ -20,6 +20,17 @@ If you do need to eject to build your own distribution package or to include you
 
 `npm run eject` will start the process of ejecting from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project. Once this command has successfully run, you should also follow any steps below that are applicable to your environment.
 
+##### Non-interactive Ejection Process
+
+If you want to run the ejection process in an automated or CI environment, you can use:
+```sh
+npm run eject -- -eject-params raw,MyAppName,MyProjectName
+```
+All params are required:
+1. Eject method: Allowed values are: `raw` or `expoKit`
+2. App name
+3. Project name
+
 ### Ejecting to Regular React Native
 
 This will give you a project very similar to one created by `react-native init`. Make sure to install the `react-native-cli` tool:
