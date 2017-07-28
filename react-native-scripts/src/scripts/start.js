@@ -73,8 +73,8 @@ function printUsage() {
   if (!isInteractive) {
     return;
   }
-  const { dim } = chalk;
-  const devMode = chalk.bold(dev ? 'development' : 'production');
+  const { dim, bold } = chalk;
+  const devMode = dev ? 'development' : 'production';
   const iosInfo = process.platform === 'win32'
     ? dim('.')
     : `${dim(`, or`)} i ${dim(`to open iOS emulator.`)}`;
@@ -83,7 +83,7 @@ function printUsage() {
  ${dim(`\u203A Press`)} a ${dim(`to open Android device or emulator`)}${iosInfo}
  ${dim(`\u203A Press`)} q ${dim(`to display QR code.`)}
  ${dim(`\u203A Press`)} r ${dim(`to restart packager, or`)} R ${dim(`to restart packager and clear cache.`)}
- ${dim(`\u203A Press`)} d ${dim(`to toggle development mode. (current mode: ${devMode})`)}
+ ${dim(`\u203A Press`)} d ${dim(`to toggle development mode. (current mode: ${bold(devMode)}${chalk.reset.dim(')')}`)}
 `
   );
 }
@@ -140,7 +140,7 @@ async function handleKeypress(key) {
       dev = !dev;
       await ProjectSettings.setAsync(process.cwd(), { dev });
       log(
-        `Packager now running in ${chalk.bold(dev ? 'development' : 'production')} mode.
+        `Packager now running in ${chalk.bold(dev ? 'development' : 'production')}${chalk.reset(` mode.`)}
 
 Please close and reopen the project in the Expo app for the
 change to take effect.`
