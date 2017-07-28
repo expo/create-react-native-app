@@ -8,13 +8,8 @@ import chalk from 'chalk';
 
 import log from './log';
 
-// TODO get babel output that's nice enough to let it take over the console
-function clearConsole() {
-  process.stdout.write(process.platform === 'win32' ? '\x1Bc' : '\x1B[2J\x1B[3J\x1B[H');
-}
-
-function installExitHooks(projectDir) {
-  if (process.platform === 'win32') {
+function installExitHooks(projectDir, isInteractive) {
+  if (!isInteractive && process.platform === 'win32') {
     require('readline')
       .createInterface({
         input: process.stdin,
@@ -59,7 +54,7 @@ function shouldIgnoreMsg(msg) {
     msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0;
 }
 
-function run(onReady: () => ?any, options: Object = {}) {
+function run(onReady: () => ?any, options: Object = {}, isInteractive = false) {
   let packagerReady = false;
   let needsClear = false;
   let logBuffer = '';
@@ -184,7 +179,7 @@ function run(onReady: () => ?any, options: Object = {}) {
     type: 'raw',
   });
 
-  installExitHooks(projectDir);
+  installExitHooks(projectDir, isInteractive);
   log.withTimestamp('Starting packager...');
 
   Project.startAsync(projectDir, options).then(
