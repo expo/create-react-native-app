@@ -37,7 +37,7 @@ if (args.interactive && typeof stdin.setRawMode === 'function') {
   isInteractive = true;
 }
 
-packager.run(onReady, options);
+packager.run(onReady, options, isInteractive);
 
 function onReady() {
   log(chalk.green('Packager started!\n'));

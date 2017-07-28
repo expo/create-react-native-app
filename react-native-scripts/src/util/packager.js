@@ -5,20 +5,15 @@ import { PackagerLogsStream, Project, ProjectSettings, ProjectUtils } from 'xdl'
 import ProgressBar from 'progress';
 import bunyan from '@expo/bunyan';
 import chalk from 'chalk';
-import MuteStream from 'mute-stream';
 
 import log from './log';
 
-function installExitHooks(projectDir) {
-  if (process.platform === 'win32') {
-    const output = new MuteStream();
-    output.pipe(process.stdout);
-    // Hide the command prompt and entered characters.
-    output.mute();
+function installExitHooks(projectDir, isInteractive) {
+  if (!isInteractive && process.platform === 'win32') {
     require('readline')
       .createInterface({
         input: process.stdin,
-        output,
+        output: process.stdout,
       })
       .on('SIGINT', () => {
         process.emit('SIGINT');
@@ -59,7 +54,7 @@ function shouldIgnoreMsg(msg) {
     msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0;
 }
 
-function run(onReady: () => ?any, options: Object = {}) {
+function run(onReady: () => ?any, options: Object = {}, isInteractive = false) {
   let packagerReady = false;
   let needsClear = false;
   let logBuffer = '';
@@ -184,7 +179,7 @@ function run(onReady: () => ?any, options: Object = {}) {
     type: 'raw',
   });
 
-  installExitHooks(projectDir);
+  installExitHooks(projectDir, isInteractive);
   log.withTimestamp('Starting packager...');
 
   Project.startAsync(projectDir, options).then(
