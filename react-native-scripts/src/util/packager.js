@@ -5,15 +5,20 @@ import { PackagerLogsStream, Project, ProjectSettings, ProjectUtils } from 'xdl'
 import ProgressBar from 'progress';
 import bunyan from '@expo/bunyan';
 import chalk from 'chalk';
+import MuteStream from 'mute-stream';
 
 import log from './log';
 
 function installExitHooks(projectDir) {
   if (process.platform === 'win32') {
+    const output = new MuteStream();
+    output.pipe(process.stdout);
+    // Hide the command prompt and entered characters.
+    output.mute();
     require('readline')
       .createInterface({
         input: process.stdin,
-        output: process.stdout,
+        output,
       })
       .on('SIGINT', () => {
         process.emit('SIGINT');
@@ -48,12 +53,10 @@ async function cleanUpPackager(projectDir) {
 }
 
 function shouldIgnoreMsg(msg) {
-  return (
-    msg.indexOf('Duplicate module name: bser') >= 0 ||
+  return msg.indexOf('Duplicate module name: bser') >= 0 ||
     msg.indexOf('Duplicate module name: fb-watchman') >= 0 ||
     msg.indexOf('Warning: React.createClass is no longer supported') >= 0 ||
-    msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0
-  );
+    msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0;
 }
 
 function run(onReady: () => ?any, options: Object = {}) {
