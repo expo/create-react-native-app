@@ -58,7 +58,6 @@ Or enter this address in the Expo app's search bar:
   ${chalk.underline(chalk.cyan(address))}
 
 Your phone will need to be on the same local network as this computer.
-
 For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('https://expo.io'))}.
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.

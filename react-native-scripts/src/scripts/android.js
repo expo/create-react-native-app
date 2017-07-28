@@ -15,8 +15,6 @@ Config.validation.reactNativeVersionWarnings = false;
 Config.developerTool = 'crna';
 Config.offline = true;
 
-const command: string = pathExists.sync(path.join(process.cwd(), 'yarn.lock')) ? 'yarnpkg' : 'npm';
-
 packager.run(startAndroidAndPrintInfo);
 
 // print a nicely formatted message with setup information
@@ -40,7 +38,6 @@ Or enter this address in the Expo app's search bar:
   ${chalk.underline(chalk.cyan(address))}
 
 Your phone will need to be on the same local network as this computer.
-
 For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('https://expo.io'))}.
 
 Logs from serving your app will appear here. Press Ctrl+C at any time to stop.
