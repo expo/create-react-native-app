@@ -1,3 +1,20 @@
+## 1.1.0 (July 28, 2017)
+
+#### Bug Fixes
+
+* Switch Babel preset on eject ([#328](https://github.com/react-community/create-react-native-app/pull/328))
+* Fix yarnpkg alias usage in the init script ([#329](https://github.com/react-community/create-react-native-app/pull/329))
+
+#### Features
+
+* Add interactive mode with keyboard commands ([#326](https://github.com/react-community/create-react-native-app/pull/326))
+* Include whether dev or production is enabled in "Running app on" message ([655960](https://github.com/react-community/create-react-native-app/commit/655960090393673ec0a6208a1afac8f6821664e5))
+
+#### Committers
+
+* fson
+* brentvatne
+
 ## 1.0 (July 24, 2017)
 
 #### Bug Fixes
