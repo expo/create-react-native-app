@@ -78,7 +78,10 @@ function run(onReady: () => ?any, options: Object = {}, isInteractive = false) {
         // this is set when we previously encountered an error
         // TODO clearConsole();
       }
-      log.withTimestamp(`Running app on ${chunk.deviceName}\n`);
+      let devEnabled = chunk.msg.includes('__DEV__ === true');
+      log.withTimestamp(
+        `Running app on ${chunk.deviceName} in ${devEnabled ? 'development' : 'production'} mode\n`
+      );
       return;
     }
 
