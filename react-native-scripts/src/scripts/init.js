@@ -113,7 +113,7 @@ https://github.com/npm/npm/issues/16991
   let args = [];
 
   if (useYarn) {
-    command = 'yarn';
+    command = 'yarnpkg';
   } else {
     command = 'npm';
     args = ['install', '--save'];
@@ -123,13 +123,9 @@ https://github.com/npm/npm/issues/16991
     }
   }
 
-  log(`Installing dependencies using ${command}...`);
+  const npmOrYarn = useYarn ? 'yarn' : 'npm';
+  log(`Installing dependencies using ${npmOrYarn}...`);
   log(); // why is this here
-
-  if (command === 'yarn') {
-    // Use the more unique `yarnpkg` alias to avoid naming conflicts with other tools.
-    command = 'yarnpkg';
-  }
 
   const proc = spawn(command, args, { stdio: 'inherit' });
   proc.on('close', code => {
@@ -153,30 +149,30 @@ https://github.com/npm/npm/issues/16991
 Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
 
-  ${chalk.cyan(command + ' start')}
+  ${chalk.cyan(npmOrYarn + ' start')}
     Starts the development server so you can open your app in the Expo
     app on your phone.
 
-  ${chalk.cyan(command + ' run ios')}
+  ${chalk.cyan(npmOrYarn + ' run ios')}
     (Mac only, requires Xcode)
     Starts the development server and loads your app in an iOS simulator.
 
-  ${chalk.cyan(command + ' run android')}
+  ${chalk.cyan(npmOrYarn + ' run android')}
     (Requires Android build tools)
     Starts the development server and loads your app on a connected Android
     device or emulator.
 
-  ${chalk.cyan(command + ' test')}
+  ${chalk.cyan(npmOrYarn + ' test')}
     Starts the test runner.
 
-  ${chalk.cyan(command + ' run eject')}
+  ${chalk.cyan(npmOrYarn + ' run eject')}
     Removes this tool and copies build dependencies, configuration files
     and scripts into the app directory. If you do this, you can’t go back!
 
 We suggest that you begin by typing:
 
   ${chalk.cyan('cd ' + cdpath)}
-  ${chalk.cyan(command + ' start')}`
+  ${chalk.cyan(npmOrYarn + ' start')}`
     );
 
     if (readmeExists) {
