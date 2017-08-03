@@ -101,25 +101,30 @@ Ejecting is permanent! Please be careful with your selection.
         newDisplayName = expName;
       }
 
+      const validateEnteredDisplayname = s => { return s.length > 0; }
+      const validateEnteredName = s => { return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1; }
+
       log("We have a couple of questions to ask you about how you'd like to name your app:");
       const { enteredName, enteredDisplayname } = parameters !== null ? parameters : await inquirer.prompt([
         {
           name: 'enteredDisplayname',
           message: "What should your app appear as on a user's home screen?",
           default: newDisplayName,
-          validate: s => {
-            return s.length > 0;
-          },
+          validate: validateEnteredDisplayname,
         },
         {
           name: 'enteredName',
           message: 'What should your Android Studio and Xcode projects be called?',
           default: newName,
-          validate: s => {
-            return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1;
-          },
+          validate: validateEnteredName,
         },
       ]);
+      if (!validateEnteredName(enteredName)) {
+        throw new Error("Invalid enteredName");
+      }
+      if (!validateEnteredDisplayname(enteredDisplayname)) {
+        throw new Error("Invalid enteredDisplayname");
+      }
 
       appJson.name = enteredName;
       appJson.displayName = enteredDisplayname;
