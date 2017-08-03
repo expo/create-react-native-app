@@ -11,7 +11,10 @@ import log from '../util/log';
 
 import { detach } from '../util/expo';
 
-async function eject() {
+async function eject(parameters) {
+  if (typeof parameters === 'undefined') {
+    parameters = null;
+  }
   try {
     const filesWithExpo = await filesUsingExpoSdk();
     const usingExpo = filesWithExpo.length > 0;
@@ -75,7 +78,7 @@ Ejecting is permanent! Please be careful with your selection.
       },
     ];
 
-    const { ejectMethod } = await inquirer.prompt(questions);
+    const { ejectMethod } = parameters !== null ? parameters : await inquirer.prompt(questions);
 
     if (ejectMethod === 'raw') {
       const useYarn = await fse.exists(path.resolve('yarn.lock'));
@@ -99,7 +102,7 @@ Ejecting is permanent! Please be careful with your selection.
       }
 
       log("We have a couple of questions to ask you about how you'd like to name your app:");
-      const { enteredName, enteredDisplayname } = await inquirer.prompt([
+      const { enteredName, enteredDisplayname } = parameters !== null ? parameters : await inquirer.prompt([
         {
           name: 'enteredDisplayname',
           message: "What should your app appear as on a user's home screen?",
@@ -328,13 +331,17 @@ async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<str
   }
 }
 
-eject()
-  .then(() => {
-    // the expo local github auth server leaves a setTimeout for 5 minutes
-    // so we need to explicitly exit (for now, this will be resolved in the nearish future)
-    process.exit(0);
-  })
-  .catch(e => {
-    console.error(`Problem running eject: ${e}`);
-    process.exit(1);
-  });
+if (require.main === module) {
+  eject()
+    .then(() => {
+      // the expo local github auth server leaves a setTimeout for 5 minutes
+      // so we need to explicitly exit (for now, this will be resolved in the nearish future)
+      process.exit(0);
+    })
+    .catch(e => {
+      console.error(`Problem running eject: ${e}`);
+      process.exit(1);
+    });
+} else {
+  module.exports = { eject: eject };
+}
