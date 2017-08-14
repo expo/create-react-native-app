@@ -31,7 +31,16 @@ if (!Simulator.isPlatformSupported()) {
   process.exit(1);
 }
 
-packager.run(startSimulatorAndPrintInfo);
+if (!!process.env['REACT_NATIVE_SIMULATOR_ONLY']) {
+  log(
+    chalk.yellow(
+      `\nStarting iOS Simulator only because enviropment variable \`${chalk.cyan('REACT_NATIVE_SIMULATOR_ONLY')}\` is set.\n`
+    )
+  )
+  startSimulatorOnly();
+} else {
+  packager.run(startSimulatorAndPrintInfo);
+}
 
 // print a nicely formatted message with setup information
 async function startSimulatorAndPrintInfo() {
@@ -66,6 +75,36 @@ If you restart the simulator or change the simulated hardware, you may need to r
 `
       );
     });
+  } else {
+    log.withTimestamp(
+      `${chalk.red('Failed to start simulator:')}
+
+${msg}
+
+${chalk.red('Exiting...')}`
+    );
+    process.exit(0);
+  }
+}
+
+// print simulator status message
+async function startSimulatorOnly() {
+
+  let packager_address;
+
+  if (!!process.env['REACT_NATIVE_PACKAGER_HOSTNAME']) {
+    packager_address = process.env['REACT_NATIVE_PACKAGER_HOSTNAME']
+  } else {
+    packager_address = await UrlUtils.constructManifestUrlAsync(process.cwd(), {
+      hostType: 'localhost',
+    });
+  }
+
+  log.withTimestamp('Starting simulator...');
+  const { success, msg } = await Simulator.openUrlInSimulatorSafeAsync(packager_address);
+
+  if (success) {
+    log.withTimestamp(`${chalk.green('Simulator started!')}`);
   } else {
     log.withTimestamp(
       `${chalk.red('Failed to start simulator:')}
