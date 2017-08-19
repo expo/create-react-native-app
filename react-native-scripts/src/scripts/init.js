@@ -9,14 +9,14 @@ import log from '../util/log';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^19.0.0',
+  expo: '^20.0.0',
   react: '16.0.0-alpha.12',
-  'react-native': '^0.46.1',
+  'react-native': '^0.47.0',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '~19.0.0',
+  'jest-expo': '~20.0.0',
   'react-test-renderer': '16.0.0-alpha.12',
 };
 
