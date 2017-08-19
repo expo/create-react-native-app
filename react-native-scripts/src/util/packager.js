@@ -63,33 +63,30 @@ function run(onReady: () => ?any, options: Object = {}, isInteractive = false) {
   const projectDir = process.cwd();
 
   if (process.platform !== 'win32') {
-    if (process.platform === 'darwin') {
+    const watchmanExists = spawn.sync('which', ['watchman']).status === 0;
+
+    if (process.platform === 'darwin' && !watchmanExists) {
       const watcherDetails = spawn.sync('sysctl', ['kern.maxfiles']).stdout.toString();
       if (parseInt(watcherDetails.split(':')[1].trim()) < 5242880) {
         log.withTimestamp(
-          `
-The number of files that can be watched is too low. Please set it to higher number.
-Please use:
+          `${chalk.red(`Unable to start server`)}
+See https://git.io/v5vcn for more information, either install watchman or run the following snippet:
 ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
   sudo sysctl -w kern.maxfilesperproc=524288`)}
-and start again.
         `
         );
         process.exit(1);
       }
-    } else {
+    } else if (!watchmanExists) {
       const watcherDetails = spawn
         .sync('sysctl', ['fs.inotify.max_user_watches'])
         .stdout.toString();
       if (parseInt(watcherDetails.split('=')[1].trim()) < 12288) {
         log.withTimestamp(
-          `
-The number of directories that can be watched is too low. Please set it to higher number.
-Please use:
+          `${chalk.red(`Unable to start server`)}
+See https://git.io/v5vcn for more information, either install watchman or run the following snippet:
 ${chalk.cyan(`  sudo sysctl -w fs.inotify.max_user_instances=1024
-  sudo sysctl -w fs.inotify.max_user_watches=12288`)}
-and start again.
-        `
+  sudo sysctl -w fs.inotify.max_user_watches=12288`)}`
         );
         process.exit(1);
       }
