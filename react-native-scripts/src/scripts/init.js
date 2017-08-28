@@ -6,6 +6,7 @@ import path from 'path';
 import pathExists from 'path-exists';
 import spawn from 'cross-spawn';
 import log from '../util/log';
+import install from '../util/install';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
@@ -24,6 +25,7 @@ module.exports = async (appPath: string, appName: string, verbose: boolean, cwd:
   const ownPackageName: string = require('../../package.json').name;
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
   const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
+  const npmOrYarn = useYarn ? 'yarn' : 'npm';
 
   // FIXME(perry) remove when npm 5 is supported
   if (!useYarn) {
@@ -107,44 +109,24 @@ https://github.com/npm/npm/issues/16991
       throw err;
     }
   }
-
-  // Run yarn or npm
-  let command = '';
-  let args = [];
-
-  if (useYarn) {
-    command = 'yarnpkg';
-  } else {
-    command = 'npm';
-    args = ['install', '--save'];
-
-    if (verbose) {
-      args.push('--verbose');
-    }
+  const { code, command, args } = await install(appPath);
+  if (code !== 0) {
+    console.error('Failed to install');
+    // console.error(`\`${command} ${args.join(' ')}\` failed`);
+    return;
   }
 
-  const npmOrYarn = useYarn ? 'yarn' : 'npm';
-  log(`Installing dependencies using ${npmOrYarn}...`);
-  log(); // why is this here
+  // display the cleanest way to get to the app dir
+  // if the cwd + appName is equal to the full path, then just cd into appName
+  let cdpath;
+  if (path.resolve(cwd, appName) === appPath) {
+    cdpath = appName;
+  } else {
+    cdpath = appPath;
+  }
 
-  const proc = spawn(command, args, { stdio: 'inherit' });
-  proc.on('close', code => {
-    if (code !== 0) {
-      console.error(`\`${command} ${args.join(' ')}\` failed`);
-      return;
-    }
-
-    // display the cleanest way to get to the app dir
-    // if the cwd + appName is equal to the full path, then just cd into appName
-    let cdpath;
-    if (path.resolve(cwd, appName) === appPath) {
-      cdpath = appName;
-    } else {
-      cdpath = appPath;
-    }
-
-    log(
-      `
+  log(
+    `
 
 Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
@@ -173,16 +155,15 @@ We suggest that you begin by typing:
 
   ${chalk.cyan('cd ' + cdpath)}
   ${chalk.cyan(npmOrYarn + ' start')}`
-    );
+  );
 
-    if (readmeExists) {
-      log(
-        `
+  if (readmeExists) {
+    log(
+      `
 ${chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`')}`
-      );
-    }
+    );
+  }
 
-    log();
-    log('Happy hacking!');
-  });
+  log();
+  log('Happy hacking!');
 };

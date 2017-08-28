@@ -2,7 +2,7 @@
 
 import chalk from 'chalk';
 
-function log() {
+function log(data: any) {
   const args = Array.prototype.slice.call(arguments, 0);
 
   respectProgressBars(() => {
@@ -10,7 +10,7 @@ function log() {
   });
 }
 
-log.withTimestamp = function() {
+log.withTimestamp = function(data: any) {
   const prefix = chalk.dim(new Date().toLocaleTimeString()) + ':';
   const args = [prefix].concat(Array.prototype.slice.call(arguments, 0));
 

@@ -4,6 +4,7 @@ import chalk from 'chalk';
 import fse from 'fs-extra';
 import inquirer from 'inquirer';
 import path from 'path';
+import install from '../util/install';
 
 import { Detach, User as UserManager, Versions } from 'xdl';
 
@@ -67,13 +68,7 @@ publish it there. See this StackOverflow question for more information:
 
   const pkgJson = JSON.parse((await fse.readFile(path.resolve('package.json'))).toString());
 
-  const entryPoint = `import Expo from 'expo';
-import App from './App';
-
-Expo.registerRootComponent(App);
-`;
-  await fse.writeFile('index.js', entryPoint);
-  pkgJson.main = 'index.js';
+  pkgJson.main = 'node_modules/expo/AppEntry.js';
 
   delete pkgJson.devDependencies['react-native-scripts'];
   delete pkgJson.scripts.start;
@@ -85,21 +80,35 @@ Expo.registerRootComponent(App);
   const versions = await Versions.versionsAsync();
   const sdkTag = versions.sdkVersions[appJson.expo.sdkVersion].expoReactNativeTag;
 
-  pkgJson.dependencies[
-    'react-native'
-  ] = `https://github.com/expo/react-native/archive/${sdkTag}.tar.gz`;
-
   await fse.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
 
+  console.log('Installing the Expo fork of react-native...');
+  const reactNativeVersion = `https://github.com/expo/react-native/archive/${sdkTag}.tar.gz`;
+  const {
+    code,
+  } = await install(process.cwd(), 'react-native', reactNativeVersion, {
+    silent: true,
+  });
+
+  if (code === 0) {
+    console.log(`${chalk.green('Successfully set up ExpoKit!')}`);
+  } else {
+    console.warn(
+      `
+      ${chalk.yellow('Unable to install the Expo fork of react-native.')}
+      ${chalk.yellow(`Please install react-native@${reactNativeVersion} before continuing.`)}
+    `
+    );
+  }
+
   console.log(
-    `${chalk.green('Successfully set up ExpoKit!')}
+    `
+  You'll need to use Expo's XDE to run this project:
+    ${chalk.cyan('https://docs.expo.io/versions/latest/introduction/installation.html')}
 
-You'll need to use Expo's XDE to run this project:
-  ${chalk.cyan('https://docs.expo.io/versions/latest/introduction/installation.html')}
-
-For further instructions, please read ExpoKit's build documentation:
-  ${chalk.cyan('https://docs.expo.io/versions/latest/guides/expokit.html')}
-`
+  For further instructions, please read ExpoKit's build documentation:
+    ${chalk.cyan('https://docs.expo.io/versions/latest/guides/expokit.html')}
+  `
   );
 }
 

@@ -239,7 +239,9 @@ Android Studio to build the native code for your project.`
 
         if (newDevDependencies.length > 0) {
           log('Installing new packages with npm...');
-          spawn.sync('npm', ['install', '--save-dev', ...newDevDependencies], { stdio });
+          spawn.sync('npm', ['install', '--save-dev', ...newDevDependencies], {
+            stdio,
+          });
         }
       }
     } else if (ejectMethod === 'expoKit') {
