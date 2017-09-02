@@ -1,3 +1,13 @@
+## 1.3.1 (September 2, 2017)
+
+#### Bug Fixes
+
+* Fix an issue where `stdout` is null when validating inotify watches in some rare cases that I don't understand yet. (https://github.com/react-community/create-react-native-app/issues/234)
+
+#### Committers
+
+* brentvatne
+
 ## 1.3.0 (August 28, 2017)
 
 #### Bug Fixes

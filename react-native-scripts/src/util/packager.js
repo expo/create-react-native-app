@@ -1,6 +1,11 @@
 // @flow
 
-import { PackagerLogsStream, Project, ProjectSettings, ProjectUtils } from 'xdl';
+import {
+  PackagerLogsStream,
+  Project,
+  ProjectSettings,
+  ProjectUtils,
+} from 'xdl';
 
 import spawn from 'cross-spawn';
 import ProgressBar from 'progress';
@@ -40,7 +45,9 @@ async function cleanUpPackager(projectDir) {
   if (result === 'stopFailed') {
     // find RN packager pid, attempt to kill manually
     try {
-      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(projectDir);
+      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(
+        projectDir
+      );
       process.kill(packagerPid);
     } catch (e) {
       process.exit(1);
@@ -66,7 +73,9 @@ function run(onReady: () => ?any, options: Object = {}, isInteractive = false) {
     const watchmanExists = spawn.sync('which', ['watchman']).status === 0;
 
     if (process.platform === 'darwin' && !watchmanExists) {
-      const watcherDetails = spawn.sync('sysctl', ['kern.maxfiles']).stdout.toString();
+      const watcherDetails = spawn
+        .sync('sysctl', ['kern.maxfiles'])
+        .stdout.toString();
       if (parseInt(watcherDetails.split(':')[1].trim()) < 5242880) {
         log.withTimestamp(
           `${chalk.red(`Unable to start server`)}
@@ -78,17 +87,25 @@ ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
         process.exit(1);
       }
     } else if (!watchmanExists) {
-      const watcherDetails = spawn
-        .sync('sysctl', ['fs.inotify.max_user_watches'])
-        .stdout.toString();
-      if (parseInt(watcherDetails.split('=')[1].trim()) < 12288) {
+      try {
+        const watcherDetails = spawn
+          .sync('sysctl', ['fs.inotify.max_user_watches'])
+          .stdout.toString();
+        if (parseInt(watcherDetails.split('=')[1].trim()) < 12288) {
+          log.withTimestamp(
+            `${chalk.red(`Unable to start server`)}
+  See https://git.io/v5vcn for more information, either install watchman or run the following snippet:
+  ${chalk.cyan(`  sudo sysctl -w fs.inotify.max_user_instances=1024
+    sudo sysctl -w fs.inotify.max_user_watches=12288`)}`
+          );
+          process.exit(1);
+        }
+      } catch (e) {
+        // note(brentvatne): I'm not sure why stdout is null for some OS's
+        // https://github.com/react-community/create-react-native-app/issues/391
         log.withTimestamp(
-          `${chalk.red(`Unable to start server`)}
-See https://git.io/v5vcn for more information, either install watchman or run the following snippet:
-${chalk.cyan(`  sudo sysctl -w fs.inotify.max_user_instances=1024
-  sudo sysctl -w fs.inotify.max_user_watches=12288`)}`
+          'Warning: Unable to run `sysctl fs.inotify.max_user_watches`. If you encounter issues, please refer to https://git.io/v5vcn'
         );
-        process.exit(1);
       }
     }
   }
@@ -151,12 +168,15 @@ ${chalk.cyan(`  sudo sysctl -w fs.inotify.max_user_instances=1024
   let packagerLogsStream = new PackagerLogsStream({
     projectRoot: projectDir,
     onStartBuildBundle: () => {
-      progressBar = new ProgressBar('Building JavaScript bundle [:bar] :percent', {
-        total: 100,
-        clear: true,
-        complete: '=',
-        incomplete: ' ',
-      });
+      progressBar = new ProgressBar(
+        'Building JavaScript bundle [:bar] :percent',
+        {
+          total: 100,
+          clear: true,
+          complete: '=',
+          incomplete: ' ',
+        }
+      );
 
       log.setBundleProgressBar(progressBar);
     },
@@ -178,7 +198,9 @@ ${chalk.cyan(`  sudo sysctl -w fs.inotify.max_user_instances=1024
           log.withTimestamp(chalk.red(`Failed building JavaScript bundle`));
         } else {
           let duration = endTime - startTime;
-          log.withTimestamp(chalk.green(`Finished building JavaScript bundle in ${duration}ms`));
+          log.withTimestamp(
+            chalk.green(`Finished building JavaScript bundle in ${duration}ms`)
+          );
         }
       }
     },
