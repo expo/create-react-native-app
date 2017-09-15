@@ -26,9 +26,9 @@
     babel-runtime "^6.23.0"
     exec-async "^2.2.0"
 
-"@expo/schemer@^1.0.28":
-  version "1.0.43"
-  resolved "https://registry.yarnpkg.com/@expo/schemer/-/schemer-1.0.43.tgz#e5129f904c192b79dc88e952d8ce5e6bfa158eb6"
+"@expo/schemer@1.0.44":
+  version "1.0.44"
+  resolved "https://registry.yarnpkg.com/@expo/schemer/-/schemer-1.0.44.tgz#d74a94ba0217f160c1a86ce1c6a42f581485a542"
   dependencies:
     ajv "^5.2.2"
     babel-polyfill "^6.23.0"
@@ -1774,10 +1774,6 @@ invariant@^2.0.0, invariant@^2.2.0:
   dependencies:
     loose-envify "^1.0.0"
 
-ip@^1.1.3:
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/ip/-/ip-1.1.5.tgz#bdded70114290828c0a039e72ef25f5aaec4354a"
-
 ipaddr.js@1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/ipaddr.js/-/ipaddr.js-1.3.0.tgz#1e03a52fdad83a8bbb2b25cbf4998b4cffcd3dec"
@@ -3342,14 +3338,14 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@44.0.0:
-  version "44.0.0"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-44.0.0.tgz#72ef1231c12d88348141814076c96c54ad0903a0"
+xdl@45.0.0-alpha.0:
+  version "45.0.0-alpha.0"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-45.0.0-alpha.0.tgz#f9877e9a91b2319c054a22b763e754d3d3ee628f"
   dependencies:
     "@expo/bunyan" "^1.8.10"
     "@expo/json-file" "^5.3.0"
     "@expo/osascript" "^1.8.0"
-    "@expo/schemer" "^1.0.28"
+    "@expo/schemer" "1.0.44"
     "@expo/spawn-async" "^1.2.8"
     analytics-node "^2.1.0"
     auth0 "^2.7.0"
@@ -3369,7 +3365,6 @@ xdl@44.0.0:
     home-dir "^1.0.0"
     indent-string "^3.1.0"
     instapromise "2.0.7-rc.1"
-    ip "^1.1.3"
     joi "^10.0.2"
     jsonfile "^2.3.1"
     jsonschema "^1.1.0"
