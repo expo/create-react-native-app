@@ -7,6 +7,7 @@ import {
   ProjectUtils,
 } from 'xdl';
 
+import _ from 'lodash';
 import spawn from 'cross-spawn';
 import ProgressBar from 'progress';
 import bunyan from '@expo/bunyan';
@@ -62,7 +63,11 @@ function shouldIgnoreMsg(msg) {
     msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0;
 }
 
-function run(onReady: () => ?any, options: Object = {}, isInteractive = false) {
+function run(
+  onReady: () => ?any,
+  options: Object = {},
+  isInteractive?: boolean = false
+) {
   let packagerReady = false;
   let needsClear = false;
   let logBuffer = '';
@@ -142,13 +147,9 @@ ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
 
     if (packagerReady) {
       const message = `${chunk.msg.trim()}\n`;
-      if (chunk.level <= bunyan.INFO) {
-        log.withTimestamp(message);
-      } else if (chunk.level === bunyan.WARN) {
-        log.withTimestamp(chalk.yellow(message));
-      } else {
-        log.withTimestamp(chalk.red(message));
+      logWithLevel(chunk);
 
+      if (chunk.level === bunyan.ERROR) {
         // if you run into a syntax error then we should clear log output on reload
         needsClear = message.indexOf('SyntaxError') >= 0;
       }
@@ -247,5 +248,85 @@ ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
     }
   );
 }
+
+const logStackTrace = (chunk, logFn, nestedLogFn, colorFn) => {
+  let traceInfo;
+  try {
+    traceInfo = JSON.parse(chunk.msg);
+  } catch (e) {
+    return logFn(colorFn(chunk.msg));
+  }
+
+  let { message, stack } = traceInfo;
+  logFn(colorFn(chalk.bold(message)));
+
+  const isLibraryFrame = line => {
+    return line.startsWith('node_modules');
+  };
+
+  let stackFrames = _.compact(stack.split('\n'));
+  let lastAppCodeFrameIndex = _.findLastIndex(stackFrames, line => {
+    return !isLibraryFrame(line);
+  });
+  let lastFrameIndexToLog = Math.min(
+    stackFrames.length - 1,
+    lastAppCodeFrameIndex + 2 // show max two more frames after last app code frame
+  );
+  let unloggedFrames = stackFrames.length - lastFrameIndexToLog;
+
+  // If we're only going to exclude one frame, just log them all
+  if (unloggedFrames === 1) {
+    lastFrameIndexToLog = stackFrames.length - 1;
+    unloggedFrames = 0;
+  }
+
+  for (let i = 0; i <= lastFrameIndexToLog; i++) {
+    let line = stackFrames[i];
+    if (!line) {
+      continue;
+    } else if (line.match(/react-native\/.*YellowBox.js/)) {
+      continue;
+    }
+
+    if (line.startsWith('node_modules')) {
+      nestedLogFn(colorFn('- ' + line));
+    } else {
+      nestedLogFn(colorFn('* ' + line));
+    }
+  }
+
+  if (unloggedFrames > 0) {
+    nestedLogFn(
+      colorFn(
+        `- ... ${unloggedFrames} more stack frames from framework internals`
+      )
+    );
+  }
+};
+
+const logWithLevel = chunk => {
+  if (!chunk.msg) {
+    return;
+  }
+
+  let colorFn = (str) => str;
+  if (chunk.level === bunyan.WARN) {
+    colorFn = chalk.yellow;
+  } else if (chunk.level === bunyan.ERROR) {
+    colorFn = chalk.red;
+  }
+
+  if (chunk.includesStack) {
+    logStackTrace(chunk, log.withTimestamp, log, colorFn);
+  } else {
+    logLines(chunk.msg, log.withTimestamp, colorFn);
+  }
+};
+
+const logLines = (msg, logFn, colorFn) => {
+  for (let line of msg.split('\n')) {
+    logFn(colorFn(line));
+  }
+};
 
 export default { run };
