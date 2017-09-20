@@ -3,6 +3,8 @@
   "scripts": {
     "format": "prettier --single-quote --trailing-comma=es5 --print-width=100 --write '{create-react-native-app,react-native-scripts}/{src,template}/**/*.js'"
   },
+  "name": "create-react-native-app",
+  "version" : 1.0.0,
   "devDependencies": {
     "prettier": "^0.21.0"
   }
