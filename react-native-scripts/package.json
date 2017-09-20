@@ -21,7 +21,7 @@
   },
   "scripts": {
     "start": "taskr",
-    "build": "taskr build"
+    "build": "taskr build && chmod +x build/bin/react-native-scripts.js"
   },
   "dependencies": {
     "babel-runtime": "^6.9.2",
