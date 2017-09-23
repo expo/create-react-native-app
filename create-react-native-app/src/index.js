@@ -59,8 +59,6 @@ function userHasYarn() {
 //     then it executes '(yarn) add' command instead of '(npm) install'.
 function packageManagerType() {
   const defaultType = 'npm';
-  const supportedTypes = ['yarn', 'npm'];
-
   const supportedTypes = ['yarn', 'npm', 'pnpm'];
 
   if (packageManager) {
