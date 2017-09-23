@@ -22,9 +22,9 @@ const argv = minimist(process.argv.slice(2));
  *   --scripts-version <alternative package>
  *   --package-manager <package manager name or path>
  *     Example of valid values:
- *     - a specific npm version: '0.22.0-rc1'
- *     - a .tgz archive from npm: 'https://registry.npmjs.org/react-native-scripts/-/react-native-scripts-0.20.0.tgz'
- *     - a package from `tasks/clean_pack.sh`: '/home/adam/create-react-native-app/react-native-scripts-0.22.0.tgz'
+ *     - a specific npm version: "0.22.0-rc1"
+ *     - a .tgz archive from npm: "https://registry.npmjs.org/react-native-scripts/-/react-native-scripts-0.20.0.tgz"
+ *     - a package from `tasks/clean_pack.sh`: "/home/adam/create-react-native-app/react-native-scripts-0.22.0.tgz"
  */
 const commands = argv._;
 const cwd = process.cwd();
@@ -36,9 +36,7 @@ if (commands.length === 0) {
     console.log(`create-react-native-app version: ${version}`);
     process.exit();
   }
-  console.error(
-    'Usage: create-react-native-app <project-directory> [--verbose]'
-  );
+  console.error('Usage: create-react-native-app <project-directory> [--verbose]');
   process.exit(1);
 }
 
@@ -61,6 +59,8 @@ function userHasYarn() {
 //     then it executes '(yarn) add' command instead of '(npm) install'.
 function packageManagerType() {
   const defaultType = 'npm';
+  const supportedTypes = ['yarn', 'npm'];
+
   const supportedTypes = ['yarn', 'npm', 'pnpm'];
 
   if (packageManager) {
@@ -79,11 +79,7 @@ function packageManagerCmd() {
   }
 }
 
-async function createApp(
-  name: string,
-  verbose: boolean,
-  version: ?string
-): Promise<void> {
+async function createApp(name: string, verbose: boolean, version: ?string): Promise<void> {
   const root = path.resolve(name);
   const appName = path.basename(root);
 
@@ -94,9 +90,7 @@ async function createApp(
   if (!await pathExists(name)) {
     await fse.mkdir(root);
   } else if (!await isSafeToCreateProjectIn(root)) {
-    console.log(
-      `The directory \`${name}\` contains file(s) that could conflict. Aborting.`
-    );
+    console.log(`The directory \`${name}\` contains file(s) that could conflict. Aborting.`);
     process.exit(1);
   }
 
@@ -106,12 +100,9 @@ async function createApp(
   const packageJson = {
     name: appName,
     version: '0.1.0',
-    private: true
+    private: true,
   };
-  await fse.writeFile(
-    path.join(root, 'package.json'),
-    JSON.stringify(packageJson, null, 2)
-  );
+  await fse.writeFile(path.join(root, 'package.json'), JSON.stringify(packageJson, null, 2));
   process.chdir(root);
 
   console.log(
@@ -127,11 +118,7 @@ async function createApp(
 function install(
   packageToInstall: string,
   verbose: boolean,
-  callback: (
-    code: number,
-    command: string,
-    args: Array<string>
-  ) => Promise<void>
+  callback: (code: number, command: string, args: Array<string>) => Promise<void>
 ): void {
   const type = packageManagerType();
   let args, result;
@@ -144,12 +131,7 @@ function install(
       args.push('--verbose');
     }
 
-    args = args.concat([
-      '--dev',
-      '--exact',
-      '--ignore-optional',
-      packageToInstall
-    ]);
+    args = args.concat(['--dev', '--exact', '--ignore-optional', packageToInstall]);
     result = spawn.sync(cmd, args, { stdio: 'inherit' });
   } else {
     args = ['install'];
@@ -178,31 +160,27 @@ async function run(
   packageToInstall: string,
   packageName: string
 ): Promise<void> {
-  install(
-    packageToInstall,
-    verbose,
-    async (code: number, command: string, args: Array<string>) => {
-      if (code !== 0) {
-        console.error(`\`${command} ${args.join(' ')}\` failed`);
-        return;
-      }
-
-      await checkNodeVersion(packageName);
-
-      const scriptsPath = path.resolve(
-        process.cwd(),
-        'node_modules',
-        packageName,
-        'build',
-        'scripts',
-        'init.js'
-      );
-
-      // $FlowFixMe (dikaiosune) maybe there's a way to convince flow this is legit?
-      const init = require(scriptsPath);
-      await init(root, appName, verbose, cwd);
+  install(packageToInstall, verbose, async (code: number, command: string, args: Array<string>) => {
+    if (code !== 0) {
+      console.error(`\`${command} ${args.join(' ')}\` failed`);
+      return;
     }
-  );
+
+    await checkNodeVersion(packageName);
+
+    const scriptsPath = path.resolve(
+      process.cwd(),
+      'node_modules',
+      packageName,
+      'build',
+      'scripts',
+      'init.js'
+    );
+
+    // $FlowFixMe (dikaiosune) maybe there's a way to convince flow this is legit?
+    const init = require(scriptsPath);
+    await init(root, appName, verbose, cwd);
+  });
 }
 
 function getInstallPackage(version: ?string): string {
@@ -238,12 +216,7 @@ function getPackageName(installPackage: string): string {
 }
 
 async function checkNodeVersion(packageName: string): Promise<void> {
-  const packageJsonPath = path.resolve(
-    process.cwd(),
-    'node_modules',
-    packageName,
-    'package.json'
-  );
+  const packageJsonPath = path.resolve(process.cwd(), 'node_modules', packageName, 'package.json');
 
   const packageJson = JSON.parse(await fse.readFile(packageJsonPath));
   if (!packageJson.engines || !packageJson.engines.node) {
@@ -270,7 +243,7 @@ function checkAppName(appName: string, packageName: string): void {
     'expo',
     'vector-icons',
     'react',
-    'react-native'
+    'react-native',
   ];
 
   if (allDependencies.indexOf(appName) >= 0) {
@@ -296,14 +269,7 @@ function checkAppName(appName: string, packageName: string): void {
 
 // If project only contains files generated by GH, it’s safe
 async function isSafeToCreateProjectIn(root: string): Promise<boolean> {
-  const validFiles = [
-    '.DS_Store',
-    'Thumbs.db',
-    '.git',
-    '.gitignore',
-    'README.md',
-    'LICENSE'
-  ];
+  const validFiles = ['.DS_Store', 'Thumbs.db', '.git', '.gitignore', 'README.md', 'LICENSE'];
   return (await fse.readdir(root)).every(file => {
     return validFiles.indexOf(file) >= 0;
   });
