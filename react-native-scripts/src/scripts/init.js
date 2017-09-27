@@ -10,14 +10,14 @@ import install from '../util/install';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^21.0.0-rc.5',
+  expo: '^21.0.0',
   react: '16.0.0-alpha.12',
-  'react-native': '^0.48.3',
+  'react-native': '^0.48.4',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '~20.0.0',
+  'jest-expo': '^21.0.2',
   'react-test-renderer': '16.0.0-alpha.12',
 };
 
