@@ -1,3 +1,37 @@
+## 1.3.1 (September 2, 2017)
+
+#### Bug Fixes
+
+* Fix an issue where `stdout` is null when validating inotify watches in some rare cases that I don't understand yet. (https://github.com/react-community/create-react-native-app/issues/234)
+
+#### Committers
+
+* brentvatne
+
+## 1.3.0 (August 28, 2017)
+
+#### Bug Fixes
+
+* Force installation of Expo fork of react-native when ejecting to ExpoKit. (Fixes: https://forums.expo.io/t/exp-detach-build-failed-on-brand-new-create-react-native-app-eject/2610)
+
+#### Committers
+
+* brentvatne
+
+## 1.2.1 (August 19, 2017)
+
+#### Improvements
+
+* Update to Expo SDK 20
+* Warn if OS file watcher config is too low and watchman is not installed
+
+#### Committers
+
+* arahansen
+* ro-savage
+* vs1682
+* brentvatne
+
 ## 1.1.0 (July 28, 2017)
 
 #### Bug Fixes

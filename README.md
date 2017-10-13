@@ -116,7 +116,7 @@ If you're sure that you need custom native code, please read the [ejecting guide
 
 ### How do I get my app into the Play Store/App Store?
 
-If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Expo's standalone app builds](https://docs.expo.io/versions/v13.0.0/guides/building-standalone-apps.html) to publish your pure JS app.
+If you need to build IPAs and APKs for publishing to the App Store and/or Play Store, you can either eject (see above guide) and build them yourself using Xcode and Android Studio, or you can use a service like [Expo's standalone app builds](https://docs.expo.io/versions/latest/guides/building-standalone-apps.html) to publish your pure JS app.
 
 ## Contributing
 

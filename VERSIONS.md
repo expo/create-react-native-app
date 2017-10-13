@@ -18,3 +18,5 @@ Each version of these dependencies is only compatible with a narrow version rang
 | 0.44.x         | 16.0.0-alpha.6  | 17.x.x | `"17.0.0"`               |
 | 0.45.x         | 16.0.0-alpha.12 | 18.x.x | `"18.0.0"`               |
 | 0.46.x         | 16.0.0-alpha.12 | 19.x.x | `"19.0.0"`               |
+| 0.47.x         | 16.0.0-alpha.12 | 20.x.x | `"20.0.0"`               |
+| 0.48.x         | 16.0.0-alpha.12 | 21.x.x | `"21.0.0"`               |
