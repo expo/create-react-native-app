@@ -205,16 +205,14 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
 
       log(chalk.green('Your package.json is up to date!'));
 
-      // FIXME now we need to provide platform-specific entry points until upstream uses a single one
-      log(`Adding platform-specific entry points...`);
+      log(`Adding entry point...`);
 
       const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
 import App from './App';
 AppRegistry.registerComponent('${newName}', () => App);
 `;
 
-      await fse.writeFile(path.resolve('index.ios.js'), lolThatsSomeComplexCode);
-      await fse.writeFile(path.resolve('index.android.js'), lolThatsSomeComplexCode);
+      await fse.writeFile(path.resolve('index.js'), lolThatsSomeComplexCode);
 
       log(chalk.green('Added new entry points!'));
 
