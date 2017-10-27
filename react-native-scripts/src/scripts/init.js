@@ -12,7 +12,7 @@ import install from '../util/install';
 const DEFAULT_DEPENDENCIES = {
   expo: '^22.0.0',
   react: '16.0.0-beta.5',
-  'react-native': '^0.49.3',
+  'react-native': '^0.49.5',
 };
 
 // TODO figure out how this interacts with ejection
