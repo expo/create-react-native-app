@@ -1,3 +1,11 @@
+## 1.7.0 (November 2, 2017)
+
+Release notes for previous releases between 1.3.1 and 1.7.0 were not include here as they only included React Native version bumps.
+
+#### Bug Fixes
+
+* Fix Flow config, works on new projects now as expected.
+
 ## 1.3.1 (September 2, 2017)
 
 #### Bug Fixes

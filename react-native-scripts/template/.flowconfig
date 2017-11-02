@@ -2,47 +2,52 @@
 ; We fork some components by platform
 .*/*[.]android.js
 
+; Ignore templates for 'react-native init'
+.*/local-cli/templates/.*
+
+; Ignore the website subdir
+<PROJECT_ROOT>/node_modules/react-native/website/.*
+
+; Ignore the Dangerfile
+<PROJECT_ROOT>/node_modules/react-native/danger/dangerfile.js
+
 ; Ignore "BUCK" generated dirs
-<PROJECT_ROOT>/\.buckd/
+<PROJECT_ROOT>/node_modules/react-native/\.buckd/
 
 ; Ignore unexpected extra "@providesModule"
 .*/node_modules/.*/node_modules/fbjs/.*
+.*/node_modules/fbemitter/.*
 
 ; Ignore duplicate module providers
 ; For RN Apps installed via npm, "Libraries" folder is inside
 ; "node_modules/react-native" but in the source repo it is in the root
 .*/Libraries/react-native/React.js
-.*/Libraries/react-native/ReactNative.js
 
-; Additional create-react-native-app ignores
-
-; Ignore duplicate module providers
-.*/node_modules/fbemitter/lib/*
+; Ignore polyfills
+.*/Libraries/polyfills/.*
 
 ; Ignore misbehaving dev-dependencies
-.*/node_modules/xdl/build/*
-.*/node_modules/reqwest/tests/*
+.*/node_modules/reqwest/.*
+.*/node_modules/xdl/.*
 
-; Ignore missing expo-sdk dependencies (temporarily)
+; Ignore expo dependencies
+
+; Ignore Expo SDK + some of it's dependencies temporarily:
 ; https://github.com/expo/expo/issues/162
-.*/node_modules/expo/src/*
-
-; Ignore react-native-fbads dependency of the expo sdk
-.*/node_modules/react-native-fbads/*
+.*/node_modules/expo/src/.*
+.*/node_modules/react-native-gesture-handler/.*
 
 [include]
 
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
-node_modules/react-native/flow
-flow/
+node_modules/react-native/flow/
+node_modules/expo/flow/
 
 [options]
-module.system=haste
-
 emoji=true
 
-experimental.strict_type_args=true
+module.system=haste
 
 munge_underscores=true
 
@@ -50,14 +55,16 @@ module.name_mapper='^[./a-zA-Z0-9$_-]+\.\(bmp\|gif\|jpg\|jpeg\|png\|psd\|svg\|we
 
 suppress_type=$FlowIssue
 suppress_type=$FlowFixMe
+suppress_type=$FlowFixMeProps
+suppress_type=$FlowFixMeState
 suppress_type=$FixMe
 
-suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(4[0-9]\\|[1-3][0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)
-suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(4[0-9]\\|[1-3][0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native[a-z,_]*\\)?)\\)?:? #[0-9]+
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe\\($\\|[^(]\\|(\\(>=0\\.\\(5[0-3]\\|[1-4][0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native_oss[a-z,_]*\\)?)\\)
+suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(5[0-3]\\|[1-4][0-9]\\|[0-9]\\).[0-9]\\)? *\\(site=[a-z,_]*react_native_oss[a-z,_]*\\)?)\\)?:? #[0-9]+
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 unsafe.enable_getters_and_setters=true
 
 [version]
-^0.49.1
+^0.53.0

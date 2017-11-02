@@ -10,7 +10,7 @@ import install from '../util/install';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^22.0.0',
+  expo: '^22.0.2',
   react: '16.0.0-beta.5',
   'react-native': '^0.49.5',
 };
