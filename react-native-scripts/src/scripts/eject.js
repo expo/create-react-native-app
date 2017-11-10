@@ -191,10 +191,14 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
       // missing native modules will cause
       delete pkgJson.dependencies.expo;
       delete pkgJson.devDependencies['react-native-scripts'];
+      delete pkgJson.devDependencies['jest-expo'];
 
       pkgJson.scripts.start = 'react-native start';
       pkgJson.scripts.ios = 'react-native run-ios';
       pkgJson.scripts.android = 'react-native run-android';
+
+      pkgJson.jest.preset = 'react-native';
+      newDevDependencies.push('jest-react-native');
 
       // no longer relevant to an ejected project (maybe build is?)
       delete pkgJson.scripts.eject;
