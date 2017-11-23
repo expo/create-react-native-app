@@ -90,13 +90,13 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
   checkAppName(appName, packageName);
   if (currentDirectory) {
     root = path.resolve('.');
-  } else {
-    if (!await pathExists(name)) {
+  } else if (!await pathExists(name)) {
       await fse.mkdir(root);
-    } else if (!await isSafeToCreateProjectIn(root)) {
-      console.log(`The directory \`${name}\` contains file(s) that could conflict. Aborting.`);
-      process.exit(1);
-    }
+  }
+
+  if (!await isSafeToCreateProjectIn(root)) {
+    console.log(`The directory \`${name}\` contains file(s) that could conflict. Aborting.`);
+    process.exit(1);
   }
 
   console.log(`Creating a new React Native app in ${root}.`);
