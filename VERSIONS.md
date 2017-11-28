@@ -21,3 +21,4 @@ Each version of these dependencies is only compatible with a narrow version rang
 | 0.47.x         | 16.0.0-alpha.12 | 20.x.x | `"20.0.0"`               |
 | 0.48.x         | 16.0.0-alpha.12 | 21.x.x | `"21.0.0"`               |
 | 0.49.x         | 16.0.0-beta.5   | 22.x.x | `"22.0.0"`               |
+| 0.50.x         | 16.0.0          | 23.x.x | `"23.0.0"`               |
