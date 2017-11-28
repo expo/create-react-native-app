@@ -1,3 +1,7 @@
+## 1.8.0 (November 27, 2017)
+
+Update for SDK 23.
+
 ## 1.7.0 (November 2, 2017)
 
 Release notes for previous releases between 1.3.1 and 1.7.0 were not include here as they only included React Native version bumps.
