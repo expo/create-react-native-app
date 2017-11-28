@@ -10,15 +10,15 @@ import install from '../util/install';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^22.0.2',
-  react: '16.0.0-beta.5',
-  'react-native': '^0.49.5',
+  expo: '^23.0.4',
+  react: '16.0.0',
+  'react-native': '0.50.3',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '^22.0.0',
-  'react-test-renderer': '16.0.0-beta.5',
+  'jest-expo': '23.0.0',
+  'react-test-renderer': '16.0.0',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
