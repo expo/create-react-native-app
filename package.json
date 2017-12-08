@@ -1,9 +1,20 @@
 {
   "private": true,
   "scripts": {
-    "format": "prettier --single-quote --trailing-comma=es5 --print-width=100 --write '{create-react-native-app,react-native-scripts}/{src,template}/**/*.js'"
+    "format": "prettier --single-quote --trailing-comma=es5 --print-width=100 --write '{create-react-native-app,react-native-scripts}/{src,template}/**/*.js'",
+    "test": "jest"
   },
   "devDependencies": {
+    "jest": "^21.2.1",
     "prettier": "^0.21.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [ "js" ],
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js)$",
+    "testPathIgnorePatterns": [
+      "\\.snap$",
+      "node_modules",
+      "template"
+    ]
   }
 }

@@ -8,6 +8,7 @@ import path from 'path';
 import rimraf from 'rimraf';
 import spawn from 'cross-spawn';
 import log from '../util/log';
+import { hasYarn } from '../util/pm';
 
 import { detach } from '../util/expo';
 
@@ -78,7 +79,7 @@ Ejecting is permanent! Please be careful with your selection.
     const { ejectMethod } = await inquirer.prompt(questions);
 
     if (ejectMethod === 'raw') {
-      const useYarn = await fse.exists(path.resolve('yarn.lock'));
+      const useYarn = hasYarn(process.cwd());
       const npmOrYarn = useYarn ? 'yarn' : 'npm';
       const appJson = JSON.parse(await fse.readFile(path.resolve('app.json')));
       const pkgJson = JSON.parse(await fse.readFile(path.resolve('package.json')));
