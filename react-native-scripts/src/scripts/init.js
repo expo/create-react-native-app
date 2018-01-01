@@ -125,36 +125,37 @@ https://github.com/npm/npm/issues/16991
     cdpath = appPath;
   }
 
+  const outputCmd = (packager, cmd, def) => (packager === 'yarn' || def) ? packager + ' ' + cmd : packager + ' run ' + cmd;
   log(
     `
 
 Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
 
-  ${chalk.cyan(npmOrYarn + ' start')}
+  ${chalk.cyan(outputCmd(npmOrYarn, 'start'))}
     Starts the development server so you can open your app in the Expo
     app on your phone.
 
-  ${chalk.cyan(npmOrYarn + ' run ios')}
+  ${chalk.cyan(outputCmd(npmOrYarn, 'ios'))}
     (Mac only, requires Xcode)
     Starts the development server and loads your app in an iOS simulator.
 
-  ${chalk.cyan(npmOrYarn + ' run android')}
+  ${chalk.cyan(outputCmd(npmOrYarn, 'android'))}
     (Requires Android build tools)
     Starts the development server and loads your app on a connected Android
     device or emulator.
 
-  ${chalk.cyan(npmOrYarn + ' test')}
+  ${chalk.cyan(outputCmd(npmOrYarn, 'test', true))}
     Starts the test runner.
 
-  ${chalk.cyan(npmOrYarn + ' run eject')}
+  ${chalk.cyan(outputCmd(npmOrYarn, 'eject', true))}
     Removes this tool and copies build dependencies, configuration files
     and scripts into the app directory. If you do this, you can’t go back!
 
 We suggest that you begin by typing:
 
   ${chalk.cyan('cd ' + cdpath)}
-  ${chalk.cyan(npmOrYarn + ' start')}`
+  ${chalk.cyan(outputCmd(npmOrYarn, 'start', true))}`
   );
 
   if (readmeExists) {
