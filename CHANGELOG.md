@@ -1,3 +1,7 @@
+## 1.9.0 (January 17, 2018)
+
+Update XDL to version 47.2.0.
+
 ## 1.8.0 (November 27, 2017)
 
 Update for SDK 23.
