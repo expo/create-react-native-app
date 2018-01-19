@@ -70,7 +70,7 @@ https://github.com/npm/npm/issues/16991
     eject: 'react-native-scripts eject',
     android: 'react-native-scripts android',
     ios: 'react-native-scripts ios',
-    test: 'node node_modules/jest/bin/jest.js --watchAll',
+    test: 'node node_modules/jest/bin/jest.js',
   };
 
   appPackage.jest = {
