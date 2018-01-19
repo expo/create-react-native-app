@@ -10,15 +10,15 @@ import install from '../util/install';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^23.0.4',
-  react: '16.0.0',
-  'react-native': '0.50.3',
+  expo: '^25.0.0',
+  react: '16.2.0',
+  'react-native': '0.52.0',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '23.0.0',
-  'react-test-renderer': '16.0.0',
+  'jest-expo': '25.0.0',
+  'react-test-renderer': '16.2.0',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
@@ -70,7 +70,7 @@ https://github.com/npm/npm/issues/16991
     eject: 'react-native-scripts eject',
     android: 'react-native-scripts android',
     ios: 'react-native-scripts ios',
-    test: 'node node_modules/jest/bin/jest.js --watch',
+    test: 'node node_modules/jest/bin/jest.js --watchAll',
   };
 
   appPackage.jest = {

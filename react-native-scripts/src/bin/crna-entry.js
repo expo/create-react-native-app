@@ -3,20 +3,8 @@ import App from '../../../../App';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 
-// we don't want this to require transformation
-class AwakeInDevApp extends Component {
-  render() {
-    return React.createElement(
-      View,
-      {
-        style: {
-          flex: 1,
-        },
-      },
-      React.createElement(App, this.props),
-      React.createElement(process.env.NODE_ENV === 'development' ? Expo.KeepAwake : View)
-    );
-  }
+if (process.env.NODE_ENV === 'development') {
+  Expo.KeepAwake.activate();
 }
 
-Expo.registerRootComponent(AwakeInDevApp);
+Expo.registerRootComponent(App);
