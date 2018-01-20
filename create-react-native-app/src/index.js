@@ -83,15 +83,13 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
   let root = path.resolve(name);
   const appName = path.basename(root);
 
-
-
   const packageToInstall = getInstallPackage(version);
   const packageName = getPackageName(packageToInstall);
   checkAppName(appName, packageName);
   if (currentDirectory) {
     root = path.resolve('.');
   } else if (!await pathExists(name)) {
-      await fse.mkdir(root);
+    await fse.mkdir(root);
   }
 
   if (!await isSafeToCreateProjectIn(root)) {
