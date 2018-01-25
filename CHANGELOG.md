@@ -1,3 +1,7 @@
+## 1.11.0 (January 25, 2018)
+
+Update XDL to version 48.0.2.
+
 ## 1.10.0 (January 18, 2018)
 
 Update to Expo SDK 25.
