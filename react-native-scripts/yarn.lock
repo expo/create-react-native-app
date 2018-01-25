@@ -3981,9 +3981,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@47.2.0:
-  version "47.2.0"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-47.2.0.tgz#6e08ded003fc58a95d63a1ac4b18ddf9d955b13d"
+xdl@48.0.2:
+  version "48.0.2"
+  resolved "https://registry.yarnpkg.com/xdl/-/xdl-48.0.2.tgz#a2913fb262b1c5b2e6b3466138a331e0c92bf2c7"
   dependencies:
     "@expo/bunyan" "^1.8.10"
     "@expo/json-file" "^5.3.0"
