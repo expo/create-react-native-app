@@ -1,4 +1,4 @@
-## 1.11.0 (January 25, 2018)
+## 1.11.1 (January 26, 2018)
 
 Update XDL to version 48.0.2.
 
