@@ -196,6 +196,9 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
       pkgJson.scripts.start = 'react-native start';
       pkgJson.scripts.ios = 'react-native run-ios';
       pkgJson.scripts.android = 'react-native run-android';
+      pkgJson.scripts.test = 'jest';
+
+      newDevDependencies.push('jest');
 
       if (pkgJson.jest.preset === 'jest-expo') {
         pkgJson.jest.preset = 'react-native';
