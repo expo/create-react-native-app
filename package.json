@@ -1,9 +1,17 @@
 {
   "private": true,
   "scripts": {
-    "format": "prettier --single-quote --trailing-comma=es5 --print-width=100 --write '{create-react-native-app,react-native-scripts}/{src,template}/**/*.js'"
+    "format": "prettier --single-quote --trailing-comma=es5 --print-width=100 --write '{create-react-native-app,react-native-scripts}/{src,template}/**/*.js'",
+    "postinstall": "opencollective postinstall"
   },
   "devDependencies": {
     "prettier": "^0.21.0"
+  },
+  "dependencies": {
+    "opencollective": "^1.0.3"
+  },
+  "collective": {
+    "type": "opencollective",
+    "url": "https://opencollective.com/create-react-native-app"
   }
 }
