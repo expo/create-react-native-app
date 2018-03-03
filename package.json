@@ -9,10 +9,7 @@
     "prettier": "^0.21.0"
   },
   "jest": {
-    "moduleFileExtensions": [ "js" ],
-    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(js)$",
     "testPathIgnorePatterns": [
-      "\\.snap$",
       "node_modules",
       "template"
     ]
