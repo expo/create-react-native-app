@@ -7,6 +7,7 @@ import pathExists from 'path-exists';
 import spawn from 'cross-spawn';
 import log from '../util/log';
 import install from '../util/install';
+import { hasYarn } from '../util/pm';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
@@ -24,7 +25,7 @@ const DEFAULT_DEV_DEPENDENCIES = {
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
   const ownPackageName: string = require('../../package.json').name;
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
-  const useYarn: boolean = await pathExists(path.join(appPath, 'yarn.lock'));
+  const useYarn: boolean = hasYarn(appPath);
   const npmOrYarn = useYarn ? 'yarn' : 'npm';
 
   // FIXME(perry) remove when npm 5 is supported
