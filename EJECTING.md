@@ -44,7 +44,6 @@ Because this ejection process essentially produces a custom build of the Expo cl
 
 If you need to include a library which includes `react-native link` in its install instructions, there's a good chance you need to eject from CRNA. That said, there are JavaScript-only options available for a number of tasks, including some that are [built into the Expo app](https://docs.expo.io/versions/latest/sdk/index.html) that CRNA uses to run your project.
 
-TODO write a table of common needs in RN apps that can be done from JS
 
 ### Writing My Own Native Code
 
