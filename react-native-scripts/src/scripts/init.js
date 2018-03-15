@@ -5,6 +5,7 @@ import fse from 'fs-extra';
 import path from 'path';
 import pathExists from 'path-exists';
 import spawn from 'cross-spawn';
+import minimist from 'minimist';
 import log from '../util/log';
 import install from '../util/install';
 import { hasYarn } from '../util/pm';
@@ -13,6 +14,9 @@ import { hasYarn } from '../util/pm';
 const DEFAULT_DEPENDENCIES = {
   expo: '^25.0.0',
   react: '16.2.0',
+};
+
+const WEB_DEFAULT_DEPENDENCIES = {
   'react-native': '0.52.0',
   'expo-web': '^0.0.12',
   'react-dom': '16.0.0',
@@ -25,6 +29,9 @@ const DEFAULT_DEPENDENCIES = {
 const DEFAULT_DEV_DEPENDENCIES = {
   'jest-expo': '25.0.0',
   'react-test-renderer': '16.2.0',
+};
+
+const WEB_DEFAULT_DEV_DEPENDENCIES = {
   'react-native-scripts': '^1.11.1',
   'babel-loader': '^7.1.2',
   'babel-plugin-expo-web': '^0.0.5',
@@ -36,6 +43,10 @@ const DEFAULT_DEV_DEPENDENCIES = {
   'css-loader': '^0.28.7',
   'style-loader': '^0.19.0',
 };
+
+const args = minimist(process.argv.slice(2), {
+  boolean: ['with-web-support'],
+});
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
   const ownPackageName: string = require('../../package.json').name;
@@ -86,10 +97,17 @@ https://github.com/npm/npm/issues/16991
     eject: 'react-native-scripts eject',
     android: 'react-native-scripts android',
     ios: 'react-native-scripts ios',
-    web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
-    build: 'NODE_ENV=production webpack -p --config ./webpack.config.js',
     test: 'jest',
   };
+
+  log(`-------> args: ${args}`);
+ 
+  if (args['with-web-support']) {
+    Object.assign(appPackage.scripts, {
+      web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
+      build: 'NODE_ENV=production webpack -p --config ./webpack.config.js',
+    });
+  }
 
   appPackage.jest = {
     preset: 'jest-expo',
@@ -107,6 +125,11 @@ https://github.com/npm/npm/issues/16991
   // so we need to merge instead of assigning
   Object.assign(appPackage.dependencies, DEFAULT_DEPENDENCIES);
   Object.assign(appPackage.devDependencies, DEFAULT_DEV_DEPENDENCIES);
+
+  if (args['with-web-support']) {
+    Object.assign(appPackage.dependencies, WEB_DEFAULT_DEPENDENCIES);
+    Object.assign(appPackage.devDependencies, WEB_DEFAULT_DEV_DEPENDENCIES);
+  }
 
   // Write the new appPackage after copying so that we can include any existing
   await fse.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
@@ -145,7 +168,7 @@ https://github.com/npm/npm/issues/16991
 
   log(
     `
-
+-------> args: ${args}
 Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
 
