@@ -86,8 +86,8 @@ https://github.com/npm/npm/issues/16991
     eject: 'react-native-scripts eject',
     android: 'react-native-scripts android',
     ios: 'react-native-scripts ios',
-    web: './node_modules/.bin/webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
-    build: 'NODE_ENV=production ./node_modules/.bin/webpack -p --config ./webpack.config.js',
+    web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
+    build: 'NODE_ENV=production webpack -p --config ./webpack.config.js',
     test: 'jest',
   };
 
