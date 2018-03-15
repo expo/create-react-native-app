@@ -6,6 +6,10 @@
 # dependencies
 /node_modules
 
+# production
+/build
+/public/assets
+
 # misc
 .env.local
 .env.development.local

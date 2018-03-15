@@ -1,0 +1,8 @@
+{
+  "realm": "expo",
+  "auth-server-url": "https://oidc.production.swarm.xe100.host/auth",
+  "ssl-required": "external",
+  "resource": "00DA24BF-218A-4FAC-8F8B-F47ECB97A280",
+  "public-client": true
+}
+

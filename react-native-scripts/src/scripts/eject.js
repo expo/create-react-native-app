@@ -205,7 +205,9 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
         pkgJson.jest.preset = 'react-native';
         newDevDependencies.push('jest-react-native');
       } else {
-        log(`${chalk.bold('Warning')}: it looks like you've changed the Jest preset from jest-expo to ${pkgJson.jest.preset}. We recommend you make sure this Jest preset is compatible with ejected apps.`)
+        log(
+          `${chalk.bold('Warning')}: it looks like you've changed the Jest preset from jest-expo to ${pkgJson.jest.preset}. We recommend you make sure this Jest preset is compatible with ejected apps.`
+        );
       }
 
       // no longer relevant to an ejected project (maybe build is?)

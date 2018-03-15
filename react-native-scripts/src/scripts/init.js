@@ -14,12 +14,27 @@ const DEFAULT_DEPENDENCIES = {
   expo: '^25.0.0',
   react: '16.2.0',
   'react-native': '0.52.0',
+  'expo-web': '^0.0.12',
+  'react-dom': '16.0.0',
+  'react-native-web': '^0.4.0',
+  webpack: '^3.11.0',
+  'webpack-dev-server': '2.9.4',
 };
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
   'jest-expo': '25.0.0',
   'react-test-renderer': '16.2.0',
+  'react-native-scripts': '^1.11.1',
+  'babel-loader': '^7.1.2',
+  'babel-plugin-expo-web': '^0.0.5',
+  'babel-plugin-react-native-web': '^0.4.0',
+  'babel-plugin-transform-decorators-legacy': '^1.3.4',
+  'babel-plugin-transform-imports': '^1.4.1',
+  'babel-plugin-transform-runtime': '^6.23.0',
+  'file-loader': '^1.1.7',
+  'css-loader': '^0.28.7',
+  'style-loader': '^0.19.0',
 };
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
@@ -71,6 +86,8 @@ https://github.com/npm/npm/issues/16991
     eject: 'react-native-scripts eject',
     android: 'react-native-scripts android',
     ios: 'react-native-scripts ios',
+    web: './node_modules/.bin/webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
+    build: 'NODE_ENV=production ./node_modules/.bin/webpack -p --config ./webpack.config.js',
     test: 'jest',
   };
 
