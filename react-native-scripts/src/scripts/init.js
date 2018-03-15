@@ -14,10 +14,10 @@ import { hasYarn } from '../util/pm';
 const DEFAULT_DEPENDENCIES = {
   expo: '^25.0.0',
   react: '16.2.0',
+  'react-native': '0.52.0',
 };
 
 const WEB_DEFAULT_DEPENDENCIES = {
-  'react-native': '0.52.0',
   'expo-web': '^0.0.12',
   'react-dom': '16.0.0',
   'react-native-web': '^0.4.0',
@@ -44,9 +44,10 @@ const WEB_DEFAULT_DEV_DEPENDENCIES = {
   'style-loader': '^0.19.0',
 };
 
-const args = minimist(process.argv.slice(2), {
+const arg = minimist(process.argv.slice(2), {
   boolean: ['with-web-support'],
 });
+
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
   const ownPackageName: string = require('../../package.json').name;
@@ -100,9 +101,9 @@ https://github.com/npm/npm/issues/16991
     test: 'jest',
   };
 
-  log(`-------> args: ${args}`);
+  log(`---**----> arg: ${arg}`);
  
-  if (args['with-web-support']) {
+  if (arg['with-web-support']) {
     Object.assign(appPackage.scripts, {
       web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
       build: 'NODE_ENV=production webpack -p --config ./webpack.config.js',
@@ -126,7 +127,7 @@ https://github.com/npm/npm/issues/16991
   Object.assign(appPackage.dependencies, DEFAULT_DEPENDENCIES);
   Object.assign(appPackage.devDependencies, DEFAULT_DEV_DEPENDENCIES);
 
-  if (args['with-web-support']) {
+  if (arg['with-web-support']) {
     Object.assign(appPackage.dependencies, WEB_DEFAULT_DEPENDENCIES);
     Object.assign(appPackage.devDependencies, WEB_DEFAULT_DEV_DEPENDENCIES);
   }
@@ -135,7 +136,7 @@ https://github.com/npm/npm/issues/16991
   await fse.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
 
   // Copy the files for the user
-  await fse.copy(path.join(ownPath, 'template'), appPath);
+  await fse.copy(path.join(ownPath, arg['with-web-support'] ? 'template-with-web' : 'template'), appPath);
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   try {
@@ -168,7 +169,6 @@ https://github.com/npm/npm/issues/16991
 
   log(
     `
--------> args: ${args}
 Success! Created ${appName} at ${appPath}
 Inside that directory, you can run several commands:
 
