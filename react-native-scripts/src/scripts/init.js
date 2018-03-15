@@ -48,7 +48,6 @@ const arg = minimist(process.argv.slice(2), {
   boolean: ['with-web-support'],
 });
 
-
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
   const ownPackageName: string = require('../../package.json').name;
   const ownPath: string = path.join(appPath, 'node_modules', ownPackageName);
@@ -101,8 +100,6 @@ https://github.com/npm/npm/issues/16991
     test: 'jest',
   };
 
-  log(`---**----> arg: ${arg}`);
- 
   if (arg['with-web-support']) {
     Object.assign(appPackage.scripts, {
       web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
