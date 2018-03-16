@@ -32,7 +32,7 @@ const DEFAULT_DEV_DEPENDENCIES = {
 };
 
 const WEB_DEFAULT_DEV_DEPENDENCIES = {
-  'react-native-scripts': '^1.11.1',
+  'react-native-scripts': 'next',
   'babel-loader': '^7.1.2',
   'babel-plugin-expo-web': '^0.0.5',
   'babel-plugin-react-native-web': '^0.4.0',
@@ -100,7 +100,8 @@ https://github.com/npm/npm/issues/16991
     test: 'jest',
   };
 
-  if (arg['with-web-support']) {
+  const withWebSupport = arg['with-web-support'];
+  if (withWebSupport) {
     appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry-web.js';
     Object.assign(appPackage.scripts, {
       web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
@@ -125,7 +126,7 @@ https://github.com/npm/npm/issues/16991
   Object.assign(appPackage.dependencies, DEFAULT_DEPENDENCIES);
   Object.assign(appPackage.devDependencies, DEFAULT_DEV_DEPENDENCIES);
 
-  if (arg['with-web-support']) {
+  if (withWebSupport) {
     Object.assign(appPackage.dependencies, WEB_DEFAULT_DEPENDENCIES);
     Object.assign(appPackage.devDependencies, WEB_DEFAULT_DEV_DEPENDENCIES);
   }
@@ -182,13 +183,14 @@ Inside that directory, you can run several commands:
     (Requires Android build tools)
     Starts the development server and loads your app on a connected Android
     device or emulator.
-
+  ${withWebSupport ? webLogMessage(npmOrYarn) : '\n'}
   ${chalk.cyan(npmOrYarn + ' test')}
     Starts the test runner.
 
   ${chalk.cyan(npmOrYarn + ' run eject')}
     Removes this tool and copies build dependencies, configuration files
     and scripts into the app directory. If you do this, you can’t go back!
+
 
 We suggest that you begin by typing:
 
@@ -206,3 +208,10 @@ ${chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`')}`
   log();
   log('Happy hacking!');
 };
+
+function webLogMessage(npmOrYarn) {
+  return `
+  ${chalk.cyan(npmOrYarn + ' web')}
+    Starts the Webpack server to serve the web version of the app.
+  `;
+}
