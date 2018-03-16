@@ -12,7 +12,10 @@ import { hasYarn } from '../util/pm';
 
 import { detach } from '../util/expo';
 
-async function eject() {
+async function eject(parameters) {
+  if (typeof parameters === 'undefined') {
+    parameters = null;
+  }
   try {
     const filesWithExpo = await filesUsingExpoSdk();
     const usingExpo = filesWithExpo.length > 0;
@@ -76,7 +79,7 @@ Ejecting is permanent! Please be careful with your selection.
       },
     ];
 
-    const { ejectMethod } = await inquirer.prompt(questions);
+    const { ejectMethod } = parameters !== null ? parameters : await inquirer.prompt(questions);
 
     if (ejectMethod === 'raw') {
       const useYarn = hasYarn(process.cwd());
@@ -99,25 +102,30 @@ Ejecting is permanent! Please be careful with your selection.
         newDisplayName = expName;
       }
 
+      const validateEnteredDisplayname = s => { return s.length > 0; }
+      const validateEnteredName = s => { return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1; }
+
       log("We have a couple of questions to ask you about how you'd like to name your app:");
-      const { enteredName, enteredDisplayname } = await inquirer.prompt([
+      const { enteredName, enteredDisplayname } = parameters !== null ? parameters : await inquirer.prompt([
         {
           name: 'enteredDisplayname',
           message: "What should your app appear as on a user's home screen?",
           default: newDisplayName,
-          validate: s => {
-            return s.length > 0;
-          },
+          validate: validateEnteredDisplayname,
         },
         {
           name: 'enteredName',
           message: 'What should your Android Studio and Xcode projects be called?',
           default: newName,
-          validate: s => {
-            return s.length > 0 && s.indexOf('-') === -1 && s.indexOf(' ') === -1;
-          },
+          validate: validateEnteredName,
         },
       ]);
+      if (!validateEnteredName(enteredName)) {
+        throw new Error("Invalid enteredName");
+      }
+      if (!validateEnteredDisplayname(enteredDisplayname)) {
+        throw new Error("Invalid enteredDisplayname");
+      }
 
       appJson.name = enteredName;
       appJson.displayName = enteredDisplayname;
@@ -342,13 +350,17 @@ async function findJavaScriptProjectFilesInRoot(root: string): Promise<Array<str
   }
 }
 
-eject()
-  .then(() => {
-    // the expo local github auth server leaves a setTimeout for 5 minutes
-    // so we need to explicitly exit (for now, this will be resolved in the nearish future)
-    process.exit(0);
-  })
-  .catch(e => {
-    console.error(`Problem running eject: ${e}`);
-    process.exit(1);
-  });
+if (require.main === module) {
+  eject()
+    .then(() => {
+      // the expo local github auth server leaves a setTimeout for 5 minutes
+      // so we need to explicitly exit (for now, this will be resolved in the nearish future)
+      process.exit(0);
+    })
+    .catch(e => {
+      console.error(`Problem running eject: ${e}`);
+      process.exit(1);
+    });
+} else {
+  module.exports = { eject: eject };
+}
