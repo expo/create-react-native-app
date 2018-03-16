@@ -14,7 +14,8 @@
   },
   "files": [
     "build",
-    "template"
+    "template",
+    "template-with-web"
   ],
   "bin": {
     "react-native-scripts": "./build/bin/react-native-scripts.js"

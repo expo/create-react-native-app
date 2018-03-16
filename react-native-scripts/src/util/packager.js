@@ -1,11 +1,6 @@
 // @flow
 
-import {
-  PackagerLogsStream,
-  Project,
-  ProjectSettings,
-  ProjectUtils,
-} from 'xdl';
+import { PackagerLogsStream, Project, ProjectSettings, ProjectUtils } from 'xdl';
 
 import _ from 'lodash';
 import spawn from 'cross-spawn';
@@ -46,9 +41,7 @@ async function cleanUpPackager(projectDir) {
   if (result === 'stopFailed') {
     // find RN packager pid, attempt to kill manually
     try {
-      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(
-        projectDir
-      );
+      const { packagerPid } = await ProjectSettings.readPackagerInfoAsync(projectDir);
       process.kill(packagerPid);
     } catch (e) {
       process.exit(1);
@@ -63,11 +56,7 @@ function shouldIgnoreMsg(msg) {
     msg.indexOf('Warning: PropTypes has been moved to a separate package') >= 0;
 }
 
-function run(
-  onReady: () => ?any,
-  options: Object = {},
-  isInteractive?: boolean = false
-) {
+function run(onReady: () => ?any, options: Object = {}, isInteractive?: boolean = false) {
   let packagerReady = false;
   let needsClear = false;
   let logBuffer = '';
@@ -78,9 +67,7 @@ function run(
     const watchmanExists = spawn.sync('which', ['watchman']).status === 0;
 
     if (process.platform === 'darwin' && !watchmanExists) {
-      const watcherDetails = spawn
-        .sync('sysctl', ['kern.maxfiles'])
-        .stdout.toString();
+      const watcherDetails = spawn.sync('sysctl', ['kern.maxfiles']).stdout.toString();
       if (parseInt(watcherDetails.split(':')[1].trim()) < 5242880) {
         log.withTimestamp(
           `${chalk.red(`Unable to start server`)}
@@ -169,15 +156,12 @@ ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
   let packagerLogsStream = new PackagerLogsStream({
     projectRoot: projectDir,
     onStartBuildBundle: () => {
-      progressBar = new ProgressBar(
-        'Building JavaScript bundle [:bar] :percent',
-        {
-          total: 100,
-          clear: true,
-          complete: '=',
-          incomplete: ' ',
-        }
-      );
+      progressBar = new ProgressBar('Building JavaScript bundle [:bar] :percent', {
+        total: 100,
+        clear: true,
+        complete: '=',
+        incomplete: ' ',
+      });
 
       log.setBundleProgressBar(progressBar);
     },
@@ -199,9 +183,7 @@ ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
           log.withTimestamp(chalk.red(`Failed building JavaScript bundle`));
         } else {
           let duration = endTime - startTime;
-          log.withTimestamp(
-            chalk.green(`Finished building JavaScript bundle in ${duration}ms`)
-          );
+          log.withTimestamp(chalk.green(`Finished building JavaScript bundle in ${duration}ms`));
         }
       }
     },
@@ -296,11 +278,7 @@ const logStackTrace = (chunk, logFn, nestedLogFn, colorFn) => {
   }
 
   if (unloggedFrames > 0) {
-    nestedLogFn(
-      colorFn(
-        `- ... ${unloggedFrames} more stack frames from framework internals`
-      )
-    );
+    nestedLogFn(colorFn(`- ... ${unloggedFrames} more stack frames from framework internals`));
   }
 };
 
@@ -309,7 +287,7 @@ const logWithLevel = chunk => {
     return;
   }
 
-  let colorFn = (str) => str;
+  let colorFn = str => str;
   if (chunk.level === bunyan.WARN) {
     colorFn = chalk.yellow;
   } else if (chunk.level === bunyan.ERROR) {
