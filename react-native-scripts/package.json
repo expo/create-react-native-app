@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "taskr",
-    "build": "taskr build"
+    "build": "taskr build && chmod +x build/bin/react-native-scripts.js"
   },
   "dependencies": {
     "@expo/bunyan": "1.8.10",
