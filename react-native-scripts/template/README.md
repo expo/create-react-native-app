@@ -15,6 +15,7 @@ Below you'll find information about performing common tasks. The most recent ver
 * [Environment Variables](#environment-variables)
   * [Configuring Packager IP Address](#configuring-packager-ip-address)
 * [Adding Flow](#adding-flow)
+* [Adding ESLint and Prettier](#adding-eslint-and-prettier)
 * [Customizing App Display Name and Icon](#customizing-app-display-name-and-icon)
 * [Sharing and Deployment](#sharing-and-deployment)
   * [Publishing to Expo's React Native Community](#publishing-to-expos-react-native-community)
@@ -141,6 +142,34 @@ Now you can run `npm run flow` (or `yarn flow`) to check the files for type erro
 You can optionally use a [plugin for your IDE or editor](https://flow.org/en/docs/editors/) for a better integrated experience.
 
 To learn more about Flow, check out [its documentation](https://flow.org/).
+
+## Adding ESLint and Prettier
+
+[ESLint](http://eslint.org/) is a configurable JavaScript linter. ESLint can help standardize a style guide across the team.
+
+To add eslint to a Create React Native App project, follow these steps:
+
+1. Run `npm install --save-dev eslint eslint-config-react-native`
+2. Add `"lint": "eslint ."` to the `scripts` section of your `package.json`.
+3. Add the following to the `.eslintrc` file in the project root which is used to configure how eslint should run,
+
+```json
+{
+  "extends": ["react-native"]
+}
+```
+
+Please see the repo of [eslint-config-react-native](https://github.com/kunalgolani/eslint-config/tree/master/react-native) to know what rules are enabled with this configuration.
+
+After configuring eslint, run `npm run lint` (or `yarn lint`) to check for linting erros.
+
+You can optionally use a [plugin for your IDE or editor](http://eslint.org/docs/user-guide/integrations) for a better integrated experience.
+
+Prettier is a code formatter which can enforce a consistent style. It is also a good idea to use [Prettier](http://prettier.io/) with ESLint. It provides some standard defaults which can be modified as per preference. Prettier plays well with ESLint and can show warnings/erros according to the rules set up.
+
+If you want to use Prettier with ESLint, see this repo [eslint-config-react-native-prettier](https://github.com/brentvatne/eslint-config-react-native-prettier). This configuration is much more minimal and is a good base configuration for more extension.
+
+To learn more about ESLint, check out [ESLint user guide](http://eslint.org/docs/user-guide/)
 
 ## Sharing and Deployment
 
