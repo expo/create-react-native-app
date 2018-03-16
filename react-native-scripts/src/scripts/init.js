@@ -101,6 +101,7 @@ https://github.com/npm/npm/issues/16991
   };
 
   if (arg['with-web-support']) {
+    appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry-web.js';
     Object.assign(appPackage.scripts, {
       web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/',
       build: 'NODE_ENV=production webpack -p --config ./webpack.config.js',
