@@ -48,9 +48,9 @@ Open it in the [Expo app](https://expo.io) on your phone to view it. It will rel
 Sometimes you may need to reset or clear the React Native packager's cache. To do so, you can pass the `--reset-cache` flag to the start script:
 
 ```
-npm start -- --reset-cache
+npm start --reset-cache
 # or
-yarn start -- --reset-cache
+yarn start --reset-cache
 ```
 
 #### `npm test`
