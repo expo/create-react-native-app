@@ -8,7 +8,7 @@ Apps built with Create React Native App rely on three project dependencies:
 
 The `app.json` file in a CRNA project also specifies `sdkVersion` which is necessary for the Expo client to provide the correct native API versions.
 
-Each version of these dependencies is only compatible with a narrow version range of the other two. See the below table for the correct versions to use with each other:
+Each version of these dependencies is only compatible with a narrow version range of the other two. See the below table for the correct versions to use with each other (oldest first):
 
 | `react-native` | `react`         | `expo` | `sdkVersion` in app.json |
 |----------------|-----------------|--------|--------------------------|
