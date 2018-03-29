@@ -1,3 +1,9 @@
+## 1.12.0 (March 29, 2018)
+
+* Add command to send the app URL to your phone via email or SMS.
+* Add support for Yarn workspaces.
+* Update XDL.
+
 ## 1.11.1 (January 26, 2018)
 
 Update XDL to version 48.0.2.
