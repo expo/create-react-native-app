@@ -1,3 +1,7 @@
+## 1.12.1 (March 29, 2018)
+
+Update XDL to version 48.1.2.
+
 ## 1.12.0 (March 29, 2018)
 
 * Add command to send the app URL to your phone via email or SMS.

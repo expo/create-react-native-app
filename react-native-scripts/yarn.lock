@@ -4036,9 +4036,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-xdl@48.1.0:
-  version "48.1.0"
-  resolved "https://registry.yarnpkg.com/xdl/-/xdl-48.1.0.tgz#eeb03d6938cfb168524a0fe0191db861669fce11"
+xdl@48.1.2:
+  version "48.1.2"
+  resolved "https://registry.npmjs.org/xdl/-/xdl-48.1.2.tgz#775382d0347393cbb3f6a8fc8e23ad359a401300"
   dependencies:
     "@expo/bunyan" "^1.8.10"
     "@expo/json-file" "^5.3.0"
