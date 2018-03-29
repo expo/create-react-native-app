@@ -19,3 +19,4 @@ Each version of these dependencies is only compatible with a narrow version rang
 | 0.50.x         | 16.0.0          | 23.x.x | `"23.0.0"`               |
 | 0.51.x         | 16.0.0          | 24.x.x | `"24.0.0"`               |
 | 0.52.x         | 16.2.0          | 25.x.x | `"25.0.0"`               |
+| 0.54.x         | 16.3.0-alpha.1  | 26.x.x | `"26.0.0"`               |
