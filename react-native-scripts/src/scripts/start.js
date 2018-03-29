@@ -1,6 +1,6 @@
 // @flow
 
-import { Android, Config, Project, ProjectSettings, Simulator, UrlUtils } from 'xdl';
+import { Android, Config, Project, ProjectSettings, Simulator, UrlUtils, UserSettings } from 'xdl';
 
 import chalk from 'chalk';
 import indent from 'indent-string';
@@ -138,34 +138,54 @@ async function handleKeypress(key) {
       const lanAddress = await UrlUtils.constructManifestUrlAsync(process.cwd(), {
         hostType: 'lan',
       });
-
+      const defaultRecipient = await UserSettings.getAsync('sendTo', null);
       const rl = readline.createInterface({
         input: process.stdin,
-        output: process.stdout
+        output: process.stdout,
       });
-
-      clearConsole();
-      log.withTimestamp('Please enter your phone number or email address (empty to cancel):')
-      rl.question('> ', async (sendTo) => {
+      const handleKeypress = (chr, key) => {
+        if (key && key.name === 'escape') {
+          cleanup();
+          cancel();
+        }
+      };
+      const cleanup = () => {
         rl.close();
+        process.stdin.removeListener('keypress', handleKeypress);
         startWaitingForCommand();
+      };
+      const cancel = () => {
+        clearConsole();
+        printUsage();
+      };
+      clearConsole();
+      process.stdin.addListener('keypress', handleKeypress);
+      log('Please enter your phone number or email address (press ESC to cancel) ');
+      rl.question(defaultRecipient ? `[default: ${defaultRecipient}]> ` : '> ', async sendTo => {
+        cleanup();
+        if (!sendTo && defaultRecipient) {
+          sendTo = defaultRecipient;
+        }
+        sendTo = sendTo && sendTo.trim();
         if (!sendTo) {
-          clearConsole();
-          printUsage();
+          cancel();
           return;
         }
-
         log.withTimestamp(`Sending ${lanAddress} to ${sendTo}...`);
 
+        let sent = false;
         try {
           await Exp.sendAsync(sendTo, lanAddress, true);
           log.withTimestamp(`Sent link successfully.`);
+          sent = true;
         } catch (err) {
           log.withTimestamp(`Could not send link. ${err}`);
         }
         printUsage();
+        if (sent) {
+          await UserSettings.setAsync('sendTo', sendTo);
+        }
       });
-
       return;
     }
     case 'q':
