@@ -6,9 +6,11 @@ import chalk from 'chalk';
 import indent from 'indent-string';
 import qr from 'qrcode-terminal';
 import minimist from 'minimist';
-import log from '../util/log';
-import clearConsole from '../util/clearConsole';
+import readline from 'readline';
+import { Exp } from 'xdl';
 
+import clearConsole from '../util/clearConsole';
+import log from '../util/log';
 import packager from '../util/packager';
 
 Config.validation.reactNativeVersionWarnings = false;
@@ -27,13 +29,23 @@ if (args['reset-cache']) {
   log('Asking packager to reset its cache...');
 }
 
-let isInteractive = false;
 const { stdin } = process;
-if (args.interactive && typeof stdin.setRawMode === 'function') {
+const startWaitingForCommand = () => {
   stdin.setRawMode(true);
   stdin.resume();
   stdin.setEncoding('utf8');
   stdin.on('data', handleKeypress);
+}
+
+const stopWaitingForCommand = () => {
+  stdin.removeListener('data', handleKeypress);
+  stdin.setRawMode(false);
+  stdin.resume();
+}
+
+let isInteractive = false;
+if (args.interactive && typeof stdin.setRawMode === 'function') {
+  startWaitingForCommand();
   isInteractive = true;
 }
 
@@ -81,6 +93,7 @@ function printUsage() {
   log(
     `
  ${dim(`\u203A Press`)} a ${dim(`to open Android device or emulator`)}${iosInfo}
+ ${dim(`\u203A Press`)} s ${dim(`to send the packager URL to your phone number or email address`)}
  ${dim(`\u203A Press`)} q ${dim(`to display QR code.`)}
  ${dim(`\u203A Press`)} r ${dim(`to restart packager, or`)} R ${dim(`to restart packager and clear cache.`)}
  ${dim(`\u203A Press`)} d ${dim(`to toggle development mode. (current mode: ${bold(devMode)}${chalk.reset.dim(')')}`)}
@@ -118,6 +131,41 @@ async function handleKeypress(key) {
         log(chalk.red(msg));
       }
       printUsage();
+      return;
+    }
+    case 's': {
+      stopWaitingForCommand();
+      const lanAddress = await UrlUtils.constructManifestUrlAsync(process.cwd(), {
+        hostType: 'lan',
+      });
+
+      const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+      });
+
+      clearConsole();
+      log.withTimestamp('Please enter your phone number or email address (empty to cancel):')
+      rl.question('> ', async (sendTo) => {
+        rl.close();
+        startWaitingForCommand();
+        if (!sendTo) {
+          clearConsole();
+          printUsage();
+          return;
+        }
+
+        log.withTimestamp(`Sending ${lanAddress} to ${sendTo}...`);
+
+        try {
+          await Exp.sendAsync(sendTo, lanAddress, true);
+          log.withTimestamp(`Sent link successfully.`);
+        } catch (err) {
+          log.withTimestamp(`Could not send link. ${err}`);
+        }
+        printUsage();
+      });
+
       return;
     }
     case 'q':
