@@ -1,3 +1,11 @@
+# READ THIS FIRST, PLEASE!
+
+The App Store version of the Expo iOS client recently had to remove the QR code scanner from the app. If you intend to load your app on a physical iOS device, please install the latest version of react-native-scripts to your app (`yarn add react-native-scripts@1.12.0`). It adds the "s" key to the interactive prompt, which asks you to enter an email address or phone number and then sends the URL to your device.
+
+Read more at https://blog.expo.io/upcoming-limitations-to-ios-expo-client-8076d01aee1a. We apologize for any inconvenience this may cause you!
+
+# Required format for issues
+
 Please make our job easier by filling this template out to completion. If you're requesting a feature instead of reporting a bug, please feel free to skip the Environment and Reproducible Demo sections.
 
 ## Description
