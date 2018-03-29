@@ -61,16 +61,27 @@ async function printServerInfo() {
   const settings = await ProjectSettings.readPackagerInfoAsync(process.cwd());
   // who knows why qrcode-terminal takes a callback instead of just returning a string
   const address = await UrlUtils.constructManifestUrlAsync(process.cwd());
+  let emulatorHelp;
+  if (process.platform === 'darwin') {
+    emulatorHelp = `Press ${chalk.bold('a')} (Android) or ${chalk.bold('i')} (iOS) to start an emulator.`;
+  } else {
+    emulatorHelp = `Press ${chalk.bold('a')} to start an Android emulator.`;
+  }
   qr.generate(address, qrCode => {
-    log(
-      `To view your app with live reloading, point the Expo app to this QR code.
-You'll find the QR scanner on the Projects tab of the app.
-
+    log(`
 ${indent(qrCode, 2)}
 
-Or enter this address in the Expo app's search bar:
+Your app is now running at URL: ${chalk.underline(chalk.cyan(address))}
 
-  ${chalk.underline(chalk.cyan(address))}
+${chalk.bold('View your app with live reloading:')}
+
+  ${chalk.underline('Android device:')}
+    -> Point the Expo app to the QR code above.
+       (You'll find the QR scanner on the Projects tab of the app.)
+  ${chalk.underline('iOS device:')}
+    -> Press ${chalk.bold('s')} to email/text the app URL to your phone.
+  ${chalk.underline('Emulator:')}
+    -> ${emulatorHelp}
 
 Your phone will need to be on the same local network as this computer.
 For links to install the Expo app, please visit ${chalk.underline(chalk.cyan('https://expo.io'))}.
@@ -87,13 +98,13 @@ function printUsage() {
   }
   const { dim, bold } = chalk;
   const devMode = dev ? 'development' : 'production';
-  const iosInfo = process.platform === 'win32'
-    ? dim('.')
-    : `${dim(`, or`)} i ${dim(`to open iOS emulator.`)}`;
+  const iosInfo = process.platform === 'darwin'
+    ? `${dim(`, or`)} i ${dim(`to open iOS emulator.`)}`
+    : dim('.');
   log(
     `
  ${dim(`\u203A Press`)} a ${dim(`to open Android device or emulator`)}${iosInfo}
- ${dim(`\u203A Press`)} s ${dim(`to send the packager URL to your phone number or email address`)}
+ ${dim(`\u203A Press`)} s ${dim(`to send the app URL to your phone number or email address`)}
  ${dim(`\u203A Press`)} q ${dim(`to display QR code.`)}
  ${dim(`\u203A Press`)} r ${dim(`to restart packager, or`)} R ${dim(`to restart packager and clear cache.`)}
  ${dim(`\u203A Press`)} d ${dim(`to toggle development mode. (current mode: ${bold(devMode)}${chalk.reset.dim(')')}`)}
