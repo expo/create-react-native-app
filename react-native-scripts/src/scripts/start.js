@@ -35,13 +35,13 @@ const startWaitingForCommand = () => {
   stdin.resume();
   stdin.setEncoding('utf8');
   stdin.on('data', handleKeypress);
-}
+};
 
 const stopWaitingForCommand = () => {
   stdin.removeListener('data', handleKeypress);
   stdin.setRawMode(false);
   stdin.resume();
-}
+};
 
 let isInteractive = false;
 if (args.interactive && typeof stdin.setRawMode === 'function') {

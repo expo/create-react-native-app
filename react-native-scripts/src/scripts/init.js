@@ -135,7 +135,10 @@ https://github.com/npm/npm/issues/16991
   await fse.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
 
   // Copy the files for the user
-  await fse.copy(path.join(ownPath, arg['with-web-support'] ? 'template-with-web' : 'template'), appPath);
+  await fse.copy(
+    path.join(ownPath, arg['with-web-support'] ? 'template-with-web' : 'template'),
+    appPath
+  );
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   try {
