@@ -69,7 +69,5 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowIssue\\((\\(>=0\\.\\(5[0-6]\\|[1-4][0-9]\\|
 suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
-unsafe.enable_getters_and_setters=true
-
 [version]
 ^0.56.0
