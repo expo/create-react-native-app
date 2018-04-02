@@ -15,7 +15,8 @@
   "files": [
     "build",
     "template",
-    "template-with-web"
+    "template-with-web",
+    "template-add-electron-support"
   ],
   "bin": {
     "react-native-scripts": "./build/bin/react-native-scripts.js"

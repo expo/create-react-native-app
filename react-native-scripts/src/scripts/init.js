@@ -42,10 +42,35 @@ const WEB_DEFAULT_DEV_DEPENDENCIES = {
   'file-loader': '^1.1.7',
   'css-loader': '^0.28.7',
   'style-loader': '^0.19.0',
+  'cross-env': '5.1.4'
 };
+
+const ELECTRON_DEFAULT_DEV_DEPENDENCIES = {
+  electron: '1.8.4',
+  'electron-builder': '20.8.1'
+}
+
+const ELECTRON_OPTIONS = {
+  homepage: ".",
+  author: "John Doe",
+  description: "Create React Native App",
+  build: {
+    appId: "com.example.crna",
+    files: [
+      "electron.js",
+      "public/**/*",
+      "node_modules/**/*"
+    ],
+    directories: {
+      buildResources: "assets",
+      output: "desktop_dist"
+    }
+  }
+}
 
 const arg = minimist(process.argv.slice(2), {
   boolean: ['with-web-support'],
+  boolean: ['with-electron-support']
 });
 
 module.exports = async (appPath: string, appName: string, verbose: boolean, cwd: string = '') => {
@@ -100,11 +125,20 @@ We recommend using npm >= 5.7.0 or yarn.
   };
 
   const withWebSupport = arg['with-web-support'];
-  if (withWebSupport) {
+  const withElectronSupport = arg['with-electron-support'];
+  if (withWebSupport || withElectronSupport) {
     appPackage.main = './node_modules/react-native-scripts/build/bin/crna-entry-web.js';
     Object.assign(appPackage.scripts, {
       web: 'webpack-dev-server -d --config ./webpack.config.js  --inline --hot --colors --content-base public/ --history-api-fallback',
-      build: 'NODE_ENV=production webpack -p --config ./webpack.config.js',
+      build: 'cross-env NODE_ENV=production webpack -p --config ./webpack.config.js',
+    });
+  }
+  
+  if (withElectronSupport) {
+    Object.assign(appPackage.scripts, {
+      "electron-app": "electron ./electron.js",
+      "electron-dev": "cross-env ELECTRON_START_URL=http://localhost:8080 electron ./electron.js",
+      "electron-pack": "build -c.extraMetadata.main=./electron.js"
     });
   }
 
@@ -125,19 +159,33 @@ We recommend using npm >= 5.7.0 or yarn.
   Object.assign(appPackage.dependencies, DEFAULT_DEPENDENCIES);
   Object.assign(appPackage.devDependencies, DEFAULT_DEV_DEPENDENCIES);
 
-  if (withWebSupport) {
+  if (withWebSupport || withElectronSupport) {
     Object.assign(appPackage.dependencies, WEB_DEFAULT_DEPENDENCIES);
     Object.assign(appPackage.devDependencies, WEB_DEFAULT_DEV_DEPENDENCIES);
+    
+    if (withElectronSupport) {
+      Object.assign(appPackage.devDependencies, ELECTRON_DEFAULT_DEV_DEPENDENCIES);
+    }
+  }
+
+  // Let's add some electron options for the bundler
+  if (withElectronSupport) {
+    Object.assign(appPackage, ELECTRON_OPTIONS);
   }
 
   // Write the new appPackage after copying so that we can include any existing
   await fse.writeFile(appPackagePath, JSON.stringify(appPackage, null, 2));
 
   // Copy the files for the user
-  await fse.copy(
-    path.join(ownPath, arg['with-web-support'] ? 'template-with-web' : 'template'),
-    appPath
-  );
+  if (withWebSupport || withElectronSupport) {
+    await fse.copy(path.join(ownPath, 'template-with-web'), appPath);
+    
+    if (withElectronSupport) {
+      await fse.copy(path.join(ownPath, 'template-add-electron-support'), appPath);
+    }
+  } else {
+    await fse.copy(path.join(ownPath, 'template'), appPath);
+  }
 
   // Rename gitignore after the fact to prevent npm from renaming it to .npmignore
   try {
