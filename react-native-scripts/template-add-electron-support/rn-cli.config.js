@@ -2,9 +2,9 @@ var blacklist = require('metro/src/blacklist');
 
 const config = {
   getBlacklistRE() {
-	return blacklist([
+    return blacklist([
       /desktop_dist\/(.*)/,
-	  /node_modules\/electron.*?\/(.*)/
+      /node_modules\/electron.*?\/(.*)/
     ]);
   },
 };
