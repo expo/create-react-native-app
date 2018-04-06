@@ -62,48 +62,21 @@ publish it there. See this StackOverflow question for more information:
   // update app.json file with new contents
   await fse.writeFile(appJsonPath, JSON.stringify(appJson, null, 2));
 
-  await Detach.detachAsync(process.cwd());
-  // yesno lib doesn't properly shut down. without this the command won't exit
-  process.stdin.pause();
-
   const pkgJson = JSON.parse((await fse.readFile(path.resolve('package.json'))).toString());
-
   pkgJson.main = 'node_modules/expo/AppEntry.js';
-
   delete pkgJson.devDependencies['react-native-scripts'];
   delete pkgJson.scripts.start;
   delete pkgJson.scripts.build;
   delete pkgJson.scripts.eject;
   delete pkgJson.scripts.android;
   delete pkgJson.scripts.ios;
-
-  const versions = await Versions.versionsAsync();
-  const sdkTag = versions.sdkVersions[appJson.expo.sdkVersion].expoReactNativeTag;
-
   await fse.writeFile('package.json', JSON.stringify(pkgJson, null, 2));
 
-  console.log('Installing the Expo fork of react-native...');
-  const reactNativeVersion = `https://github.com/expo/react-native/archive/${sdkTag}.tar.gz`;
-  const {
-    code,
-  } = await install(process.cwd(), 'react-native', reactNativeVersion, {
-    silent: true,
-  });
-
-  if (code === 0) {
-    console.log(`${chalk.green('Successfully set up ExpoKit!')}`);
-  } else {
-    console.warn(
-      `
-      ${chalk.yellow('Unable to install the Expo fork of react-native.')}
-      ${chalk.yellow(`Please install react-native@${reactNativeVersion} before continuing.`)}
-    `
-    );
-  }
+  await Detach.detachAsync(process.cwd());
 
   console.log(
     `
-  You'll need to use Expo's XDE to run this project:
+  You'll need to use Expo's XDE or exp to run this project:
     ${chalk.cyan('https://docs.expo.io/versions/latest/introduction/installation.html')}
 
   For further instructions, please read ExpoKit's build documentation:
