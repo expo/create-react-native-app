@@ -13,8 +13,8 @@ import { hasYarn } from '../util/pm';
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
   expo: '^26.0.0',
-  react: '16.3.0-alpha.1',
-  'react-native': '0.54.0',
+  react: '16.3.0',
+  'react-native': '~0.54.1',
 };
 
 const WEB_DEFAULT_DEPENDENCIES = {
