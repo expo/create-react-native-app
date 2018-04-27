@@ -12,9 +12,9 @@ import { hasYarn } from '../util/pm';
 
 // UPDATE DEPENDENCY VERSIONS HERE
 const DEFAULT_DEPENDENCIES = {
-  expo: '^26.0.0',
-  react: '16.3.0',
-  'react-native': '~0.54.1',
+  expo: '^27.0.1',
+  react: '16.3.1',
+  'react-native': '~0.55.2',
 };
 
 const WEB_DEFAULT_DEPENDENCIES = {
@@ -27,8 +27,8 @@ const WEB_DEFAULT_DEPENDENCIES = {
 
 // TODO figure out how this interacts with ejection
 const DEFAULT_DEV_DEPENDENCIES = {
-  'jest-expo': '26.0.0',
-  'react-test-renderer': '16.3.0-alpha.1',
+  'jest-expo': '~27.0.0',
+  'react-test-renderer': '16.3.1',
 };
 
 const WEB_DEFAULT_DEV_DEPENDENCIES = {
