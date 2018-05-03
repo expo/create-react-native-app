@@ -109,7 +109,7 @@ async function createApp(name: string, verbose: boolean, version: ?string): Prom
   console.log(
     `Using package manager as ${packageManagerCmd()} with ${packageManagerType()} interface.`
   );
-  console.log('Installing packages. This might take a couple minutes.');
+  console.log('Installing packages. This might take a couple of minutes.');
   console.log('Installing react-native-scripts...');
   console.log();
 
