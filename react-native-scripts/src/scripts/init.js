@@ -167,38 +167,85 @@ We recommend using npm >= 5.7.0 or yarn.
   } else {
     cdpath = appPath;
   }
+  // 'start'  -> npm run start / yarn start
+  const transformCommand = (packager, cmd) => {
+    if (packager === 'yarn') {
+      return packager + ' ' + cmd;
+    }
+    return packager + ' run ' + cmd;
+  };
 
-  log(
-    `
-Success! Created ${appName} at ${appPath}
-Inside that directory, you can run several commands:
+  const cyanOutputCmd = string => chalk.cyan(string);
 
-  ${chalk.cyan(npmOrYarn + ' start')}
-    Starts the development server so you can open your app in the Expo
-    app on your phone.
-
-  ${chalk.cyan(npmOrYarn + ' run ios')}
-    (Mac only, requires Xcode)
-    Starts the development server and loads your app in an iOS simulator.
-
-  ${chalk.cyan(npmOrYarn + ' run android')}
-    (Requires Android build tools)
+  // Output configuration for items to be printed to terminal
+  // 'desc' will resolve to a one-liner
+  // 'desc' and 'title' will make a pair of a command
+  // 'onShow' outputs the pair or one-liner based on a condition
+  const stdoutOutputConfig = {
+    onSuccessmsg: {
+      desc: `\nSuccess! Created ${appName} at ${appPath}` +
+        `\n` +
+        `Inside that directory, you can run several commands:\n`,
+    },
+    start: {
+      title: cyanOutputCmd(transformCommand(npmOrYarn, 'start')),
+      desc: `Starts the development server so you can open your app in the Expo
+    app on your phone.`,
+    },
+    ios: {
+      title: cyanOutputCmd(transformCommand(npmOrYarn, 'ios')),
+      desc: `(Mac only, requires Xcode) 
+    Starts the development server and loads your app in an iOS simulator.`,
+    },
+    android: {
+      title: cyanOutputCmd(transformCommand(npmOrYarn, 'android')),
+      desc: `(Requires Android build tools)
     Starts the development server and loads your app on a connected Android
-    device or emulator.
-  ${withWebSupport ? webLogMessage(npmOrYarn) : '\n'}
-  ${chalk.cyan(npmOrYarn + ' test')}
-    Starts the test runner.
+    device or emulator.`,
+    },
+    web: {
+      title: cyanOutputCmd(transformCommand(npmOrYarn, 'web')),
+      desc: `Starts the Webpack server to serve the web version of the app.`,
+      onShow: withWebSupport !== false,
+    },
+    test: {
+      title: cyanOutputCmd(transformCommand(npmOrYarn, 'test')),
+      desc: `Starts the test runner.`,
+    },
+    eject: {
+      title: cyanOutputCmd(transformCommand(npmOrYarn, 'eject')),
+      desc: `Removes this tool and copies build dependencies, configuration files
+    and scripts into the app directory. If you do this, you can’t go back!`,
+    },
+    onEndmsg: {
+      desc: `\nWe suggest that you begin by typing:\n`,
+    },
+    cd: {
+      desc: '  ' + cyanOutputCmd('cd ' + cdpath),
+    },
+    suggestion: {
+      desc: '  ' + cyanOutputCmd(transformCommand(npmOrYarn, 'start')),
+    },
+  };
 
-  ${chalk.cyan(npmOrYarn + ' run eject')}
-    Removes this tool and copies build dependencies, configuration files
-    and scripts into the app directory. If you do this, you can’t go back!
-
-
-We suggest that you begin by typing:
-
-  ${chalk.cyan('cd ' + cdpath)}
-  ${chalk.cyan(npmOrYarn + ' start')}`
-  );
+  // prints config properties based on the configuration
+  Object.keys(stdoutOutputConfig)
+    .map(item => {
+      const shouldHide = stdoutOutputConfig[item].onShow &&
+        stdoutOutputConfig[item].onShow === false;
+      if (shouldHide) {
+        return null;
+      } else if (stdoutOutputConfig[item].title) {
+        return `  ` +
+          stdoutOutputConfig[item].title +
+          '\n    ' +
+          stdoutOutputConfig[item].desc +
+          '\n';
+      }
+      return stdoutOutputConfig[item].desc;
+    })
+    .filter(output => output)
+    .filter(output => log(output));
 
   if (readmeExists) {
     log(
@@ -210,10 +257,3 @@ ${chalk.yellow('You had a `README.md` file, we renamed it to `README.old.md`')}`
   log();
   log('Happy hacking!');
 };
-
-function webLogMessage(npmOrYarn) {
-  return `
-  ${chalk.cyan(npmOrYarn + ' web')}
-    Starts the Webpack server to serve the web version of the app.
-  `;
-}

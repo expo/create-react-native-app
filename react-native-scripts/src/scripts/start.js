@@ -68,7 +68,8 @@ async function printServerInfo() {
     emulatorHelp = `Press ${chalk.bold('a')} to start an Android emulator.`;
   }
   qr.generate(address, qrCode => {
-    log(`
+    log(
+      `
 ${indent(qrCode, 2)}
 
 Your app is now running at URL: ${chalk.underline(chalk.cyan(address))}
