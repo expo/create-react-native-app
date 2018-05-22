@@ -3,8 +3,8 @@
 import chalk from 'chalk';
 import fse from 'fs-extra';
 import inquirer from 'inquirer';
-import path from 'path';
 import install from '../util/install';
+import paths from '../config/paths';
 
 import { Detach, User as UserManager, Versions } from 'xdl';
 
@@ -16,8 +16,7 @@ UserManager.initialize(AUTH_CLIENT_ID);
 export async function detach() {
   const user = await loginOrRegister();
 
-  const appJsonPath = path.join(process.cwd(), 'app.json');
-  const appJson = JSON.parse(await fse.readFile(appJsonPath));
+  const appJson = JSON.parse(await fse.readFile(paths.appJson));
 
   if ((!appJson.expo.ios || !appJson.expo.ios.bundleIdentifier) && process.platform === 'darwin') {
     console.log(
@@ -60,9 +59,9 @@ publish it there. See this StackOverflow question for more information:
   }
 
   // update app.json file with new contents
-  await fse.writeFile(appJsonPath, JSON.stringify(appJson, null, 2));
+  await fse.writeFile(paths.appJson, JSON.stringify(appJson, null, 2));
 
-  const pkgJson = JSON.parse((await fse.readFile(path.resolve('package.json'))).toString());
+  const pkgJson = JSON.parse((await fse.readFile(paths.packageJson)).toString());
   pkgJson.main = 'node_modules/expo/AppEntry.js';
   delete pkgJson.devDependencies['react-native-scripts'];
   delete pkgJson.scripts.start;

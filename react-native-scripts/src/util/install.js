@@ -2,7 +2,6 @@
 
 import spawn from 'cross-spawn';
 import pathExists from 'path-exists';
-import path from 'path';
 import log from '../util/log';
 import { hasYarn } from './pm';
 
