@@ -39,7 +39,7 @@
     "progress": "^2.0.0",
     "qrcode-terminal": "^0.11.0",
     "rimraf": "^2.6.1",
-    "xdl": "48.1.4"
+    "xdl": "^50.0.0"
   },
   "devDependencies": {
     "@taskr/babel": "^1.0.6",
