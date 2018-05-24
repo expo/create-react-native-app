@@ -5,6 +5,7 @@ import fse from 'fs-extra';
 import inquirer from 'inquirer';
 import matchRequire from 'match-require';
 import path from 'path';
+import paths from '../config/paths';
 import rimraf from 'rimraf';
 import spawn from 'cross-spawn';
 import log from '../util/log';
@@ -81,8 +82,8 @@ Ejecting is permanent! Please be careful with your selection.
     if (ejectMethod === 'raw') {
       const useYarn = hasYarn(process.cwd());
       const npmOrYarn = useYarn ? 'yarn' : 'npm';
-      const appJson = JSON.parse(await fse.readFile(path.resolve('app.json')));
-      const pkgJson = JSON.parse(await fse.readFile(path.resolve('package.json')));
+      const appJson = JSON.parse(await fse.readFile(paths.appJson));
+      const pkgJson = JSON.parse(await fse.readFile(paths.packageJson));
       let {
         name: newName,
         displayName: newDisplayName,
@@ -124,7 +125,7 @@ Ejecting is permanent! Please be careful with your selection.
 
       log('Writing your selections to app.json...');
       // write the updated app.json file
-      await fse.writeFile(path.resolve('app.json'), JSON.stringify(appJson, null, 2));
+      await fse.writeFile(paths.appJson, JSON.stringify(appJson, null, 2));
       log(chalk.green('Wrote to app.json, please update it manually in the future.'));
 
       const ejectCommand = 'node';
@@ -215,7 +216,7 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
 
       log(`Updating your ${npmOrYarn} scripts in package.json...`);
 
-      await fse.writeFile(path.resolve('package.json'), JSON.stringify(pkgJson, null, 2));
+      await fse.writeFile(paths.packageJson, JSON.stringify(pkgJson, null, 2));
 
       log(chalk.green('Your package.json is up to date!'));
 
