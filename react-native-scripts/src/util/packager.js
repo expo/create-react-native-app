@@ -126,7 +126,7 @@ ${chalk.cyan(`  sudo sysctl -w kern.maxfiles=5242880
       return;
     }
 
-    if (chunk.msg === 'Dependency graph loaded.') {
+    if (chunk.msg === 'Dependency graph loaded.' || chunk.msg === 'Metro Bundler ready.') {
       packagerReady = true;
       onReady();
       return;
