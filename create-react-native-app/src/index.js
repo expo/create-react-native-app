@@ -19,6 +19,7 @@ const argv = minimist(process.argv.slice(2));
  * Arguments:
  *   --version - to print current version
  *   --verbose - to print npm logs during init
+ *   --current-directory - to create the app in the current directory
  *   --scripts-version <alternative package>
  *   --reason - shortcut for: --scripts-version 'reason-react-native-scripts'
  *   --package-manager <package manager name or path>
@@ -30,6 +31,7 @@ const argv = minimist(process.argv.slice(2));
 const commands = argv._;
 const cwd = process.cwd();
 const packageManager = argv['package-manager'];
+const currentDirectory = argv['current-directory'];
 
 if (commands.length === 0) {
   if (argv.version) {
@@ -81,16 +83,19 @@ function packageManagerCmd() {
 }
 
 async function createApp(name: string, verbose: boolean, version: ?string): Promise<void> {
-  const root = path.resolve(name);
+  let root = path.resolve(name);
   const appName = path.basename(root);
 
   const packageToInstall = getInstallPackage(version);
   const packageName = getPackageName(packageToInstall);
   checkAppName(appName, packageName);
-
-  if (!await pathExists(name)) {
+  if (currentDirectory) {
+    root = path.resolve('.');
+  } else if (!await pathExists(name)) {
     await fse.mkdir(root);
-  } else if (!await isSafeToCreateProjectIn(root)) {
+  }
+
+  if (!await isSafeToCreateProjectIn(root)) {
     console.log(`The directory \`${name}\` contains file(s) that could conflict. Aborting.`);
     process.exit(1);
   }
