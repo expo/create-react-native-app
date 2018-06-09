@@ -19,7 +19,7 @@ $ cd my-app/
 $ npm start
 ```
 
-The `npm start` command starts the packager. You can now open the App on your phone by using the Expo app.
+The `npm start` command starts the packager. You can now run the project on your phone by using the Expo app.
 
 ### Android
 
@@ -28,8 +28,8 @@ The `npm start` command starts the packager. You can now open the App on your ph
 
 ### iOS
 
-- Install the [Expo](https://expo.io) app on your android phone.
-- Press 's' in the terminal to send the expo link to your email address or phone number. This link can be used to open your project from the Expo app.
+- Install the [Expo](https://expo.io) app on your iOS phone.
+- Press 's' in the terminal to send the expo link to your email address or phone number. This link can be used to run your project from the Expo app.
 
 Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the Expo App provides.
 
