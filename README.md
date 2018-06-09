@@ -19,7 +19,17 @@ $ cd my-app/
 $ npm start
 ```
 
-Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. Find the QR scanner on the Projects tab of the app. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-and-deployment) section of the User Guide.
+The `npm start` command starts the packager. You can now run the project on your phone by using the Expo app.
+
+### Android
+
+- Install the [Expo](https://expo.io) app on your android phone.
+- Scan the QR code in your terminal from the Expo app to run the project on your phone.
+
+### iOS
+
+- Install the [Expo](https://expo.io) app on your iOS phone.
+- Press 's' in the terminal to send the expo link to your email address or phone number. This link can be used to run your project from the Expo app.
 
 Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the Expo App provides.
 
@@ -151,5 +161,3 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/create-react-native-app/sponsor/7/website" target="_blank"><img src="https://opencollective.com/create-react-native-app/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/create-react-native-app/sponsor/8/website" target="_blank"><img src="https://opencollective.com/create-react-native-app/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/create-react-native-app/sponsor/9/website" target="_blank"><img src="https://opencollective.com/create-react-native-app/sponsor/9/avatar.svg"></a>
-
-
