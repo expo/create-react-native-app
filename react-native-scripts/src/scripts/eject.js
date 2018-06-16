@@ -223,7 +223,7 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
 
       const lolThatsSomeComplexCode = `import { AppRegistry } from 'react-native';
 import App from './App';
-AppRegistry.registerComponent('${newName}', () => App);
+AppRegistry.registerComponent('${enteredName}', () => App);
 `;
 
       await fse.writeFile(path.resolve('index.js'), lolThatsSomeComplexCode);
