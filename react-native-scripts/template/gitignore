@@ -3,12 +3,13 @@
 # expo
 .expo/
 
+# OSX
+#
+.DS_Store
+
 # Xcode
-!**/*.xcodeproj
-!**/*.pbxproj
-!**/*.xcworkspacedata
-!**/*.xcsettings
-!**/*.xcscheme
+#
+build/
 *.pbxuser
 !default.pbxuser
 *.mode1v3
@@ -26,48 +27,35 @@ DerivedData
 *.xcuserstate
 project.xcworkspace
 
-# Gradle
-/build/
-/RNTester/android/app/build/
-/RNTester/android/app/gradle/
-/RNTester/android/app/gradlew
-/RNTester/android/app/gradlew.bat
-/ReactAndroid/build/
-
-# Buck
-.buckd
-buck-out
-/ReactAndroid/src/main/jni/prebuilt/lib/armeabi-v7a/
-/ReactAndroid/src/main/jni/prebuilt/lib/x86/
-/ReactAndroid/src/main/gen
-
-# Watchman
-.watchmanconfig
-
-# Android
+# Android/IntelliJ
+#
+build/
 .idea
 .gradle
 local.properties
 *.iml
-/android/
 
-# Node
-node_modules
-*.log
-.nvm
-/bots/node_modules/
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
 
-# TODO: Check in yarn.lock in open source. Right now we need to keep it out
-# from the GitHub repo as importing it might conflict with internal workspaces
-yarn.lock
-package-lock.json
+# BUCK
+buck-out/
+\.buckd/
+*.keystore
 
-# OS X
-.DS_Store
+# fastlane
+#
+# It is recommended to not store the screenshots in the git repo. Instead, use fastlane to re-generate the
+# screenshots whenever they are needed.
+# For more information about the recommended setup visit:
+# https://docs.fastlane.tools/best-practices/source-control/
 
-# Test generated files
-/ReactAndroid/src/androidTest/assets/AndroidTestBundle.js
-*.js.meta
+*/fastlane/report.xml
+*/fastlane/Preview.html
+*/fastlane/screenshots
 
-/coverage
-/third-party
+# Bundle artifact
+*.jsbundle
