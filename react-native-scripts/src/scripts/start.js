@@ -79,6 +79,7 @@ ${chalk.bold('View your app with live reloading:')}
     -> Point the Expo app to the QR code above.
        (You'll find the QR scanner on the Projects tab of the app.)
   ${chalk.underline('iOS device:')}
+    -> Point the iOS Camera app to the QR code above, or
     -> Press ${chalk.bold('s')} to email/text the app URL to your phone.
   ${chalk.underline('Emulator:')}
     -> ${emulatorHelp}
