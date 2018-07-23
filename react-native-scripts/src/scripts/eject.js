@@ -198,6 +198,8 @@ from \`babel-preset-expo\` to \`babel-preset-react-native-stage-0/decorator-supp
       pkgJson.scripts.ios = 'react-native run-ios';
       pkgJson.scripts.android = 'react-native run-android';
       pkgJson.scripts.test = 'jest';
+      pkgJson.scripts['bundle-android'] = 'react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle --assets-dest android/app/src/main/res/'
+      pkgJson.scripts['bundle-ios'] = 'react-native bundle --entry-file index.js --platform ios --dev false --bundle-output ios/main.jsbundle --assets-dest ios'
 
       newDevDependencies.push('jest');
 
