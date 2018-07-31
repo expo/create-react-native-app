@@ -102,7 +102,7 @@ module.exports = {
     // wish to include additional optimizations.
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
-      __DEV__: process.env.NODE_ENV === 'production' || true,
+      __DEV__: 'production' !== process.env.NODE_ENV,
     }),
   ],
 
