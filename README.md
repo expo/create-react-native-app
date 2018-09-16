@@ -13,11 +13,12 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 Make sure you have Node v6 or later installed. No Xcode or Android Studio installation is required.
 
 ```sh
-$ npm install -g create-react-native-app
-$ create-react-native-app my-app
+$ npx create-react-native-app my-app
 $ cd my-app/
 $ npm start
 ```
+
+([npx](https://medium.com/@maybekatz/introducing-npx-an-npm-package-runner-55f7d4bd282b) comes with npm 5.2+ and higher, [see instructions for older npm versions](https://gist.github.com/gaearon/4064d3c23a77c74a3614c498a8bb1c5f))
 
 Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. Find the QR scanner on the Projects tab of the app. When you're ready to share your project with others (for example, by deploying to an app store), read the [Sharing & Deployment](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md#sharing-and-deployment) section of the User Guide.
 
