@@ -38,7 +38,7 @@ When you run `npm start` for the first time, Expo CLI will be installed.
 
 **Because `react-native-scripts` is now a wrapper for Expo CLI, you can also follow these steps to remove it from your project and use Expo CLI directly:**
 
-1. Replace 'react-native-scripts' with 'expo' in the 'scripts' config in `package.json`. Example:
+1. Replace `react-native-scripts` with `expo` in the `scripts` config in `package.json`. Example:
     ```
     "scripts": {
       "start": "expo start",
