@@ -4,7 +4,6 @@
 Create React Native apps with no build configuration.
 
 * [Getting Started](#getting-started)
-* [User Guide](https://github.com/react-community/create-react-native-app/blob/master/react-native-scripts/template/README.md)
 
 Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native.
 
