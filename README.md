@@ -11,7 +11,7 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 
 The `create-react-native-app` command is provided for backwards compatibility.
 
-If you created your app using `create-react-native-app`, it's already compatible with Expo CLI. See [upgrade instructions](https://github.com/react-community/create-react-native-app/blob/master/CHANGELOG.md#upgrading-from-1140-to-200).
+If you created your app using `create-react-native-app`, it's already compatible with Expo CLI. See [upgrade instructions](https://github.com/react-community/create-react-native-app/blob/master/CHANGELOG.md#upgrading-from-1140-to-201).
 
 ## Quick Overview
 
@@ -116,7 +116,7 @@ If you need to build IPAs and APKs for publishing to the App Store and/or Play S
 
 ## Contributing
 
-From version v2.0.0, Create React Native App has been merged with Expo CLI.
+From version v2.0.1, Create React Native App has been merged with Expo CLI.
 
 Please see [Contributin to Expo CLI](https://github.com/expo/expo-cli/blob/master/CONTRIBUTING.md) in the Expo CLI monorepo for instructions on contributing to Expo CLI.
 
@@ -147,5 +147,3 @@ Support this project by becoming a sponsor. Your logo will show up here with a l
 <a href="https://opencollective.com/create-react-native-app/sponsor/7/website" target="_blank"><img src="https://opencollective.com/create-react-native-app/sponsor/7/avatar.svg"></a>
 <a href="https://opencollective.com/create-react-native-app/sponsor/8/website" target="_blank"><img src="https://opencollective.com/create-react-native-app/sponsor/8/avatar.svg"></a>
 <a href="https://opencollective.com/create-react-native-app/sponsor/9/website" target="_blank"><img src="https://opencollective.com/create-react-native-app/sponsor/9/avatar.svg"></a>
-
-

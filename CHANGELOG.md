@@ -22,17 +22,17 @@ The separate `react-native-scripts` package is now deprecated: new projects crea
 * **Developer experience:** Expo CLI is ahead of CRNA in terms of features and developer experience, and we’re continuously improving it.
 * **Maintenance:** having these two projects as separate codebases requires more maintenance and CRNA has previously falled behind because of this. A single codebase helps us keep it up to date and fix issues as fast as possible.
 
-### Upgrading from 1.14.0 to 2.0.0
+### Upgrading from 1.14.0 to 2.0.1
 
 All apps created with `create-react-native-app`, are compatible with Expo CLI without changes.
 
-Upgrade `react-native-scripts` to v2.0.0 with:
+Upgrade `react-native-scripts` to v2.0.1 with:
 ```
-npm install --save --save-exact react-native-scripts@2.0.0
+npm install --save --save-exact react-native-scripts@2.0.1
 ```
 or
 ```
-yarn add --exact react-native-scripts@2.0.0
+yarn add --exact react-native-scripts@2.0.1
 ```
 When you run `npm start` for the first time, Expo CLI will be installed.
 
