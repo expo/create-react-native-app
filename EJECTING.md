@@ -36,7 +36,7 @@ Also, please note that if you did make use of any Expo APIs before ejecting, you
 
 Using ExpoKit will allow you to continue using Expo APIs along with building your own native code, but it requires an Expo account and use of Expo developer tools.
 
-Because this ejection process essentially produces a custom build of the Expo client app, you don't need to modify any of your app's code, but you do still need to have an Xcode/Android Studio environment, along with `react-native-cli` and either [Expo XDE](https://docs.expo.io/versions/latest/introduction/installation.html) or [`exp`](https://docs.expo.io/versions/latest/guides/exp-cli.html).
+Because this ejection process essentially produces a custom build of the Expo client app, you don't need to modify any of your app's code, but you do still need to have an Xcode/Android Studio environment, along with `react-native-cli` and [Expo CLI](https://docs.expo.io/versions/latest/guides/expo-cli.html).
 
 ## Specific Motivations
 

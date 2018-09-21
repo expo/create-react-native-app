@@ -1,3 +1,55 @@
+## 2.0.0 (September 21, 2018)
+
+This release merges Create React Native App with Expo CLI.
+
+* **Expo CLI is a tool based on CRNA, made by the same team**
+* **It has all the same features, plus some additional benefits**
+* **Like CRNA, Expo CLI does not require an Expo user account**
+* **The `create-react-native-app` command will continue to work**
+
+The separate `react-native-scripts` package is now deprecated: new projects created with `create-react-native-app` will use Expo CLI instead of `react-native-scripts`. In addition to everything provided by CRNA, Expo CLI includes these extras:
+
+* **Web-based user interface:** in addition to the CLI, there's a GUI where you can view logs, launch the app on your devices or simulators, and publish updates.
+* **Standalone app builds:** you can build IPA and APK packages for deploying to App Store and Play Store without using Xcode or Android Studio.
+* **Publishing:** you can push updates to your deployed apps and optionally publish your app to Expo.io.
+* **Tunnel:** your physical device doesn’t need to be in the same wi-fi as your computer to be able to develop using it.
+* **Optional user accounts:** logging in allows listing all your projects in development in the Expo app without having to scan any QR codes and enables additional features like standalone builds. However, just like CRNA, Expo CLI can also be used without a user account.
+
+### Why are we bringing these two tools together?
+
+* **Just one tool to learn:** previously developers would start with CRNA and then switch to exp or XDE for additional features like standalone builds. Expo CLI is as easy to get started with as CRNA, but also supports everything previously offered by these separate tools.
+* **Less confusing options:** CRNA apps have always been loaded using the Expo app and able to use the Expo APIs in addition to the core React Native APIs. Users are sometimes confused about the differences between plain React Native, CRNA and Expo apps created with tools like exp or XDE. Installing the expo-cli package will make it clearer the additional functionality is provided by Expo.
+* **Developer experience:** Expo CLI is ahead of CRNA in terms of features and developer experience, and we’re continuously improving it.
+* **Maintenance:** having these two projects as separate codebases requires more maintenance and CRNA has previously falled behind because of this. A single codebase helps us keep it up to date and fix issues as fast as possible.
+
+### Upgrading from 1.14.0 to 2.0.0
+
+All apps created with `create-react-native-app`, are compatible with Expo CLI without changes.
+
+Upgrade `react-native-scripts` to v2.0.0 with:
+```
+npm install --save --save-exact react-native-scripts@2.0.0
+```
+or
+```
+yarn add --exact react-native-scripts@2.0.0
+```
+When you run `npm start` for the first time, Expo CLI will be installed.
+
+**Because `react-native-scripts` is now a wrapper for Expo CLI, you can also follow these steps to remove it from your project and use Expo CLI directly:**
+
+1. Replace `react-native-scripts` with `expo` in the `scripts` config in `package.json`. Example:
+    ```
+    "scripts": {
+      "start": "expo start",
+      "eject": "expo eject",
+      "android": "expo start --android",
+      "ios": "expo start --ios",
+      "test": "jest"
+    }
+    ```
+2. Remove `react-native-scripts` from `devDependencies`.
+
 ## 1.14.0 (April 27, 2018)
 
 Update Expo SDK 27.
