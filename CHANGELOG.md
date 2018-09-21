@@ -1,4 +1,4 @@
-## 2.0.0 (September 21, 2018)
+## 2.0.1 (September 21, 2018)
 
 This release merges Create React Native App with Expo CLI.
 
