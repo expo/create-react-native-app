@@ -1,6 +1,46 @@
+# Basic Create React Native App
 node_modules
 build/
 yarn-error.log
 *.tgz
 .DS_Store
 *.log
+
+# If you eject your app, uncomment Xcode, Android Studio, Buck and Bundle below.
+
+# Xcode
+#
+# *.pbxuser
+# !default.pbxuser
+# *.mode1v3
+# !default.mode1v3
+# *.mode2v3
+# !default.mode2v3
+# *.perspectivev3
+# !default.perspectivev3
+# xcuserdata
+# *.xccheckout
+# *.moved-aside
+# DerivedData
+# *.hmap
+# *.ipa
+# *.xcuserstate
+# project.xcworkspace
+
+# Android Studio
+#
+# build/
+# .idea
+# .gradle
+# local.properties
+# *.iml
+
+# BUCK
+#
+# buck-out/
+# \.buckd/
+# *.keystore
+
+# Bundle artifact
+#
+# *.jsbundle
