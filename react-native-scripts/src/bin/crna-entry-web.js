@@ -1,10 +1,6 @@
-import Expo from 'expo';
+import { KeepAwake, registerRootComponent } from 'expo';
 import App from '../../../../src/App';
-import React, { Component } from 'react';
-import { View } from 'react-native';
 
-if (process.env.NODE_ENV === 'development') {
-  Expo.KeepAwake.activate();
-}
+if (process.env.NODE_ENV === 'development') KeepAwake.activate();
 
-Expo.registerRootComponent(App);
+registerRootComponent(App);
