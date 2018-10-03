@@ -21,7 +21,7 @@ Make sure you have Node v6 or later installed. No Xcode or Android Studio instal
 $ npm install -g expo-cli
 $ expo init my-app
 $ cd my-app/
-$ npm start
+$ yarn start
 ```
 
 Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. Find the QR scanner on the Projects tab of the app. When you're ready to share your project with others (for example, by deploying to an app store), see ["How do I share my Expo project?"](https://docs.expo.io/versions/latest/introduction/faq#how-do-i-share-my-expo-project) in the Frequently Asked Questions.
@@ -42,6 +42,17 @@ Create React Native App allows you to work with all of the [Components and APIs]
 
 See [Installation](https://docs.expo.io/versions/latest/introduction/installation).
 
+#### Watchman
+
+You'll need [Watchman](https://facebook.github.io/watchman/docs/install.html) to run your app
+
+As an alternative you can run the following in your terminal:
+
+```
+sudo sysctl -w kern.maxfiles=5242880
+sudo sysctl -w kern.maxfilesperproc=524288
+```
+
 ### Creating an App
 
 To create a new app, run:
@@ -54,25 +65,25 @@ This will create a directory called `my-app` inside the current working director
 
 If you're familiar with React Native already, you won't find any `ios` or `android` directories in this project, just JavaScript. Once this installation is done, there are some commands you can run in the project directory:
 
-#### `npm start`
+#### `yarn start`
 
 Runs your app in development mode with an interactive prompt. To run it without a prompt, use the `--no-interactive` flag.
 
 Open it in the [Expo app](https://expo.io) on your phone to view it. It will reload if you save edits to your files, and you will see build errors and logs in the terminal.
 
-#### `npm test`
+#### `yarn test`
 
 Runs the [jest](https://github.com/facebook/jest) test runner on your tests.
 
-#### `npm run ios`
+#### `yarn run ios`
 
-Like `npm start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
+Like `yarn start`, but also attempts to open your app in the iOS Simulator if you're on a Mac and have it installed.
 
-#### `npm run android`
+#### `yarn run android`
 
-Like `npm start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup).
+Like `yarn start`, but also attempts to open your app on a connected Android device or emulator. Requires an installation of Android build tools (see [React Native docs](https://facebook.github.io/react-native/docs/getting-started.html) for detailed setup).
 
-#### `npm run eject`
+#### `yarn run eject`
 
 This will start the process of "ejecting" from Create React Native App's build scripts. You'll be asked a couple of questions about how you'd like to build your project.
 
