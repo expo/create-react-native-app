@@ -123,7 +123,7 @@ Please see [Contributin to Expo CLI](https://github.com/expo/expo-cli/blob/maste
 ## Contributors
 
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
-<a href="graphs/contributors"><img src="https://opencollective.com/create-react-native-app/contributors.svg?width=890&button=false" /></a>
+<a href="https://github.com/react-community/create-react-native-app/graphs/contributors"><img src="https://opencollective.com/create-react-native-app/contributors.svg?width=890&button=false" /></a>
 
 
 ## Backers
