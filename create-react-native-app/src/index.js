@@ -21,6 +21,7 @@ const argv = minimist(process.argv.slice(2));
  *   --verbose - to print npm logs during init
  *   --scripts-version <alternative package>
  *   --reason - shortcut for: --scripts-version 'reason-react-native-scripts'
+ *   --typescript - shortcut for: --scripts-version 'react-native-scripts-ts'
  *   --package-manager <package manager name or path>
  *     Example of valid values:
  *     - a specific npm version: "0.22.0-rc1"
@@ -41,7 +42,11 @@ if (commands.length === 0) {
   process.exit(1);
 }
 
-const scriptsVersion = argv.reason ? 'reason-react-native-scripts' : argv['scripts-version'];
+const scriptsVersion = argv.reason
+  ? 'reason-react-native-scripts'
+  : (argv.typescript
+    ?  'react-native-scripts-ts'
+    : argv['scripts-version']);
 
 createApp(commands[0], !!argv.verbose, scriptsVersion).then(() => {});
 
