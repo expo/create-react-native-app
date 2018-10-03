@@ -1,9 +1,10 @@
 # Create React Native App
+
 [![Backers on Open Collective](https://opencollective.com/create-react-native-app/backers/badge.svg)](#backers) [![Sponsors on Open Collective](https://opencollective.com/create-react-native-app/sponsors/badge.svg)](#sponsors) [![npm version](https://badge.fury.io/js/create-react-native-app.svg)](https://badge.fury.io/js/create-react-native-app)
 
 Create React Native apps with no build configuration.
 
-* [Getting Started](#getting-started)
+- [Getting Started](#getting-started)
 
 Once you're up and running with Create React Native App, visit [this tutorial](https://facebook.github.io/react-native/docs/tutorial.html) for more information on building apps with React Native.
 
@@ -24,17 +25,29 @@ $ cd my-app/
 $ npm start
 ```
 
-Install the [Expo](https://expo.io) app on your iOS or Android phone, and use the QR code in the terminal to open your app. Find the QR scanner on the Projects tab of the app. When you're ready to share your project with others (for example, by deploying to an app store), see ["How do I share my Expo project?"](https://docs.expo.io/versions/latest/introduction/faq#how-do-i-share-my-expo-project) in the Frequently Asked Questions.
+The `npm start` command starts the Expo CLI server. You can now run the project on your phone by using the Expo app.
 
-Create React Native App allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as most of the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the Expo App provides.
+### Android
+
+- Install the [Expo](https://expo.io) app on your Android device.
+- Scan the QR code in your terminal from the Expo app to run the project on your phone.
+- Alternatively you can press 's' in the terminal and sign in with an Expo account, and sign in with the same account in the Expo app: your projects will automatically appear in the "Projects" tab.
+
+### iOS
+
+- Install the [Expo](https://expo.io) app on your iOS device.
+- Press 'e' in the terminal to send the app link to your email address or phone number. This link can be used to run your project from the Expo app.
+- Alternatively you can press 's' in the terminal and sign in with an Expo account, and sign in with the same account in the Expo app: your projects will automatically appear in the "Projects" tab.
+
+Expo CLI allows you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the Expo app provides.
 
 ## Sections
 
-* [Getting Started](#getting-started)
-* [Philosophy](#philosophy)
-* [Support and Contact](#support-and-contact)
-* [FAQs](#faqs)
-* [Contributing](#contributing)
+- [Getting Started](#getting-started)
+- [Philosophy](#philosophy)
+- [Support and Contact](#support-and-contact)
+- [FAQs](#faqs)
+- [Contributing](#contributing)
 
 ## Getting Started
 
@@ -80,17 +93,17 @@ This will start the process of "ejecting" from Create React Native App's build s
 
 ## Philosophy
 
-* **Minimal "Time to Hello World"**: Create React Native App should reduce the setup time it takes to try building a mobile app to the absolute minimum, ideally on par with React web development (especially as seen with [Create React App](https://github.com/facebookincubator/create-react-app)).
-* **Develop on Your Device**: It should be easy to develop on a physical device when you want to test how your app feels and responds to inputs.
-* **One Build Tool**: If you just want to get started with React Native, you shouldn't need to install Xcode, Android Studio, NDKs, or mess with environment variables.
-* **No Lock-In**: You can always "eject" to your own build setup if you need to write custom native code or modify how your app is built.
+- **Minimal "Time to Hello World"**: Create React Native App should reduce the setup time it takes to try building a mobile app to the absolute minimum, ideally on par with React web development (especially as seen with [Create React App](https://github.com/facebookincubator/create-react-app)).
+- **Develop on Your Device**: It should be easy to develop on a physical device when you want to test how your app feels and responds to inputs.
+- **One Build Tool**: If you just want to get started with React Native, you shouldn't need to install Xcode, Android Studio, NDKs, or mess with environment variables.
+- **No Lock-In**: You can always "eject" to your own build setup if you need to write custom native code or modify how your app is built.
 
 ## Support and Contact
 
 If you're having issues with Create React Native App, please make sure:
 
-* The issue is not covered in the [Expo Docs](https://docs.expo.io/versions/latest/)
-* There is not already an [open issue](https://github.com/expo/expo-cli/issues) for your particular problem
+- The issue is not covered in the [Expo Docs](https://docs.expo.io/versions/latest/)
+- There is not already an [open issue](https://github.com/expo/expo-cli/issues) for your particular problem
 
 If you've checked the documentation and currently open issues, please either [open a new GitHub issue](https://github.com/expo/expo-cli/issues/new) or ask a question on [Expo forums](https://forums.expo.io/c/help). **Please do not DM or email project maintainers directly**, as it's very important that support takes place in public locations where others can benefit from the conversation.
 
@@ -125,13 +138,11 @@ Please see [Contributin to Expo CLI](https://github.com/expo/expo-cli/blob/maste
 This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/react-community/create-react-native-app/graphs/contributors"><img src="https://opencollective.com/create-react-native-app/contributors.svg?width=890&button=false" /></a>
 
-
 ## Backers
 
 Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/create-react-native-app#backer)]
 
 <a href="https://opencollective.com/create-react-native-app#backers" target="_blank"><img src="https://opencollective.com/create-react-native-app/backers.svg?width=890"></a>
-
 
 ## Sponsors
 
