@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import chalk from 'chalk';
 import { Command } from 'commander';
 import { ensureDir } from 'fs-extra';
