@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import { Command } from 'commander';
-import { ensureDir, lstatSync } from 'fs-extra';
+import { ensureDir } from 'fs-extra';
 import * as path from 'path';
 import prompts from 'prompts';
 

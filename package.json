@@ -10,8 +10,7 @@
   "homepage": "https://github.com/expo/create-react-native-app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/expo/create-react-native-app.git",
-    "directory": "packages/create-react-native-app"
+    "url": "https://github.com/expo/create-react-native-app.git"
   },
   "author": "Expo <support@expo.io>",
   "contributors": [
