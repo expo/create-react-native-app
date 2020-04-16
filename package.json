@@ -1,6 +1,6 @@
 {
   "name": "create-react-native-app",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0",
   "main": "build",
   "description": "Create React Native apps with no build configuration.",
   "license": "BSD-3-Clause",
