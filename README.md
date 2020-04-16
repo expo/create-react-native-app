@@ -6,21 +6,20 @@
 <!-- Header -->
 
 <p align="center">
-    <b>Create React Native apps with no build configuration.</b>
-</p>
+  <b>Create React Native apps with no build configuration.</b>
+  <br />
 
----
+  <p>
+    <!-- iOS -->
+    <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
+    <!-- Android -->
+    <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
+    <!-- Web -->
+    <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
+  </p>
+</p>
 
 <!-- Body -->
-
-<p>
-  <!-- iOS -->
-  <img alt="Supports Expo iOS" longdesc="Supports Expo iOS" src="https://img.shields.io/badge/iOS-4630EB.svg?style=flat-square&logo=APPLE&labelColor=999999&logoColor=fff" />
-  <!-- Android -->
-  <img alt="Supports Expo Android" longdesc="Supports Expo Android" src="https://img.shields.io/badge/Android-4630EB.svg?style=flat-square&logo=ANDROID&labelColor=A4C639&logoColor=fff" />
-  <!-- Web -->
-  <img alt="Supports Expo Web" longdesc="Supports Expo Web" src="https://img.shields.io/badge/web-4630EB.svg?style=flat-square&logo=GOOGLE-CHROME&labelColor=4285F4&logoColor=fff" />
-</p>
 
 ```sh
 npx create-react-native-app
@@ -85,7 +84,5 @@ Please see [Contributing guide](https://github.com/expo/expo-cli/blob/master/CON
     <a aria-label="sponsored by expo" href="http://expo.io">
         <img src="https://img.shields.io/badge/Sponsored_by-Expo-4630EB.svg?style=for-the-badge&logo=EXPO&labelColor=000&logoColor=fff" target="_blank" />
     </a>
-    <a aria-label="create-react-native-app is free to use" href="/LICENSE" target="_blank">
-        <img align="right" alt="License: MIT" src="https://img.shields.io/badge/License-BSD-3-Clause-success.svg?style=for-the-badge&color=33CC12" target="_blank" />
-    </a>
+    
 </p>
