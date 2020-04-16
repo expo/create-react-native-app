@@ -4,7 +4,7 @@ vendor
 **/ts-declarations/*
 
 # Ignore build artifacts
-/packages/*/build
+/build
 
 # Generated
 .expo

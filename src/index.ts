@@ -163,16 +163,7 @@ async function resolveProjectRootAsync(input: string): Promise<string> {
     log.nested(`The directory ${chalk.green(folderName)} has files that might be overwritten:`);
     log.newLine();
     for (const file of conflicts) {
-      try {
-        const stats = lstatSync(path.join(projectRoot, file));
-        if (stats.isDirectory()) {
-          log.nested(`  ${chalk.blue(file)}/`);
-        } else {
-          log.nested(`  ${file}`);
-        }
-      } catch {
-        log.nested(`  ${file}`);
-      }
+      log.nested(`  ${file}`);
     }
     log.newLine();
     log.nested('Try using a new directory name, or moving these files.');
