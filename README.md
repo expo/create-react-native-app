@@ -33,6 +33,7 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 - Support for unimodules and auto-linking.
 - OTA updates, and Gestures out of the box.
 - Full support for React Native web.
+- TypeScript by default.
 - Works with the Expo Client app.
 
 ## Usage
