@@ -120,7 +120,7 @@ async function resolveProjectRootAsync(input: string): Promise<string> {
       type: 'text',
       name: 'answer',
       message: 'What is your app named?',
-      initial: 'my-app',
+      initial: 'my-neat-app',
       validate: name => {
         const validation = Template.validateName(path.basename(path.resolve(name)));
         if (typeof validation === 'string') {
@@ -141,7 +141,7 @@ async function resolveProjectRootAsync(input: string): Promise<string> {
     log.nested(`  ${chalk.green(program.name())} ${chalk.magenta('<project-root>')}`);
     log.newLine();
     log.nested('For example:');
-    log.nested(`  ${chalk.green(program.name())} ${chalk.magenta('my-app')}`);
+    log.nested(`  ${chalk.green(program.name())} ${chalk.magenta('my-neat-app')}`);
     log.newLine();
     log.nested(`Run ${chalk.green(`${program.name()} --help`)} to see all options.`);
     process.exit(1);
