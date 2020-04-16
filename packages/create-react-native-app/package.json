@@ -1,0 +1,57 @@
+{
+  "name": "create-react-native-app",
+  "version": "3.0.0-alpha.1",
+  "description": "Create React Native apps with no build configuration.",
+  "license": "BSD-3-Clause",
+  "keywords": [
+    "react-native",
+    "react"
+  ],
+  "homepage": "https://github.com/expo/create-react-native-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/expo/create-react-native-app.git",
+    "directory": "packages/create-react-native-app"
+  },
+  "author": "Expo <support@expo.io>",
+  "files": [
+    "build"
+  ],
+  "bin": {
+    "create-react-native-app": "./build/index.js"
+  },
+  "scripts": {
+    "prepare": "yarn run clean && yarn run build:prod",
+    "lint": "eslint .",
+    "watch": "yarn run build -w",
+    "build": "ncc build ./src/index.ts -o build/",
+    "build:prod": "ncc build ./src/index.ts -o build/ --minify --no-cache --no-source-map-register",
+    "clean": "rimraf ./build/"
+  },
+  "devDependencies": {
+    "@expo/babel-preset-cli": "0.2.8",
+    "@expo/json-file": "^8.2.9",
+    "@expo/package-manager": "^0.0.13",
+    "@types/fs-extra": "^8.1.0",
+    "@types/getenv": "^1.0.0",
+    "@types/js-yaml": "^3.12.3",
+    "@types/node": "^12.6.8",
+    "@types/npm-package-arg": "^6.1.0",
+    "@types/prompts": "2.0.1",
+    "@types/tar": "4.0.3",
+    "@zeit/ncc": "^0.20.4",
+    "chalk": "2.4.2",
+    "commander": "2.20.0",
+    "fs-extra": "^9.0.0",
+    "getenv": "^1.0.0",
+    "js-yaml": "^3.13.1",
+    "minipass": "^3.1.1",
+    "ora": "^4.0.3",
+    "pacote": "^11.1.4",
+    "prompts": "2.1.0",
+    "tar": "^6.0.1",
+    "terminal-link": "^2.1.1",
+    "typescript": "3.7.3",
+    "update-check": "1.5.4"
+  }
+}

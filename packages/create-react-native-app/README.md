@@ -1,6 +1,6 @@
 # create-react-native-app
 
-The README for this package is hosted at https://github.com/react-community/create-react-native-app.
+The README for this package is hosted at https://github.com/expo/create-react-native-app.
 
 ## Development
 
