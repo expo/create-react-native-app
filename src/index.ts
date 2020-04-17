@@ -139,13 +139,10 @@ async function resolveProjectRootAsync(input: string): Promise<string> {
 
   if (!name) {
     log.newLine();
-    log.nested('Please specify the project directory:');
-    log.nested(`  ${chalk.green(program.name())} ${chalk.magenta('<project-root>')}`);
+    log.nested('Please choose your app name:');
+    log.nested(`  ${chalk.green(program.name())} ${chalk.magenta('<app-name>')}`);
     log.newLine();
-    log.nested('For example:');
-    log.nested(`  ${chalk.green(program.name())} ${chalk.magenta('my-neat-app')}`);
-    log.newLine();
-    log.nested(`Run ${chalk.green(`${program.name()} --help`)} to see all options.`);
+    log.nested(`Run ${chalk.green(`${program.name()} --help`)} for more info.`);
     process.exit(1);
   }
 
