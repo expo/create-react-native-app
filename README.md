@@ -81,8 +81,8 @@ Please see [Contributing guide](https://github.com/expo/expo-cli/blob/master/CON
 ---
 
 <p>
-    <a aria-label="sponsored by expo" href="http://expo.io">
-        <img src="https://img.shields.io/badge/Sponsored_by-Expo-4630EB.svg?style=for-the-badge&logo=EXPO&labelColor=000&logoColor=fff" target="_blank" />
+    <a aria-label="Created by Team Expo" href="http://expo.io">
+        <img src="https://img.shields.io/badge/Created_by-Expo-4630EB.svg?style=for-the-badge&logo=EXPO&labelColor=000&logoColor=fff" target="_blank" />
     </a>
     
 </p>
