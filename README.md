@@ -5,7 +5,7 @@
 <!-- Header -->
 
 <p align="center">
-  <b>Create React Native apps with no build configuration.</b>
+  <b>Create Universal React Native apps with no build configuration.</b>
   <br />
 
   <p align="center">
