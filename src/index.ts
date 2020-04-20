@@ -101,7 +101,8 @@ runAsync();
 
 function resolvePackageManager(): 'npm' | 'yarn' {
   let packageManager: 'npm' | 'yarn' = 'npm';
-  if (shouldUseYarn()) {
+
+  if (!program.useNpm && shouldUseYarn()) {
     packageManager = 'yarn';
     log.newLine();
     log('🧶 Using Yarn to install packages. You can pass --use-npm to use npm instead.');
