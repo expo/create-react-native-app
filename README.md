@@ -1,7 +1,6 @@
 <!-- Title -->
-<h1 align="center">
-  Create React Native App
-</h1>
+
+[![Create React Native App](/.gh-assets/header.png)](https://github.com/expo/create-react-native-app)
 
 <!-- Header -->
 
