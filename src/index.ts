@@ -44,6 +44,8 @@ async function runAsync(): Promise<void> {
           resolvedTemplate,
           templatePath
         );
+
+        await Examples.appendScriptsAsync(projectRoot);
       } else {
         await Template.extractAndPrepareTemplateAppAsync(projectRoot);
       }

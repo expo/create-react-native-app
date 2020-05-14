@@ -1,6 +1,7 @@
 /**
  * Inspired by create-next-app
  */
+import JsonFile, { JSONObject } from '@expo/json-file';
 import chalk from 'chalk';
 import fs from 'fs';
 import got from 'got';
@@ -8,6 +9,7 @@ import path from 'path';
 import prompts from 'prompts';
 import { Stream } from 'stream';
 import tar from 'tar';
+import terminalLink from 'terminal-link';
 import { promisify } from 'util';
 
 // @ts-ignore
@@ -27,7 +29,10 @@ export async function promptAsync(): Promise<string | null> {
     message: 'How would you like to start',
     choices: [
       { title: 'Default new app', value: 'default' },
-      { title: 'Examples from Expo', value: 'example' },
+      {
+        title: `Template from ${terminalLink('expo/examples', 'https://github.com/expo/examples')}`,
+        value: 'example',
+      },
     ],
   });
 
@@ -208,6 +213,53 @@ export async function resolveTemplateArgAsync(
   await ensureProjectHasGitIgnore(projectRoot);
 
   return true;
+}
+
+function projectHasNativeCode(projectRoot: string): boolean {
+  const iosPath = path.join(projectRoot, 'ios');
+  const androidPath = path.join(projectRoot, 'android');
+  return fs.existsSync(iosPath) || fs.existsSync(androidPath);
+}
+
+function getScriptsForProject(projectRoot: string): Record<string, string> {
+  if (projectHasNativeCode(projectRoot)) {
+    return {
+      android: 'react-native run-android',
+      ios: 'react-native run-ios',
+      web: 'expo web',
+      start: 'react-native start',
+    };
+  }
+  return {
+    start: 'expo start',
+    android: 'expo start --android',
+    ios: 'expo start --ios',
+    web: 'expo web',
+    eject: 'expo eject',
+  };
+}
+
+export async function appendScriptsAsync(projectRoot: string): Promise<void> {
+  // Copy our default `.gitignore` if the application did not provide one
+  const packageJsonPath = path.join(projectRoot, 'package.json');
+  if (fs.existsSync(packageJsonPath)) {
+    let packageFile = new JsonFile(packageJsonPath);
+    let packageJson = await packageFile.readAsync();
+    packageJson = {
+      ...packageJson,
+      // Assign scripts for the workflow
+      scripts: {
+        ...getScriptsForProject(projectRoot),
+        // Existing scripts have higher priority
+        ...((packageJson.scripts || {}) as JSONObject),
+      },
+      // Adding `private` stops npm from complaining about missing `name` and `version` fields.
+      // We don't add a `name` field because it also exists in `app.json`.
+      private: true,
+    };
+
+    await packageFile.writeAsync(packageJson);
+  }
 }
 
 function ensureProjectHasGitIgnore(projectRoot: string): void {
