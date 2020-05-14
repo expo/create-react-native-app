@@ -32,7 +32,7 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 - Support for unimodules and auto-linking.
 - OTA updates, and Gestures out of the box.
 - Full support for React Native web.
-- TypeScript by default.
+- Plug-n-play custom templates.
 - Works with the Expo Client app.
 
 ## Usage
@@ -41,6 +41,13 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 - `yarn ios` -- (`react-native run-ios`) Build the iOS App (requires a MacOS computer).
 - `yarn android` -- (`react-native run-android`) Build the Android App.
 - `yarn web` -- (`expo start:web`) Run the website in your browser.
+
+### Templates
+
+By default you create a bare-workflow React project with support for iOS, Android, and web. You can opt to use an example project instead by selecting the "Templates from ..." option. Custom templates can be used with `--template <Github URL>` option.
+
+- Use a custom template: `npx create-react-native-app --template https://github.com/someone/my-expo-starter` -- Only works with Github repos on the master branch.
+- All examples can be modified in the [expo/examples](https://github.com/expo/examples) repo.
 
 ## Sections
 

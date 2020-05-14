@@ -66,7 +66,7 @@ function createFileTransform(config: AppJSONConfig) {
 
 // Currently only support bare JS project
 // TODO(Bacon): Add examples
-const templateSpec = npmPackageArg('expo-template-bare-typescript');
+const templateSpec = npmPackageArg('expo-template-blank');
 
 /**
  * Extract a template app to a given file path and clean up any properties left over from npm to

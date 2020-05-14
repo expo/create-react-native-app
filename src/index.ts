@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-
 import chalk from 'chalk';
 import { Command } from 'commander';
-import { ensureDir } from 'fs-extra';
+import { ensureDir, existsSync } from 'fs-extra';
 import * as path from 'path';
 import prompts from 'prompts';
 
+import * as Examples from './Examples';
 import log from './Logger';
 import * as Template from './Template';
 import shouldUpdate, { shouldUseYarn } from './Update';
@@ -20,19 +20,35 @@ const program = new Command(packageJSON.name)
   .usage(`${chalk.magenta('<project-root>')} [options]`)
   .description('Creates a new React Native project')
   .option('--use-npm', 'Use npm to install dependencies. (default when Yarn is not installed)')
+  .option('--template [url]', 'The URL to a github repo that contains an example.')
+  .option('--template-path [name]', 'The path inside of a github repo where the example lives.')
   .allowUnknownOption()
   .action(projectRoot => (inputPath = projectRoot))
   .parse(process.argv);
 
 async function runAsync(): Promise<void> {
-  // Command Entry Point
   try {
     const projectRoot = await resolveProjectRootAsync(inputPath);
 
-    let extractTemplateStep = Template.logNewSection('Downloading and extracting project files.');
-    let projectPath;
+    let resolvedTemplate = program.template ?? (await Examples.promptAsync());
+    let templatePath = program.templatePath;
+
+    await ensureDir(projectRoot);
+    let extractTemplateStep = Template.logNewSection(`Downloading and extracting project files.`);
+
     try {
-      projectPath = await Template.extractAndPrepareTemplateAppAsync(projectRoot);
+      if (resolvedTemplate) {
+        await Examples.resolveTemplateArgAsync(
+          projectRoot,
+          extractTemplateStep,
+          resolvedTemplate,
+          templatePath
+        );
+
+        await Examples.appendScriptsAsync(projectRoot);
+      } else {
+        await Template.extractAndPrepareTemplateAppAsync(projectRoot);
+      }
       extractTemplateStep.succeed('Downloaded and extracted project files.');
     } catch (e) {
       extractTemplateStep.fail(
@@ -41,6 +57,8 @@ async function runAsync(): Promise<void> {
       process.exit(1);
     }
 
+    await maybeInstallDependenciesAsync(projectRoot);
+
     // for now, we will just init a git repo if they have git installed and the
     // project is not inside an existing git tree, and do it silently. we should
     // at some point check if git is installed and actually bail out if not, because
@@ -48,12 +66,10 @@ async function runAsync(): Promise<void> {
     try {
       // check if git is installed
       // check if inside git repo
-      await Template.initGitRepoAsync(projectPath, { silent: true });
+      await Template.initGitRepoAsync(projectRoot, { silent: true });
     } catch {
       // todo: check if git is installed, bail out
     }
-
-    await maybeInstallDependenciesAsync(projectPath);
   } catch (error) {
     await commandDidThrowAsync(error);
   }
@@ -78,21 +94,25 @@ async function maybeInstallDependenciesAsync(projectPath: string): Promise<void>
     cdPath = projectPath;
   }
 
+  const needsPodInstall = await existsSync(path.join(projectPath, 'ios'));
+
   let podsInstalled = false;
-  try {
-    podsInstalled = await Template.installPodsAsync(projectPath);
-  } catch (_) {}
+  if (needsPodInstall) {
+    try {
+      podsInstalled = await Template.installPodsAsync(projectPath);
+    } catch (_) {}
+  }
 
   log.newLine();
   Template.logProjectReady({ cdPath, packageManager });
-  if (!podsInstalled && process.platform === 'darwin') {
+  if (needsPodInstall && !podsInstalled && process.platform === 'darwin') {
     log.newLine();
     log.nested(
       `⚠️  Before running your app on iOS, make sure you have CocoaPods installed and initialize the project:`
     );
     log.nested('');
     log.nested(`  cd ${cdPath ?? '.'}/ios`);
-    log.nested(`  pod install`);
+    log.nested(`  npx pod-install`);
     log.nested('');
   }
 }
