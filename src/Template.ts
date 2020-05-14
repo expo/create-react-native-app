@@ -292,14 +292,6 @@ export function logProjectReady({
       'android'
     )} directories with their respective IDEs.`
   );
-  Logger.nested(
-    `🚀 Please note that ${terminalLink(
-      'expo-updates',
-      'https://github.com/expo/expo/blob/master/packages/expo-updates/README.md'
-    )} has been configured in your project. Before you do a release build, make sure you run ${chalk.bold(
-      'expo publish'
-    )}. ${terminalLink('Learn more.', 'https://expo.fyi/release-builds-with-expo-updates')}`
-  );
 }
 
 export async function installPodsAsync(projectRoot: string) {
