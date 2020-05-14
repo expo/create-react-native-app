@@ -285,13 +285,6 @@ export function logProjectReady({
   );
 
   Logger.nested(`- ${chalk.bold(packageManager === 'npm' ? 'npm run web' : 'yarn web')}`);
-
-  Logger.newLine();
-  Logger.nested(
-    `💡 You can also open up the projects in the ${chalk.bold('ios')} and ${chalk.bold(
-      'android'
-    )} directories with their respective IDEs.`
-  );
 }
 
 export async function installPodsAsync(projectRoot: string) {
