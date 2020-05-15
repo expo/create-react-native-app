@@ -22,9 +22,13 @@
 
 ```sh
 npx create-react-native-app
+
+# Or shorter
+
+npx crna
 ```
 
-Once you're up and running with Create React Native App, visit [this tutorial](https://reactnative.dev/docs/tutorial.html) for more information on building apps with React Native.
+Once you're up and running with Create React Native App, visit [this tutorial](https://reactnative.dev/docs/tutorial.html) for more information on building mobile apps with React.
 
 ## Features
 
@@ -37,7 +41,7 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 
 ## Usage
 
-- `npx create-react-native-app` Create a new React Native app.
+- `npx create-react-native-app` Create a new native React app.
 - `yarn ios` -- (`react-native run-ios`) Build the iOS App (requires a MacOS computer).
 - `yarn android` -- (`react-native run-android`) Build the Android App.
 - `yarn web` -- (`expo start:web`) Run the website in your browser.
@@ -59,7 +63,7 @@ By default you create a [bare-workflow React](https://docs.expo.io/bare/explorin
 
 ## Usage with Expo Client App
 
-Expo Client enables you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in React Native, as well as the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the are bundled with the Expo App.
+Expo Client enables you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started.html) in `react-native`, as well as the [JavaScript APIs](https://docs.expo.io/versions/latest/sdk/index.html) that the are bundled with the Expo App.
 
 Expo Client supports running any project that doesn't have custom native modules added.
 
