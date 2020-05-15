@@ -13,7 +13,6 @@ import pacote, { PackageSpec } from 'pacote';
 import * as path from 'path';
 import { Readable } from 'stream';
 import tar, { ReadEntry } from 'tar';
-import terminalLink from 'terminal-link';
 
 import Logger from './Logger';
 import * as Paths from './Paths';
