@@ -1,0 +1,19 @@
+name: 'Size'
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+jobs:
+  bundlewatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - run: yarn install --frozen-lockfile --check-files
+      - run: yarn prepare
+      - uses: jackyef/bundlewatch-gh-action@master
+        with:
+          build-script: yarn check-size
+          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
