@@ -1,0 +1,18 @@
+name: 'Size'
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - uses: preactjs/compressed-size-action@v2
+        continue-on-error: true
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          pattern: '**/build/*.js'
