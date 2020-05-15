@@ -19,6 +19,8 @@ import * as Paths from './Paths';
 
 const isMacOS = process.platform === 'darwin';
 
+export type PackageManagerName = 'yarn' | 'npm';
+
 type AppJSONConfig = Record<string, any>;
 
 function sanitizedName(name: string) {
@@ -65,7 +67,7 @@ function createFileTransform(config: AppJSONConfig) {
 
 // Currently only support bare JS project
 // TODO(Bacon): Add examples
-const templateSpec = npmPackageArg('expo-template-blank');
+const templateSpec = npmPackageArg('expo-template-bare-minimum');
 
 /**
  * Extract a template app to a given file path and clean up any properties left over from npm to
@@ -211,7 +213,7 @@ export async function initGitRepoAsync(
 
 export async function installDependenciesAsync(
   projectRoot: string,
-  packageManager: 'yarn' | 'npm',
+  packageManager: PackageManagerName,
   flags: { silent: boolean } = { silent: false }
 ) {
   const options = { cwd: projectRoot, silent: flags.silent };
