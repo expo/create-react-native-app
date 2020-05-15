@@ -20,7 +20,10 @@ const program = new Command(packageJSON.name)
   .usage(`${chalk.magenta('<project-root>')} [options]`)
   .description('Creates a new React Native project')
   .option('--use-npm', 'Use npm to install dependencies. (default when Yarn is not installed)')
-  .option('--template [url]', 'The URL to a github repo that contains an example.')
+  .option(
+    '-t, --template [template|url]',
+    'The name of a template from expo/examples or URL to a github repo that contains an example.'
+  )
   .option('--template-path [name]', 'The path inside of a github repo where the example lives.')
   .allowUnknownOption()
   .action(projectRoot => (inputPath = projectRoot))
