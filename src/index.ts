@@ -146,7 +146,7 @@ async function resolveProjectRootAsync(input: string): Promise<string> {
       type: 'text',
       name: 'answer',
       message: 'What is your app named?',
-      initial: 'my-neat-app',
+      initial: 'my-react-app',
       validate: name => {
         const validation = Template.validateName(path.basename(path.resolve(name)));
         if (typeof validation === 'string') {
