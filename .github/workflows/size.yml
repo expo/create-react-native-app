@@ -17,4 +17,3 @@ jobs:
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
           pattern: '**/build/*.js'
-          build-script: 'build:prod'
