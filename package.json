@@ -26,11 +26,11 @@
     "create-react-native-app": "./build/index.js"
   },
   "scripts": {
-    "prepare": "yarn run clean && yarn run build:prod",
+    "prepare": "yarn run clean && yarn run build",
     "lint": "eslint .",
-    "watch": "yarn run build -w",
-    "build": "ncc build ./src/index.ts -o build/",
-    "build:prod": "ncc build ./src/index.ts -o build/ --minify --no-cache --no-source-map-register",
+    "watch": "yarn run build:dev -w",
+    "build:dev": "ncc build ./src/index.ts -o build/",
+    "build": "ncc build ./src/index.ts -o build/ --minify --no-cache --no-source-map-register",
     "clean": "rimraf ./build/"
   },
   "husky": {

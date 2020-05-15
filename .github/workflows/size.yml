@@ -1,0 +1,19 @@
+name: 'Size'
+
+on:
+  pull_request:
+    types: [synchronize, opened]
+
+jobs:
+  size:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      # - run: yarn install --frozen-lockfile --check-files
+      - uses: preactjs/compressed-size-action@v1
+        continue-on-error: true
+        with:
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          pattern: '**/build/*.js'
