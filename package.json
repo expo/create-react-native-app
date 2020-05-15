@@ -26,7 +26,7 @@
     "create-react-native-app": "./build/index.js"
   },
   "scripts": {
-    "prepare": "yarn run clean && yarn run build",
+    "prepublishOnly": "yarn run clean && yarn run build",
     "lint": "eslint .",
     "watch": "yarn run build:dev -w",
     "build:dev": "ncc build ./src/index.ts -o build/",

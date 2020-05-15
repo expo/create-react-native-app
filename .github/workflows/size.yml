@@ -11,8 +11,7 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-      # - run: yarn install --frozen-lockfile --check-files
-      - uses: preactjs/compressed-size-action@v1
+      - uses: preactjs/compressed-size-action@v2
         continue-on-error: true
         with:
           repo-token: '${{ secrets.GITHUB_TOKEN }}'
