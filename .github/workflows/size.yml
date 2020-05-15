@@ -5,15 +5,15 @@ on:
     types: [synchronize, opened]
 
 jobs:
-  bundlewatch:
+  size:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-      - run: yarn install --frozen-lockfile --check-files
-      - run: yarn prepare
-      - uses: jackyef/bundlewatch-gh-action@master
+      # - run: yarn install --frozen-lockfile --check-files
+      - uses: preactjs/compressed-size-action@v1
+        continue-on-error: true
         with:
-          build-script: yarn check-size
-          bundlewatch-github-token: ${{ secrets.BUNDLEWATCH_GITHUB_TOKEN }}
+          repo-token: '${{ secrets.GITHUB_TOKEN }}'
+          build-script: 'build:prod'
