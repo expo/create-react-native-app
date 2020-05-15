@@ -83,6 +83,10 @@ If you've checked the documentation and currently open issues, please either [op
 
 Please see [Contributing guide](https://github.com/expo/expo-cli/blob/master/CONTRIBUTING.md) in the Expo CLI monorepo for instructions on contributing to Expo CLI.
 
+### Attribution
+
+The examples feature was inspired by the `templates` system of [create-next-app](https://github.com/zeit/next.js/tree/canary/packages/create-next-app) by the [Vercel](https://vercel.com/) team.
+
 <!-- Footer -->
 
 ---
