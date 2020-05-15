@@ -22,10 +22,6 @@
 
 ```sh
 npx create-react-native-app
-
-# Or shorter
-
-npx crna
 ```
 
 Once you're up and running with Create React Native App, visit [this tutorial](https://reactnative.dev/docs/tutorial.html) for more information on building mobile apps with React.
