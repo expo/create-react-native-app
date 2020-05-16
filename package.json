@@ -28,6 +28,7 @@
   "scripts": {
     "prepublishOnly": "yarn run clean && yarn run build",
     "lint": "eslint .",
+    "test": "jest",
     "watch": "yarn run build:dev -w",
     "build:dev": "ncc build ./src/index.ts -o build/",
     "build": "ncc build ./src/index.ts -o build/ --minify --no-cache --no-source-map-register",
@@ -64,6 +65,7 @@
     "commander": "2.20.0",
     "eslint": "^6.6.0",
     "eslint-config-universe": "^2.1.0",
+    "execa": "^4.0.1",
     "fs-extra": "^9.0.0",
     "getenv": "^1.0.0",
     "got": "^11.1.3",

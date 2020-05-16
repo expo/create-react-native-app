@@ -38,7 +38,7 @@ async function runAsync(): Promise<void> {
     let templatePath = program.templatePath;
 
     await ensureDir(projectRoot);
-    let extractTemplateStep = Template.logNewSection(`Downloading and extracting project files.`);
+    let extractTemplateStep = Template.logNewSection(`Locating project files.`);
 
     try {
       if (resolvedTemplate) {
@@ -58,6 +58,7 @@ async function runAsync(): Promise<void> {
       extractTemplateStep.fail(
         'Something went wrong in downloading and extracting the project files.'
       );
+
       process.exit(1);
     }
 
@@ -98,6 +99,7 @@ async function runAsync(): Promise<void> {
     await commandDidThrowAsync(error);
   }
   await shouldUpdate();
+  process.exit(0);
 }
 
 function getChangeDirectoryPath(projectRoot: string): string {

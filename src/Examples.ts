@@ -146,14 +146,14 @@ export async function resolveTemplateArgAsync(
       repoUrl = new URL(template);
     } catch (error) {
       if (error.code !== 'ERR_INVALID_URL') {
-        oraInstance.error(error);
+        oraInstance.fail(error);
         process.exit(1);
       }
     }
 
     if (repoUrl) {
       if (repoUrl.origin !== 'https://github.com') {
-        oraInstance.error(
+        oraInstance.fail(
           `Invalid URL: ${chalk.red(
             `"${template}"`
           )}. Only GitHub repositories are supported. Please use a GitHub URL and try again.`
@@ -164,7 +164,7 @@ export async function resolveTemplateArgAsync(
       repoInfo = await getRepoInfo(repoUrl, templatePath);
 
       if (!repoInfo) {
-        oraInstance.error(
+        oraInstance.fail(
           `Found invalid GitHub URL: ${chalk.red(
             `"${template}"`
           )}. Please fix the URL and try again.`
@@ -175,7 +175,7 @@ export async function resolveTemplateArgAsync(
       const found = await hasRepo(repoInfo);
 
       if (!found) {
-        oraInstance.error(
+        oraInstance.fail(
           `Could not locate the repository for ${chalk.red(
             `"${template}"`
           )}. Please check that the repository exists and try again.`
@@ -186,11 +186,7 @@ export async function resolveTemplateArgAsync(
       const found = await hasExample(template);
 
       if (!found) {
-        oraInstance.error(
-          `Could not locate an example named ${chalk.red(
-            `"${template}"`
-          )}. Please check your spelling and try again.`
-        );
+        oraInstance.fail(`Could not locate the template named ${chalk.red(`"${template}"`)}.`);
         process.exit(1);
       }
     }
