@@ -168,10 +168,6 @@ describe('templates', () => {
     // Test that the user was warned about deps
     expect(results.stdout).toMatch(/make sure you have node modules installed/);
     expect(results.stdout).toMatch(/yarn/);
-    if (process.platform === 'darwin') {
-      expect(results.stdout).toMatch(/make sure you have CocoaPods installed/);
-      expect(results.stdout).toMatch(/npx pod-install/);
-    }
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
     expect(fileExists(projectName, 'App.js')).toBeTruthy();
     expect(fileExists(projectName, 'README.md')).toBeTruthy();
