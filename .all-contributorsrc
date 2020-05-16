@@ -13,6 +13,16 @@
       "contributions": [
         "code"
       ]
+    },
+    {
+      "login": "brentvatne",
+      "name": "Brent Vatne",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/90494?v=4",
+      "profile": "https://expo.io",
+      "contributions": [
+        "code",
+        "doc"
+      ]
     }
   ],
   "contributorsPerLine": 7,
