@@ -27,7 +27,6 @@
   },
   "scripts": {
     "prepublishOnly": "yarn run clean && yarn run build",
-    "commit": "git-cz",
     "lint": "eslint .",
     "test": "jest",
     "watch": "yarn run build:dev -w",
@@ -37,7 +36,6 @@
   },
   "husky": {
     "hooks": {
-      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true",
       "pre-commit": "lint-staged"
     }
   },
@@ -54,8 +52,6 @@
     "@expo/babel-preset-cli": "0.2.8",
     "@expo/json-file": "^8.2.9",
     "@expo/package-manager": "^0.0.13",
-    "@semantic-release/changelog": "^5.0.1",
-    "@semantic-release/git": "^9.0.0",
     "@types/fs-extra": "^8.1.0",
     "@types/getenv": "^1.0.0",
     "@types/js-yaml": "^3.12.3",
@@ -67,8 +63,6 @@
     "babel-jest": "^26.0.1",
     "chalk": "2.4.2",
     "commander": "2.20.0",
-    "cz-conventional-changelog": "3.2.0",
-    "emoji-cz": "^0.3.1",
     "eslint": "^6.6.0",
     "eslint-config-universe": "^2.1.0",
     "execa": "^4.0.1",
@@ -88,33 +82,5 @@
     "terminal-link": "^2.1.1",
     "typescript": "3.7.3",
     "update-check": "1.5.4"
-  },
-  "plugins": [
-    "@semantic-release/commit-analyzer",
-    "@semantic-release/release-notes-generator",
-    "@semantic-release/changelog",
-    "@semantic-release/github",
-    "@semantic-release/npm",
-    "@semantic-release/git"
-  ],
-  "release": {
-    "prepare": [
-      "@semantic-release/changelog",
-      "@semantic-release/npm",
-      {
-        "path": "@semantic-release/git",
-        "assets": [
-          "package.json",
-          "package-lock.json",
-          "CHANGELOG.md"
-        ],
-        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
-      }
-    ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/emoji-cz"
-    }
   }
 }
