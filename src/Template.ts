@@ -2,72 +2,19 @@ import JsonFile from '@expo/json-file';
 import * as PackageManager from '@expo/package-manager';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
-import { ensureDir, readdirSync } from 'fs-extra';
+import { readdirSync } from 'fs-extra';
 import getenv from 'getenv';
 // @ts-ignore
 import merge from 'lodash/merge';
-import Minipass from 'minipass';
-import npmPackageArg from 'npm-package-arg';
 import ora from 'ora';
-import pacote, { PackageSpec } from 'pacote';
 import * as path from 'path';
-import { Readable } from 'stream';
-import tar, { ReadEntry } from 'tar';
 
+import { downloadAndExtractNpmModule } from './Examples';
 import Logger from './Logger';
-import * as Paths from './Paths';
 
 const isMacOS = process.platform === 'darwin';
 
 export type PackageManagerName = 'yarn' | 'npm';
-
-type AppJSONConfig = Record<string, any>;
-
-function sanitizedName(name: string) {
-  return name
-    .replace(/[\W_]+/g, '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-}
-
-class Transformer extends Minipass {
-  data: string;
-  config: AppJSONConfig;
-
-  constructor(config: AppJSONConfig) {
-    super();
-    this.data = '';
-    this.config = config;
-  }
-  write(data: string) {
-    this.data += data;
-    return true;
-  }
-  end() {
-    let replaced = this.data
-      .replace(/Hello App Display Name/g, this.config.name)
-      .replace(/HelloWorld/g, sanitizedName(this.config.name))
-      .replace(/helloworld/g, sanitizedName(this.config.name.toLowerCase()));
-    super.write(replaced);
-    return super.end();
-  }
-}
-
-// Binary files, don't process these (avoid decoding as utf8)
-const binaryExtensions = ['.png', '.jar', '.keystore'];
-
-function createFileTransform(config: AppJSONConfig) {
-  return function transformFile(entry: ReadEntry) {
-    if (!binaryExtensions.includes(path.extname(entry.path)) && config.name) {
-      return new Transformer(config);
-    }
-    return undefined;
-  };
-}
-
-// Currently only support bare JS project
-// TODO(Bacon): Add examples
-const templateSpec = npmPackageArg('expo-template-bare-minimum');
 
 /**
  * Extract a template app to a given file path and clean up any properties left over from npm to
@@ -76,6 +23,8 @@ const templateSpec = npmPackageArg('expo-template-bare-minimum');
 export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
   const projectName = path.basename(projectRoot);
 
+  await downloadAndExtractNpmModule(projectRoot, 'expo-template-bare-minimum', projectName);
+
   const config = {
     name: projectName,
     expo: {
@@ -83,7 +32,6 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
       slug: projectName,
     },
   };
-  await extractTemplateAppAsync(templateSpec, projectRoot, config);
 
   let appFile = new JsonFile(path.join(projectRoot, 'app.json'));
   let appJson = merge(await appFile.readAsync(), config);
@@ -107,66 +55,6 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
   await packageFile.writeAsync(packageJson);
 
   return projectRoot;
-}
-
-/**
- * Extract a template app to a given file path.
- */
-async function extractTemplateAppAsync(
-  templateSpec: PackageSpec,
-  targetPath: string,
-  config: AppJSONConfig
-) {
-  await pacote.tarball.stream(
-    templateSpec,
-    tarStream => {
-      return extractTemplateAppAsyncImpl(targetPath, config, tarStream);
-    },
-    {
-      cache: path.join(Paths.dotExpoHomeDirectory(), 'template-cache'),
-    }
-  );
-
-  return targetPath;
-}
-
-async function extractTemplateAppAsyncImpl(
-  targetPath: string,
-  config: AppJSONConfig,
-  tarStream: Readable
-) {
-  await ensureDir(targetPath);
-  await new Promise((resolve, reject) => {
-    const extractStream = tar.x({
-      cwd: targetPath,
-      strip: 1,
-      // TODO(ville): pending https://github.com/DefinitelyTyped/DefinitelyTyped/pull/36598
-      // @ts-ignore property missing from the type definition
-      transform: createFileTransform(config),
-      onentry(entry: ReadEntry) {
-        if (config.name) {
-          // Rewrite paths for bare workflow
-          entry.path = entry.path
-            .replace(
-              /HelloWorld/g,
-              entry.path.includes('android')
-                ? sanitizedName(config.name.toLowerCase())
-                : sanitizedName(config.name)
-            )
-            .replace(/helloworld/g, sanitizedName(config.name).toLowerCase());
-        }
-        if (entry.type && /^file$/i.test(entry.type) && path.basename(entry.path) === 'gitignore') {
-          // Rename `gitignore` because npm ignores files named `.gitignore` when publishing.
-          // See: https://github.com/npm/npm/issues/1862
-          entry.path = entry.path.replace(/gitignore$/, '.gitignore');
-        }
-      },
-    });
-    tarStream.on('error', reject);
-    extractStream.on('error', reject);
-    extractStream.on('close', resolve);
-    tarStream.pipe(extractStream);
-  });
 }
 
 export function validateName(name?: string): string | true {
@@ -297,7 +185,7 @@ export async function installPodsAsync(projectRoot: string) {
   const packageManager = new PackageManager.CocoaPodsPackageManager({
     cwd: path.join(projectRoot, 'ios'),
     log: Logger.nested,
-    silent: getenv.boolish('EXPO_DEBUG', true),
+    silent: !getenv.boolish('EXPO_DEBUG', false),
   });
 
   if (!(await packageManager.isCLIInstalledAsync())) {
