@@ -1,8 +1,7 @@
 import JsonFile from '@expo/json-file';
 import * as PackageManager from '@expo/package-manager';
+import spawnAsync from '@expo/spawn-async';
 import chalk from 'chalk';
-import { execSync } from 'child_process';
-import execa from 'execa';
 import { readdirSync } from 'fs-extra';
 import getenv from 'getenv';
 import got from 'got';
@@ -77,7 +76,7 @@ export async function initGitRepoAsync(
 ) {
   // let's see if we're in a git tree
   try {
-    execSync('git rev-parse --is-inside-work-tree', { stdio: 'ignore', cwd: root });
+    await spawnAsync('git', ['rev-parse', '--is-inside-work-tree'], { stdio: 'ignore', cwd: root });
     !flags.silent && Logger.gray('New project is already inside of a git repo, skipping git init.');
   } catch (e) {
     if (e.errno === 'ENOENT') {
@@ -88,9 +87,9 @@ export async function initGitRepoAsync(
 
   // not in git tree, so let's init
   try {
-    execSync('git init', { stdio: 'ignore', cwd: root });
-    execSync('git add -A', { stdio: 'ignore', cwd: root });
-    execSync('git commit -m "Initial commit via create-react-native-app"', {
+    await spawnAsync('git', ['init'], { stdio: 'ignore', cwd: root });
+    await spawnAsync('git', ['add', '-A'], { stdio: 'ignore', cwd: root });
+    await spawnAsync('git', ['commit', '-m', '"Initial commit via create-react-native-app"'], {
       stdio: 'ignore',
       cwd: root,
     });
@@ -238,7 +237,7 @@ export function logNewSection(title: string) {
 }
 
 async function getNpmUrlAsync(packageName: string): Promise<string> {
-  const url = (await execa('npm', ['v', packageName, 'dist.tarball'])).stdout;
+  const url = (await spawnAsync('npm', ['v', packageName, 'dist.tarball'])).stdout;
 
   if (!url) {
     throw new Error(`Could not get NPM url for package "${packageName}"`);
