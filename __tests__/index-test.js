@@ -107,6 +107,7 @@ describe('templates', () => {
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
     expect(fileExists(projectName, 'App.js')).toBeTruthy();
     expect(fileExists(projectName, '.gitignore')).toBeTruthy();
+    expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
   });
 
   it('throws when an invalid template is used', async () => {
@@ -132,6 +133,7 @@ describe('templates', () => {
     expect(fileExists(projectName, 'App.js')).toBeTruthy();
     expect(fileExists(projectName, 'README.md')).toBeTruthy();
     expect(fileExists(projectName, '.gitignore')).toBeTruthy();
+    // Check if it skipped install
     expect(fileExists(projectName, 'node_modules')).toBeTruthy();
   });
 
@@ -182,14 +184,15 @@ describe('templates', () => {
       '--template',
       'https://github.com/expo/examples/tree/master',
       '--template-path',
-      'with-animated-splash-screen'
+      'with-animated-splash-screen',
+      '--no-install'
     );
 
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
     expect(fileExists(projectName, 'App.js')).toBeTruthy();
     expect(fileExists(projectName, 'README.md')).toBeTruthy();
     expect(fileExists(projectName, '.gitignore')).toBeTruthy();
-    // Check if it installed modules
-    expect(fileExists(projectName, 'node_modules')).toBeTruthy();
+    // Check if it skipped install
+    expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
   });
 });
