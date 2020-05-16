@@ -29,7 +29,6 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
     name: projectName,
     expo: {
       name: projectName,
-      slug: projectName,
     },
   };
 
@@ -48,10 +47,7 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
   delete packageJson.description;
   delete packageJson.tags;
   delete packageJson.repository;
-  // pacote adds these, but we don't want them in the package.json of the project.
-  delete packageJson._resolved;
-  delete packageJson._integrity;
-  delete packageJson._from;
+
   await packageFile.writeAsync(packageJson);
 
   return projectRoot;
