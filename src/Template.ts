@@ -2,15 +2,23 @@ import JsonFile from '@expo/json-file';
 import * as PackageManager from '@expo/package-manager';
 import chalk from 'chalk';
 import { execSync } from 'child_process';
+import execa from 'execa';
 import { readdirSync } from 'fs-extra';
 import getenv from 'getenv';
+import got from 'got';
 // @ts-ignore
 import merge from 'lodash/merge';
+import Minipass from 'minipass';
 import ora from 'ora';
 import * as path from 'path';
+import { Stream } from 'stream';
+import tar, { ReadEntry } from 'tar';
+import { promisify } from 'util';
 
-import { downloadAndExtractNpmModule } from './Examples';
 import Logger from './Logger';
+
+// @ts-ignore
+const pipeline = promisify(Stream.pipeline);
 
 const isMacOS = process.platform === 'darwin';
 
@@ -227,4 +235,93 @@ export function logNewSection(title: string) {
   let spinner = ora(chalk.bold(title));
   spinner.start();
   return spinner;
+}
+
+async function getNpmUrlAsync(packageName: string): Promise<string> {
+  const url = (await execa('npm', ['v', packageName, 'dist.tarball'])).stdout;
+
+  if (!url) {
+    throw new Error(`Could not get NPM url for package "${packageName}"`);
+  }
+
+  return url;
+}
+function sanitizedName(name: string) {
+  return name
+    .replace(/[\W_]+/g, '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+class Transformer extends Minipass {
+  data: string;
+
+  constructor(private name: string) {
+    super();
+    this.data = '';
+  }
+  write(data: string) {
+    this.data += data;
+    return true;
+  }
+  end() {
+    let replaced = this.data
+      .replace(/Hello App Display Name/g, this.name)
+      .replace(/HelloWorld/g, sanitizedName(this.name))
+      .replace(/helloworld/g, sanitizedName(this.name.toLowerCase()));
+    super.write(replaced);
+    return super.end();
+  }
+}
+
+function createFileTransform(name: string) {
+  return (entry: ReadEntry) => {
+    // Binary files, don't process these (avoid decoding as utf8)
+    if (!['.png', '.jar', '.keystore'].includes(path.extname(entry.path)) && name) {
+      return new Transformer(name);
+    }
+    return undefined;
+  };
+}
+
+function createEntryResolver(name: string) {
+  return (entry: ReadEntry) => {
+    if (name) {
+      // Rewrite paths for bare workflow
+      entry.path = entry.path
+        .replace(
+          /HelloWorld/g,
+          entry.path.includes('android') ? sanitizedName(name.toLowerCase()) : sanitizedName(name)
+        )
+        .replace(/helloworld/g, sanitizedName(name).toLowerCase());
+    }
+    if (entry.type && /^file$/i.test(entry.type) && path.basename(entry.path) === 'gitignore') {
+      // Rename `gitignore` because npm ignores files named `.gitignore` when publishing.
+      // See: https://github.com/npm/npm/issues/1862
+      entry.path = entry.path.replace(/gitignore$/, '.gitignore');
+    }
+  };
+}
+
+async function downloadAndExtractNpmModule(
+  root: string,
+  npmName: string,
+  projectName: string
+): Promise<void> {
+  const url = await getNpmUrlAsync(npmName);
+
+  return pipeline(
+    got.stream(url),
+    tar.extract(
+      {
+        cwd: root,
+        // TODO(ville): pending https://github.com/DefinitelyTyped/DefinitelyTyped/pull/36598
+        // @ts-ignore property missing from the type definition
+        transform: createFileTransform(projectName),
+        onentry: createEntryResolver(projectName),
+        strip: 1,
+      },
+      []
+    )
+  );
 }
