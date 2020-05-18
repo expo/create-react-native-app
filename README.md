@@ -92,16 +92,13 @@ Please see [Contributing guide](https://github.com/expo/expo-cli/blob/master/CON
 
 The examples feature was inspired by the `templates` system of [create-next-app](https://github.com/zeit/next.js/tree/canary/packages/create-next-app) by the [Vercel](https://vercel.com/) team.
 
+## Related
+
+- [Ignite CLI](https://github.com/infinitered/ignite) by [Infinite Red](https://infinite.red/)
+- [Expo CLI](https://github.com/expo/expo-cli) by [Expo team](https://expo.io)
+- [React Native Community CLI](https://github.com/react-native-community/cli) by members of [the React Native community](https://github.com/orgs/react-native-community/people)
+
 <!-- Footer -->
-
----
-
-<p>
-    <a aria-label="Created by Team Expo" href="http://expo.io">
-        <img src="https://img.shields.io/badge/Created_by-Expo-4630EB.svg?style=for-the-badge&logo=EXPO&labelColor=000&logoColor=fff" target="_blank" />
-    </a>
-    
-</p>
 
 ## Contributors ✨
 
