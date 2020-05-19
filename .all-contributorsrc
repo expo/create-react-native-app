@@ -1,0 +1,34 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "EvanBacon",
+      "name": "Evan Bacon",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/9664363?v=4",
+      "profile": "https://twitter.com/baconbrix",
+      "contributions": [
+        "code"
+      ]
+    },
+    {
+      "login": "brentvatne",
+      "name": "Brent Vatne",
+      "avatar_url": "https://avatars2.githubusercontent.com/u/90494?v=4",
+      "profile": "https://expo.io",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "create-react-native-app",
+  "projectOwner": "expo",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
