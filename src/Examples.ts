@@ -94,7 +94,7 @@ async function isUrlOk(url: string): Promise<boolean> {
   return res.statusCode === 200;
 }
 
-export async function getRepoInfo(url: any, examplePath?: string): Promise<RepoInfo | undefined> {
+async function getRepoInfo(url: any, examplePath?: string): Promise<RepoInfo | undefined> {
   const [, username, name, t, _branch, ...file] = url.pathname.split('/');
   const filePath = examplePath ? examplePath.replace(/^\//, '') : file.join('/');
 
@@ -122,7 +122,7 @@ export async function getRepoInfo(url: any, examplePath?: string): Promise<RepoI
   return undefined;
 }
 
-export function hasRepo({ username, name, branch, filePath }: RepoInfo) {
+function hasRepo({ username, name, branch, filePath }: RepoInfo) {
   const contentsUrl = `https://api.github.com/repos/${username}/${name}/contents`;
   const packagePath = `${filePath ? `/${filePath}` : ''}/package.json`;
 
@@ -197,13 +197,13 @@ export async function resolveTemplateArgAsync(
       `Downloading files from repo ${chalk.cyan(template)}. This might take a moment.`
     );
 
-    await downloadAndExtractRepo(projectRoot, repoInfo);
+    await downloadAndExtractRepoAsync(projectRoot, repoInfo);
   } else {
     oraInstance.text = chalk.bold(
       `Downloading files for example ${chalk.cyan(template)}. This might take a moment.`
     );
 
-    await downloadAndExtractExample(projectRoot, template);
+    await downloadAndExtractExampleAsync(projectRoot, template);
   }
 
   await ensureProjectHasGitIgnore(projectRoot);
@@ -272,7 +272,7 @@ function hasExample(name: string): Promise<boolean> {
   );
 }
 
-function downloadAndExtractRepo(
+function downloadAndExtractRepoAsync(
   root: string,
   { username, name, branch, filePath }: RepoInfo
 ): Promise<void> {
@@ -283,7 +283,7 @@ function downloadAndExtractRepo(
   );
 }
 
-function downloadAndExtractExample(root: string, name: string): Promise<void> {
+function downloadAndExtractExampleAsync(root: string, name: string): Promise<void> {
   return pipeline(
     got.stream('https://codeload.github.com/expo/examples/tar.gz/master'),
     tar.extract({ cwd: root, strip: 2 }, [`examples-master/${name}`])
