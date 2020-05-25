@@ -58,7 +58,7 @@
     "@types/node": "^12.6.8",
     "@types/prompts": "2.0.1",
     "@types/tar": "4.0.3",
-    "@zeit/ncc": "^0.20.4",
+    "@zeit/ncc": "^0.22.3",
     "babel-jest": "^26.0.1",
     "chalk": "2.4.2",
     "commander": "2.20.0",
