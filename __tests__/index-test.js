@@ -89,6 +89,53 @@ it('creates a full bare project by default', async () => {
   }
 });
 
+describe('yes', () => {
+  it('creates a default project in the current directory', async () => {
+    const projectName = 'yes-default-directory';
+    const projectRoot = getRoot(projectName);
+    // Create the project root aot
+    await fs.mkdirp(projectRoot);
+
+    const results = await execa('node', [cli, '--yes', '--no-install'], { cwd: projectRoot });
+    expect(results.exitCode).toBe(0);
+
+    expect(fileExists(projectName, 'package.json')).toBeTruthy();
+    expect(fileExists(projectName, 'App.js')).toBeTruthy();
+    expect(fileExists(projectName, '.gitignore')).toBeTruthy();
+    expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
+  });
+  it('creates a default project in a new directory', async () => {
+    const projectName = 'yes-new-directory';
+
+    const results = await execa('node', [cli, projectName, '-y', '--no-install'], {
+      cwd: projectRoot,
+    });
+    expect(results.exitCode).toBe(0);
+
+    expect(fileExists(projectName, 'package.json')).toBeTruthy();
+    expect(fileExists(projectName, 'App.js')).toBeTruthy();
+    expect(fileExists(projectName, '.gitignore')).toBeTruthy();
+    expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
+  });
+  it('creates a default project in a new directory with a custom template', async () => {
+    const projectName = 'yes-custom-template';
+
+    const results = await execa(
+      'node',
+      [cli, projectName, '--yes', '--template', 'blank', '--no-install'],
+      {
+        cwd: projectRoot,
+      }
+    );
+    expect(results.exitCode).toBe(0);
+
+    expect(fileExists(projectName, 'package.json')).toBeTruthy();
+    expect(fileExists(projectName, 'App.js')).toBeTruthy();
+    expect(fileExists(projectName, '.gitignore')).toBeTruthy();
+    expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
+  });
+});
+
 describe('templates', () => {
   it('allows overwriting directories with tolerable files', async () => {
     const projectName = 'can-overwrite';
