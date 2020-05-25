@@ -20,6 +20,7 @@ const program = new Command(packageJSON.name)
   .usage(`${chalk.magenta('<project-root>')} [options]`)
   .description('Creates a new React Native project')
   .option('--use-npm', 'Use npm to install dependencies. (default when Yarn is not installed)')
+  .option('-y, --yes', 'Use the default options for creating a project')
   .option('--no-install', 'Skip installing NPM packages or CocoaPods.')
   .option(
     '-t, --template [template|url]',
@@ -32,9 +33,20 @@ const program = new Command(packageJSON.name)
 
 async function runAsync(): Promise<void> {
   try {
-    const projectRoot = await resolveProjectRootAsync(inputPath);
+    let projectRoot: string;
+    if (!inputPath && program.yes) {
+      projectRoot = path.resolve(process.cwd());
+      const folderName = path.basename(projectRoot);
+      assertValidName(folderName);
+      assertFolderEmpty(projectRoot, folderName);
+    } else {
+      projectRoot = await resolveProjectRootAsync(inputPath);
+    }
 
-    let resolvedTemplate = program.template ?? (await Examples.promptAsync());
+    let resolvedTemplate: string | null = program.template;
+    if (!resolvedTemplate && !program.yes) {
+      resolvedTemplate = await Examples.promptAsync();
+    }
     let templatePath = program.templatePath;
 
     await ensureDir(projectRoot);
@@ -179,6 +191,29 @@ function resolvePackageManager(): Template.PackageManagerName {
   return packageManager;
 }
 
+function assertFolderEmpty(projectRoot: string, folderName: string) {
+  const conflicts = Template.getConflictsForDirectory(projectRoot);
+  if (conflicts.length) {
+    log.nested(`The directory ${chalk.green(folderName)} has files that might be overwritten:`);
+    log.newLine();
+    for (const file of conflicts) {
+      log.nested(`  ${file}`);
+    }
+    log.newLine();
+    log.nested('Try using a new directory name, or moving these files.');
+    log.newLine();
+    process.exit(1);
+  }
+}
+
+function assertValidName(folderName: string) {
+  const validation = Template.validateName(folderName);
+  if (typeof validation === 'string') {
+    log.error(`Cannot create an app named ${chalk.red(`"${folderName}"`)}. ${validation}`);
+    process.exit(1);
+  }
+}
+
 async function resolveProjectRootAsync(input: string): Promise<string> {
   let name = input?.trim();
 
@@ -214,26 +249,11 @@ async function resolveProjectRootAsync(input: string): Promise<string> {
   const projectRoot = path.resolve(name);
   const folderName = path.basename(projectRoot);
 
-  const validation = Template.validateName(folderName);
-  if (typeof validation === 'string') {
-    log.error(`Cannot create an app named ${chalk.red(`"${folderName}"`)}. ${validation}`);
-    process.exit(1);
-  }
+  assertValidName(folderName);
 
   await ensureDir(projectRoot);
 
-  const conflicts = Template.getConflictsForDirectory(projectRoot);
-  if (conflicts.length) {
-    log.nested(`The directory ${chalk.green(folderName)} has files that might be overwritten:`);
-    log.newLine();
-    for (const file of conflicts) {
-      log.nested(`  ${file}`);
-    }
-    log.newLine();
-    log.nested('Try using a new directory name, or moving these files.');
-    log.newLine();
-    process.exit(1);
-  }
+  assertFolderEmpty(projectRoot, folderName);
 
   return projectRoot;
 }
