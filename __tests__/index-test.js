@@ -96,7 +96,7 @@ describe('yes', () => {
     // Create the project root aot
     await fs.mkdirp(projectRoot);
 
-    const results = await execa('node', [cli, '--no-install'], { cwd: projectRoot });
+    const results = await execa('node', [cli, '--yes', '--no-install'], { cwd: projectRoot });
     expect(results.exitCode).toBe(0);
 
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
@@ -107,7 +107,9 @@ describe('yes', () => {
   it('creates a default project in a new directory', async () => {
     const projectName = 'yes-new-directory';
 
-    const results = await execa('node', [cli, projectName, '--no-install'], { cwd: projectRoot });
+    const results = await execa('node', [cli, projectName, '-y', '--no-install'], {
+      cwd: projectRoot,
+    });
     expect(results.exitCode).toBe(0);
 
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
@@ -118,9 +120,13 @@ describe('yes', () => {
   it('creates a default project in a new directory with a custom template', async () => {
     const projectName = 'yes-custom-template';
 
-    const results = await execa('node', [cli, projectName, '--template', 'blank', '--no-install'], {
-      cwd: projectRoot,
-    });
+    const results = await execa(
+      'node',
+      [cli, projectName, '--yes', '--template', 'blank', '--no-install'],
+      {
+        cwd: projectRoot,
+      }
+    );
     expect(results.exitCode).toBe(0);
 
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
