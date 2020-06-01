@@ -77,10 +77,10 @@ export async function initGitRepoAsync(
   // let's see if we're in a git tree
   try {
     await spawnAsync('git', ['rev-parse', '--is-inside-work-tree'], { stdio: 'ignore', cwd: root });
-    !flags.silent && Logger.gray('New project is already inside of a git repo, skipping git init.');
+    !flags.silent && Logger.gray('New project is already inside of a Git repo, skipping git init.');
   } catch (e) {
     if (e.errno === 'ENOENT') {
-      !flags.silent && Logger.gray('Unable to initialize git repo. `git` not in PATH.');
+      !flags.silent && Logger.gray('Unable to initialize Git repo. `git` not in PATH.');
       return false;
     }
   }
@@ -94,7 +94,7 @@ export async function initGitRepoAsync(
       cwd: root,
     });
 
-    !flags.silent && Logger.gray('Initialized a git repository.');
+    !flags.silent && Logger.gray('Initialized a Git repository.');
     return true;
   } catch (e) {
     // no-op -- this is just a convenience and we don't care if it fails
@@ -240,7 +240,7 @@ async function getNpmUrlAsync(packageName: string): Promise<string> {
   const url = (await spawnAsync('npm', ['v', packageName, 'dist.tarball'])).stdout;
 
   if (!url) {
-    throw new Error(`Could not get NPM url for package "${packageName}"`);
+    throw new Error(`Could not get npm url for package "${packageName}"`);
   }
 
   return url;

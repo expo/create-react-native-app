@@ -54,10 +54,10 @@ Once you're up and running with Create React Native App, visit [this tutorial](h
 
 ### Templates
 
-By default you create a [bare-workflow React](https://docs.expo.io/bare/exploring-bare-workflow/) project with support for iOS, Android, and web. You can opt to use an example project instead by selecting the "Templates from ..." option. Custom templates can be used with `--template <Example Name or Github URL>` option.
+By default you create a [bare-workflow React](https://docs.expo.io/bare/exploring-bare-workflow/) project with support for iOS, Android, and web. You can opt to use an example project instead by selecting the "Templates from ..." option. Custom templates can be used with `--template <Example Name or GitHub URL>` option.
 
 - Use an [example](https://github.com/expo/examples): `npx create-react-native-app -t with-typescript`
-- Use a custom template: `npx create-react-native-app --template https://github.com/someone/my-react-starter` -- Only works with Github repos on the master branch.
+- Use a custom template: `npx create-react-native-app --template https://github.com/someone/my-react-starter` -- Only works with GitHub repos on the master branch.
 - All examples can be modified in the [expo/examples](https://github.com/expo/examples) repo.
 
 ## Sections
