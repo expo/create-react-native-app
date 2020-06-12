@@ -21,12 +21,12 @@ const program = new Command(packageJSON.name)
   .description('Creates a new React Native project')
   .option('--use-npm', 'Use npm to install dependencies. (default when Yarn is not installed)')
   .option('-y, --yes', 'Use the default options for creating a project')
-  .option('--no-install', 'Skip installing NPM packages or CocoaPods.')
+  .option('--no-install', 'Skip installing npm packages or CocoaPods.')
   .option(
     '-t, --template [template|url]',
-    'The name of a template from expo/examples or URL to a github repo that contains an example.'
+    'The name of a template from expo/examples or URL to a GitHub repo that contains an example.'
   )
-  .option('--template-path [name]', 'The path inside of a github repo where the example lives.')
+  .option('--template-path [name]', 'The path inside of a GitHub repo where the example lives.')
   .allowUnknownOption()
   .action(projectRoot => (inputPath = projectRoot))
   .parse(process.argv);
