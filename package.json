@@ -19,8 +19,7 @@
     "Evan Bacon <bacon@expo.io> (https://github.com/evanbacon)"
   ],
   "files": [
-    "build",
-    "template"
+    "build"
   ],
   "bin": {
     "create-react-native-app": "./build/index.js"
