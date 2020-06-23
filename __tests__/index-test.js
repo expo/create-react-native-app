@@ -84,9 +84,17 @@ it('creates a full bare project by default', async () => {
   expect(fileExists(projectName, 'node_modules')).toBeTruthy();
   expect(fileExists(projectName, 'ios/')).toBeTruthy();
   expect(fileExists(projectName, 'android/')).toBeTruthy();
+  expect(fileExists(projectName, 'app.json')).toBeTruthy();
   if (process.platform === 'darwin') {
     expect(fileExists(projectName, 'ios/Pods/')).toBeTruthy();
   }
+  // Ensure the app.json is written properly
+  const appJsonPath = path.join(projectRoot, projectName, 'app.json');
+  const appJson = JSON.parse(await fs.readFile(appJsonPath, 'utf8'));
+  expect(appJson.name).toBe(projectName);
+  expect(appJson.displayName).toBe(projectName);
+  expect(appJson.expo.name).toBe(projectName);
+  expect(appJson.expo.slug).toBe(projectName);
 });
 
 describe('yes', () => {
