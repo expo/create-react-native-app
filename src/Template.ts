@@ -38,6 +38,7 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
     name: projectName,
     expo: {
       name: projectName,
+      slug: projectName,
     },
   };
 
