@@ -192,6 +192,21 @@ describe('templates', () => {
     expect(fileExists(projectName, 'node_modules')).toBeTruthy();
   });
 
+  it(`doesn't prompt to install cocoapods in a project without an ios folder`, async () => {
+    const projectName = 'no-install-no-pods-no-prompt';
+    const results = await executePassingAsync(projectName, '--template', 'blank', '--no-install');
+
+    // Ensure it doesn't warn to install pods since blank doesn't have an ios folder.
+    expect(results.stdout).not.toMatch(/make sure you have CocoaPods installed/);
+    expect(results.stdout).not.toMatch(/npx pod-install/);
+
+    expect(fileExists(projectName, 'package.json')).toBeTruthy();
+    expect(fileExists(projectName, 'App.js')).toBeTruthy();
+    expect(fileExists(projectName, '.gitignore')).toBeTruthy();
+    // Ensure it skipped install
+    expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
+  });
+
   it('uses npm', async () => {
     const projectName = 'uses-npm';
     const results = await executeDefaultAsync(projectName, '--use-npm', '--no-install');

@@ -44,6 +44,13 @@ async function runAsync(): Promise<void> {
     }
 
     let resolvedTemplate: string | null = program.template;
+    // @ts-ignore: This guards against someone passing --template without a name after it.
+    if (resolvedTemplate === true) {
+      console.log();
+      console.log('Please specify the template');
+      console.log();
+      process.exit(1);
+    }
     if (!resolvedTemplate && !program.yes) {
       resolvedTemplate = await Examples.promptAsync();
     }
@@ -79,10 +86,13 @@ async function runAsync(): Promise<void> {
     const shouldInstall = program.install;
     const packageManager = resolvePackageManager();
 
-    let installedPods: boolean = false;
+    let podsInstalled: boolean = false;
+    const needsPodsInstalled = await existsSync(path.join(projectRoot, 'ios'));
     if (shouldInstall) {
       await installNodeDependenciesAsync(projectRoot, packageManager);
-      installedPods = await installCocoaPodsAsync(projectRoot);
+      if (needsPodsInstalled) {
+        podsInstalled = await installCocoaPodsAsync(projectRoot);
+      }
     }
 
     const cdPath = getChangeDirectoryPath(projectRoot);
@@ -92,7 +102,7 @@ async function runAsync(): Promise<void> {
     if (!shouldInstall) {
       logNodeInstallWarning(cdPath, packageManager);
     }
-    if (!installedPods) {
+    if (needsPodsInstalled && !podsInstalled) {
       logCocoaPodsWarning(cdPath);
     }
 
@@ -138,16 +148,12 @@ async function installNodeDependenciesAsync(
 }
 
 async function installCocoaPodsAsync(projectRoot: string): Promise<boolean> {
-  const needsPodInstall = await existsSync(path.join(projectRoot, 'ios'));
-
   let podsInstalled = false;
-  if (needsPodInstall) {
-    try {
-      podsInstalled = await Template.installPodsAsync(projectRoot);
-    } catch (_) {}
-  }
+  try {
+    podsInstalled = await Template.installPodsAsync(projectRoot);
+  } catch {}
 
-  return !(needsPodInstall && !podsInstalled);
+  return podsInstalled;
 }
 
 function logNodeInstallWarning(cdPath: string, packageManager: Template.PackageManagerName): void {
