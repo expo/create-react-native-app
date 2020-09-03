@@ -26,11 +26,14 @@ export async function promptAsync(): Promise<string | null> {
   const { value } = await prompts({
     type: 'select',
     name: 'value',
+    limit: 11,
     message: 'How would you like to start',
     choices: [
       { title: 'Default new app', value: 'default' },
       {
-        title: `Template from ${terminalLink('expo/examples', 'https://github.com/expo/examples')}`,
+        title: `Template from ${terminalLink('expo/examples', 'https://github.com/expo/examples', {
+          fallback: (text, url) => `${text}: ${url}`,
+        })}`,
         value: 'example',
       },
     ],
