@@ -1228,10 +1228,12 @@
   resolved "https://registry.yarnpkg.com/@types/prettier/-/prettier-2.0.0.tgz#dc85454b953178cc6043df5208b9e949b54a3bc4"
   integrity sha512-/rM+sWiuOZ5dvuVzV37sUuklsbg+JPOP8d+nNFlo2ZtfpzPiPvh1/gc8liWOLBqe+sR+ZM7guPaIcTt6UZTo7Q==
 
-"@types/prompts@2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@types/prompts/-/prompts-2.0.1.tgz#afae5a8b0616a33cd31557bec74e2fd4a32f4afe"
-  integrity sha512-AhtMcmETelF8wFDV1ucbChKhLgsc+ytXZXkNz/nnTAMSDeqsjALknEFxi7ZtLgS/G8bV2rp90LhDW5SGACimIQ==
+"@types/prompts@2.0.8":
+  version "2.0.8"
+  resolved "https://registry.yarnpkg.com/@types/prompts/-/prompts-2.0.8.tgz#350fc8341426b2b68a56f874ea3bae399f771800"
+  integrity sha512-lXXAa8c8ASoA61Tj9H5E5V2mRUTvNZ/dpJ5KxghI+O5geWMHt73NLZ9kEBBDK7zUUfMsMY3ZH4Sqeqh3SjSyfg==
+  dependencies:
+    "@types/node" "*"
 
 "@types/responselike@*", "@types/responselike@^1.0.0":
   version "1.0.0"
@@ -4008,7 +4010,7 @@ kind-of@^6.0.0, kind-of@^6.0.2:
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-6.0.3.tgz#07c05034a6c349fa06e24fa35aa76db4580ce4dd"
   integrity sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==
 
-kleur@^3.0.2, kleur@^3.0.3:
+kleur@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==
@@ -4885,15 +4887,7 @@ progress@^2.0.0:
   resolved "https://registry.yarnpkg.com/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
 
-prompts@2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.1.0.tgz#bf90bc71f6065d255ea2bdc0fe6520485c1b45db"
-  integrity sha512-+x5TozgqYdOwWsQFZizE/Tra3fKvAoy037kOyU6cgz84n8f6zxngLOV4O32kTwt9FcLCxAqw0P/c8rOr9y+Gfg==
-  dependencies:
-    kleur "^3.0.2"
-    sisteransi "^1.0.0"
-
-prompts@^2.0.1:
+prompts@2.3.2, prompts@^2.0.1:
   version "2.3.2"
   resolved "https://registry.yarnpkg.com/prompts/-/prompts-2.3.2.tgz#480572d89ecf39566d2bd3fe2c9fccb7c4c0b068"
   integrity sha512-Q06uKs2CkNYVID0VqwfAl9mipo99zkBv/n2JtWY89Yxa3ZabWSrs0e2KTudKVa3peLUvYXMefDqIleLPVUBZMA==
@@ -5398,7 +5392,7 @@ simple-git@^1.85.0:
   dependencies:
     debug "^4.0.1"
 
-sisteransi@^1.0.0, sisteransi@^1.0.4:
+sisteransi@^1.0.4:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
   integrity sha512-bLGGlR1QxBcynn2d5YmDX4MGjlZvy2MRBDRNHLJ8VI6l6+9FUiyTFNJ0IveOSP0bcXgVDPRcfGqA0pjaqUpfVg==
