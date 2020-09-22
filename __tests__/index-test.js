@@ -156,7 +156,7 @@ describe('templates', () => {
     await executePassingAsync(
       projectName,
       '--template',
-      'https://github.com/expo/examples/tree/master/with-animated-splash-screen',
+      'https://github.com/expo/examples/tree/master/blank',
       '--no-install'
     );
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
@@ -182,7 +182,7 @@ describe('templates', () => {
 
   it('downloads a valid template', async () => {
     const projectName = 'valid-template-name';
-    await executePassingAsync(projectName, '--template', 'with-animated-splash-screen');
+    await executePassingAsync(projectName, '--template', 'blank');
 
     expect(fileExists(projectName, 'package.json')).toBeTruthy();
     expect(fileExists(projectName, 'App.js')).toBeTruthy();
@@ -231,7 +231,7 @@ describe('templates', () => {
     const results = await executePassingAsync(
       projectName,
       '--template',
-      'https://github.com/expo/examples/tree/master/with-animated-splash-screen',
+      'https://github.com/expo/examples/tree/master/blank',
       '--no-install'
     );
 
@@ -253,7 +253,7 @@ describe('templates', () => {
       '--template',
       'https://github.com/expo/examples/tree/master',
       '--template-path',
-      'with-animated-splash-screen',
+      'blank',
       '--no-install'
     );
 
