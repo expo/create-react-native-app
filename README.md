@@ -1,3 +1,5 @@
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/expo/create-react-native-app)
+
 <!-- Title -->
 
 [![Create React Native App](/.gh-assets/header.png)](https://github.com/expo/create-react-native-app)
