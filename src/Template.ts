@@ -224,7 +224,7 @@ export async function installPodsAsync(projectRoot: string) {
     step.stopAndPersist({
       symbol: '⚠️ ',
       text: chalk.red(
-        'Something when wrong running `pod install` in the `ios` directory. Continuing with initializing the project, you can debug this afterwards.'
+        'Something went wrong running `pod install` in the `ios` directory. Continuing with initializing the project, you can debug this afterwards.'
       ),
     });
     if (e.message) {
