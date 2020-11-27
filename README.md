@@ -109,7 +109,7 @@ The examples feature was inspired by the `templates` system of [create-next-app]
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-[![All Contributors](https://img.shields.io/badge/all_contributors-4-orange.svg?style=flat-square)](#contributors-)
+[![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -123,6 +123,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://expo.io"><img src="https://avatars2.githubusercontent.com/u/90494?v=4" width="100px;" alt=""/><br /><sub><b>Brent Vatne</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=brentvatne" title="Code">💻</a> <a href="https://github.com/expo/create-react-native-app/commits?author=brentvatne" title="Documentation">📖</a></td>
     <td align="center"><a href="http://hamzah"><img src="https://avatars0.githubusercontent.com/u/26879042?v=4" width="100px;" alt=""/><br /><sub><b>Hamza Halilovic</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=hamzahalilovic" title="Code">💻</a></td>
     <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=byCedric" title="Code">💻</a></td>
+    <td align="center"><a href="https://twitter.com/VilleImmonen"><img src="https://avatars3.githubusercontent.com/u/497214?v=4" width="100px;" alt=""/><br /><sub><b>Ville Immonen</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=fson" title="Code">💻</a></td>
   </tr>
 </table>
 
