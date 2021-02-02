@@ -225,7 +225,7 @@ function getScriptsForProject(projectRoot: string): Record<string, string> {
     return {
       android: 'react-native run-android',
       ios: 'react-native run-ios',
-      web: 'expo web',
+      web: 'expo start --web',
       start: 'react-native start',
     };
   }
@@ -233,7 +233,7 @@ function getScriptsForProject(projectRoot: string): Record<string, string> {
     start: 'expo start',
     android: 'expo start --android',
     ios: 'expo start --ios',
-    web: 'expo web',
+    web: 'expo start --web',
     eject: 'expo eject',
   };
 }
