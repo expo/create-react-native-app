@@ -11,7 +11,11 @@
       "avatar_url": "https://avatars1.githubusercontent.com/u/9664363?v=4",
       "profile": "https://twitter.com/baconbrix",
       "contributions": [
-        "code"
+        "code",
+        "doc",
+        "design",
+        "maintenance",
+        "review"
       ]
     },
     {
@@ -21,7 +25,8 @@
       "profile": "https://expo.io",
       "contributions": [
         "code",
-        "doc"
+        "doc",
+        "review"
       ]
     },
     {
@@ -48,7 +53,8 @@
       "avatar_url": "https://avatars3.githubusercontent.com/u/497214?v=4",
       "profile": "https://twitter.com/VilleImmonen",
       "contributions": [
-        "code"
+        "code",
+        "review"
       ]
     },
     {
