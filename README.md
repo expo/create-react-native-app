@@ -1,7 +1,7 @@
 <!-- Title -->
 
 <p align="center">
-  <a href="https://github.com/expo/create-react-native-app">
+  <a href="https://github.com/expo/examples">
     <img src="./.gh-assets/header.png" height="128">
     <h1 align="center">Create React Native App</h1>
   </a>
