@@ -1,11 +1,16 @@
 <!-- Title -->
 
-[![Create React Native App](/.gh-assets/header.png)](https://github.com/expo/create-react-native-app)
+<p align="center">
+  <a href="https://github.com/expo/create-react-native-app">
+    <img src="./.gh-assets/header.png" height="128">
+    <h1 align="center">Create React Native App</h1>
+  </a>
+</p>
 
 <!-- Header -->
 
 <p align="center">
-  <b>Create Universal React Native apps with no build configuration.</b>
+  <b>The fastest way to create universal React Native apps</b>
   <br />
 
   <p align="center">
