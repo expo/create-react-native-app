@@ -187,11 +187,11 @@ function resolvePackageManager(): Template.PackageManagerName {
   if (!program.useNpm && shouldUseYarn()) {
     packageManager = 'yarn';
     log.newLine();
-    log('🧶 Using Yarn to install packages. You can pass --use-npm to use npm instead.');
+    log('Using Yarn to install packages. You can pass --use-npm to use npm instead.');
     log.newLine();
   } else {
     log.newLine();
-    log('📦 Using npm to install packages.');
+    log('Using npm to install packages.');
     log.newLine();
   }
   return packageManager;
