@@ -7,14 +7,14 @@ import getenv from 'getenv';
 import got from 'got';
 // @ts-ignore
 import merge from 'lodash/merge';
-import Minipass from 'minipass';
 import ora from 'ora';
 import * as path from 'path';
 import { Stream } from 'stream';
-import tar, { ReadEntry } from 'tar';
+import tar from 'tar';
 import { promisify } from 'util';
 
 import Logger from './Logger';
+import { createFileTransform, createEntryResolver } from './createFileTransform';
 
 // @ts-ignore
 const pipeline = promisify(Stream.pipeline);
@@ -249,62 +249,6 @@ async function getNpmUrlAsync(packageName: string): Promise<string> {
 
   return url;
 }
-function sanitizedName(name: string) {
-  return name
-    .replace(/[\W_]+/g, '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '');
-}
-
-class Transformer extends Minipass {
-  data: string;
-
-  constructor(private name: string) {
-    super();
-    this.data = '';
-  }
-  write(data: string) {
-    this.data += data;
-    return true;
-  }
-  end() {
-    let replaced = this.data
-      .replace(/Hello App Display Name/g, this.name)
-      .replace(/HelloWorld/g, sanitizedName(this.name))
-      .replace(/helloworld/g, sanitizedName(this.name.toLowerCase()));
-    super.write(replaced);
-    return super.end();
-  }
-}
-
-function createFileTransform(name: string) {
-  return (entry: ReadEntry) => {
-    // Binary files, don't process these (avoid decoding as utf8)
-    if (!['.png', '.jar', '.keystore'].includes(path.extname(entry.path)) && name) {
-      return new Transformer(name);
-    }
-    return undefined;
-  };
-}
-
-function createEntryResolver(name: string) {
-  return (entry: ReadEntry) => {
-    if (name) {
-      // Rewrite paths for bare workflow
-      entry.path = entry.path
-        .replace(
-          /HelloWorld/g,
-          entry.path.includes('android') ? sanitizedName(name.toLowerCase()) : sanitizedName(name)
-        )
-        .replace(/helloworld/g, sanitizedName(name).toLowerCase());
-    }
-    if (entry.type && /^file$/i.test(entry.type) && path.basename(entry.path) === 'gitignore') {
-      // Rename `gitignore` because npm ignores files named `.gitignore` when publishing.
-      // See: https://github.com/npm/npm/issues/1862
-      entry.path = entry.path.replace(/gitignore$/, '.gitignore');
-    }
-  };
-}
 
 async function downloadAndExtractNpmModule(
   root: string,
@@ -318,8 +262,6 @@ async function downloadAndExtractNpmModule(
     tar.extract(
       {
         cwd: root,
-        // TODO(ville): pending https://github.com/DefinitelyTyped/DefinitelyTyped/pull/36598
-        // @ts-ignore property missing from the type definition
         transform: createFileTransform(projectName),
         onentry: createEntryResolver(projectName),
         strip: 1,
