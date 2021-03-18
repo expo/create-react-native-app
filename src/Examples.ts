@@ -12,6 +12,8 @@ import tar from 'tar';
 import terminalLink from 'terminal-link';
 import { promisify } from 'util';
 
+import { createFileTransform, createEntryResolver } from './createFileTransform';
+
 // @ts-ignore
 const pipeline = promisify(Stream.pipeline);
 
@@ -279,17 +281,37 @@ function downloadAndExtractRepoAsync(
   root: string,
   { username, name, branch, filePath }: RepoInfo
 ): Promise<void> {
+  const projectName = path.basename(root);
+
   const strip = filePath ? filePath.split('/').length + 1 : 1;
   return pipeline(
     got.stream(`https://codeload.github.com/${username}/${name}/tar.gz/${branch}`),
-    tar.extract({ cwd: root, strip }, [`${name}-${branch}${filePath ? `/${filePath}` : ''}`])
+    tar.extract(
+      {
+        cwd: root,
+        transform: createFileTransform(projectName),
+        onentry: createEntryResolver(projectName),
+        strip,
+      },
+      [`${name}-${branch}${filePath ? `/${filePath}` : ''}`]
+    )
   );
 }
 
 function downloadAndExtractExampleAsync(root: string, name: string): Promise<void> {
+  const projectName = path.basename(root);
+
   return pipeline(
     got.stream('https://codeload.github.com/expo/examples/tar.gz/master'),
-    tar.extract({ cwd: root, strip: 2 }, [`examples-master/${name}`])
+    tar.extract(
+      {
+        cwd: root,
+        transform: createFileTransform(projectName),
+        onentry: createEntryResolver(projectName),
+        strip: 2,
+      },
+      [`examples-master/${name}`]
+    )
   );
 }
 
