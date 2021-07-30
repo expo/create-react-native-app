@@ -2,10 +2,10 @@
 blank_issues_enabled: false
 contact_links:
   - about: 'e.g. npx react-native start, react-native run-android, react-native init'
-    name: 'Running react-native'
+    name: 'CLI: react-native start'
     url: 'https://github.com/react-native-community/cli/issues/new/choose'
   - about: "e.g. import { View } from 'react-native', gradle error"
-    name: 'CLI: react-native start'
+    name: 'Running react-native'
     url: 'https://github.com/facebook/react-native/issues/new/choose'
   - about: 'e.g. expo start, expo run:ios, expo init'
     name: 'CLI: expo start'
