@@ -1,0 +1,21 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - about: 'e.g. npx react-native start, react-native run-android, react-native init'
+    name: 'My issue relates to running react-native'
+    url: 'https://github.com/react-native-community/cli/issues/new/choose'
+  - about: "e.g. import { View } from 'react-native', gradle error"
+    name: 'My issue relates to using react-native'
+    url: 'https://github.com/facebook/react-native/issues/new/choose'
+  - about: 'e.g. expo start, expo run:ios, expo init'
+    name: 'My issue relates to expo-cli'
+    url: 'https://github.com/expo/expo-cli/issues/new/choose'
+  - about: 'e.g. Expo Go failing to connect on Windows'
+    name: 'My issue relates to Expo Go'
+    url: 'https://github.com/expo/expo/issues/new/choose'
+  - about: 'e.g. example fails to run'
+    name: 'My issue relates to a template'
+    url: 'https://github.com/expo/examples/issues/new/choose'
+  - about: 'e.g. CRNA is a very simple tool'
+    name: 'My issue relates to cloning and bootstrapping a project'
+    url: 'https://github.com/expo/create-react-native-app/issues/new?template=bug_report.md'
