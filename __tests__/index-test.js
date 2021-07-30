@@ -92,7 +92,6 @@ it('creates a full bare project by default', async () => {
   const appJsonPath = path.join(projectRoot, projectName, 'app.json');
   const appJson = JSON.parse(await fs.readFile(appJsonPath, 'utf8'));
   expect(appJson.name).toBe(projectName);
-  expect(appJson.displayName).toBe(projectName);
   expect(appJson.expo.name).toBe(projectName);
   expect(appJson.expo.slug).toBe(projectName);
 });

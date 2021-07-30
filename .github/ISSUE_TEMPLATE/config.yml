@@ -1,0 +1,18 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - about: 'e.g. npx react-native start, react-native run-android, react-native init'
+    name: 'CLI: react-native start'
+    url: 'https://github.com/react-native-community/cli/issues/new/choose'
+  - about: "e.g. import { View } from 'react-native', gradle error"
+    name: 'Running react-native'
+    url: 'https://github.com/facebook/react-native/issues/new/choose'
+  - about: 'e.g. expo start, expo run:ios, expo init'
+    name: 'CLI: expo start'
+    url: 'https://github.com/expo/expo-cli/issues/new/choose'
+  - about: 'e.g. Expo Go failing to connect on Windows'
+    name: 'Expo Go app'
+    url: 'https://github.com/expo/expo/issues/new/choose'
+  - about: 'e.g. example fails to run'
+    name: 'Template issues'
+    url: 'https://github.com/expo/examples/issues/new/choose'
