@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://github.com/expo/examples">
-    <img src="./.gh-assets/header.png" height="128">
+    <img alt="create-react-native-app" src="./.gh-assets/banner.svg">
     <h1 align="center">Create React Native App</h1>
   </a>
 </p>
