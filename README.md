@@ -105,8 +105,10 @@ The examples feature was inspired by the `templates` system of [create-next-app]
 
 ## Related
 
-- [Ignite CLI](https://github.com/infinitered/ignite) by [Infinite Red](https://infinite.red/)
+CRNA is focused on being the fastest way to bootstrap a React Native app without worrying about the native platforms or bundlers required for developing and shipping apps. Other tools provide both an init script (which is slower) and a suite of other tools that can be used for interacting with the project. CRNA is meant to be used with any of the following tools:
+
 - [Expo CLI](https://github.com/expo/expo-cli) by [Expo team](https://expo.io)
+- [Ignite CLI](https://github.com/infinitered/ignite) by [Infinite Red](https://infinite.red/)
 - [React Native Community CLI](https://github.com/react-native-community/cli) by members of [the React Native community](https://github.com/orgs/react-native-community/people)
 
 <!-- Footer -->
