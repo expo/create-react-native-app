@@ -228,7 +228,7 @@ function getScriptsForProject(projectRoot: string): Record<string, string> {
       android: 'expo run:android',
       ios: 'expo run:ios',
       web: 'expo start --web',
-      start: 'react-native start',
+      start: 'expo start --dev-client',
     };
   }
   return {
