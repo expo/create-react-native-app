@@ -34,7 +34,7 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
 
   await downloadAndExtractNpmModule(projectRoot, 'expo-template-bare-minimum', projectName);
 
-  const config = {
+  const config: Record<string, any> = {
     name: projectName,
     expo: {
       name: projectName,
