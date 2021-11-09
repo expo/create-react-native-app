@@ -34,7 +34,7 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
 
   await downloadAndExtractNpmModule(projectRoot, 'expo-template-bare-minimum', projectName);
 
-  const config = {
+  const config: Record<string, any> = {
     name: projectName,
     expo: {
       name: projectName,
@@ -48,10 +48,13 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
 
   let packageFile = new JsonFile(path.join(projectRoot, 'package.json'));
   let packageJson = await packageFile.readAsync();
-  // Adding `private` stops npm from complaining about missing `name` and `version` fields.
-  // We don't add a `name` field because it also exists in `app.json`.
-  packageJson = { ...packageJson, private: true };
+  // name and version are required for yarn workspaces (monorepos)
+  const inputName = 'name' in config ? config.name : config.expo.name;
+  packageJson.name = sanitizeNpmPackageName(inputName);
   // These are metadata fields related to the template package, let's remove them from the package.json.
+  // A good place to start
+  packageJson.version = '1.0.0';
+  packageJson.private = true;
   delete packageJson.name;
   delete packageJson.version;
   delete packageJson.description;
@@ -61,6 +64,34 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
   await packageFile.writeAsync(packageJson);
 
   return projectRoot;
+}
+
+function sanitizeNpmPackageName(name: string): string {
+  // https://github.com/npm/validate-npm-package-name/#naming-rules
+  return (
+    applyKnownNpmPackageNameRules(name) ||
+    // If nothing is left use 'app' like we do in Xcode projects.
+    'app'
+  );
+}
+
+function applyKnownNpmPackageNameRules(name: string): string | null {
+  // https://github.com/npm/validate-npm-package-name/#naming-rules
+
+  // package name cannot start with '.' or '_'.
+  while (/^(\.|_)/.test(name)) {
+    name = name.substring(1);
+  }
+
+  name = name.toLowerCase().replace(/[^a-zA-Z._\-/@]/g, '');
+
+  return (
+    name
+      // .replace(/![a-z0-9-._~]+/g, '')
+      // Remove special characters
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') || null
+  );
 }
 
 export function validateName(name?: string): string | true {
