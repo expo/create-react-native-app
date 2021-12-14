@@ -52,7 +52,21 @@ export function createEntryResolver(name: string) {
 export function createFileTransform(name: string) {
   return (entry: ReadEntry) => {
     // Binary files, don't process these (avoid decoding as utf8)
-    if (!['.png', '.jar', '.keystore'].includes(path.extname(entry.path)) && name) {
+    if (
+      ![
+        '.png',
+        '.jpg',
+        '.jpeg',
+        '.gif',
+        '.webp',
+        '.psd',
+        '.tiff',
+        '.svg',
+        '.jar',
+        '.keystore',
+      ].includes(path.extname(entry.path)) &&
+      name
+    ) {
       return new Transformer(name);
     }
     return undefined;
