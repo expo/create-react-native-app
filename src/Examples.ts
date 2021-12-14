@@ -12,6 +12,7 @@ import tar from 'tar';
 import terminalLink from 'terminal-link';
 import { promisify } from 'util';
 
+import { sanitizeNpmPackageName } from './Template';
 import { createFileTransform, createEntryResolver } from './createFileTransform';
 
 // @ts-ignore
@@ -241,7 +242,6 @@ function getScriptsForProject(projectRoot: string): Record<string, string> {
 }
 
 export async function appendScriptsAsync(projectRoot: string): Promise<void> {
-  // Copy our default `.gitignore` if the application did not provide one
   const packageJsonPath = path.join(projectRoot, 'package.json');
   if (fs.existsSync(packageJsonPath)) {
     let packageFile = new JsonFile(packageJsonPath);
@@ -254,11 +254,15 @@ export async function appendScriptsAsync(projectRoot: string): Promise<void> {
         // Existing scripts have higher priority
         ...((packageJson.scripts || {}) as JSONObject),
       },
+      // These are metadata fields related to the template package, let's remove them from the package.json.
+      // A good place to start
+      version: '1.0.0',
       // Adding `private` stops npm from complaining about missing `name` and `version` fields.
       // We don't add a `name` field because it also exists in `app.json`.
       private: true,
     };
-
+    // name and version are required for yarn workspaces (monorepos)
+    packageJson.name = sanitizeNpmPackageName(path.basename(projectRoot));
     await packageFile.writeAsync(packageJson);
   }
 }

@@ -55,8 +55,6 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
   // A good place to start
   packageJson.version = '1.0.0';
   packageJson.private = true;
-  delete packageJson.name;
-  delete packageJson.version;
   delete packageJson.description;
   delete packageJson.tags;
   delete packageJson.repository;
@@ -66,7 +64,7 @@ export async function extractAndPrepareTemplateAppAsync(projectRoot: string) {
   return projectRoot;
 }
 
-function sanitizeNpmPackageName(name: string): string {
+export function sanitizeNpmPackageName(name: string): string {
   // https://github.com/npm/validate-npm-package-name/#naming-rules
   return (
     applyKnownNpmPackageNameRules(name) ||
