@@ -237,7 +237,6 @@ function getScriptsForProject(projectRoot: string): Record<string, string> {
     android: 'expo start --android',
     ios: 'expo start --ios',
     web: 'expo start --web',
-    eject: 'expo eject',
   };
 }
 
