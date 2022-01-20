@@ -116,9 +116,7 @@ CRNA is focused on being the fastest way to bootstrap a React Native app without
 ## Contributors ✨
 
 <!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
-
-[![All Contributors](https://img.shields.io/badge/all_contributors-6-orange.svg?style=flat-square)](#contributors-)
-
+[![All Contributors](https://img.shields.io/badge/all_contributors-7-orange.svg?style=flat-square)](#contributors-)
 <!-- ALL-CONTRIBUTORS-BADGE:END -->
 
 Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
@@ -134,6 +132,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
     <td align="center"><a href="https://bycedric.com"><img src="https://avatars2.githubusercontent.com/u/1203991?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Cedric van Putten</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=byCedric" title="Code">💻</a></td>
     <td align="center"><a href="https://twitter.com/VilleImmonen"><img src="https://avatars3.githubusercontent.com/u/497214?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ville Immonen</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=fson" title="Code">💻</a> <a href="https://github.com/expo/create-react-native-app/pulls?q=is%3Apr+reviewed-by%3Afson" title="Reviewed Pull Requests">👀</a></td>
     <td align="center"><a href="https://github.com/friederbluemle"><img src="https://avatars0.githubusercontent.com/u/743291?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Frieder Bluemle</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=friederbluemle" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/kbrandwijk"><img src="https://avatars.githubusercontent.com/u/852069?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kim Brandwijk</b></sub></a><br /><a href="https://github.com/expo/create-react-native-app/commits?author=kbrandwijk" title="Code">💻</a></td>
   </tr>
 </table>
 
