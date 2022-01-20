@@ -236,7 +236,7 @@ function getScriptsForProject(projectRoot: string): Record<string, string> {
     start: 'expo start',
     android: 'expo start --android',
     ios: 'expo start --ios',
-    web: 'expo start --web'
+    web: 'expo start --web',
   };
 }
 
