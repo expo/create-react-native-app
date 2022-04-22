@@ -72,13 +72,13 @@ By default you create a [bare-workflow React](https://docs.expo.io/bare/explorin
 - [FAQs](#faqs)
 - [Contributing](#contributing)
 
-## Usage with Expo Client App
+## Usage with Expo Go App
 
 Expo Client enables you to work with all of the [Components and APIs](https://facebook.github.io/react-native/docs/getting-started) in `react-native`, as well as the [JavaScript APIs](https://docs.expo.io/versions/latest) that the are bundled with the Expo App.
 
 Expo Client supports running any project that doesn't have custom native modules added.
 
-- Download the "Expo Client" app from the Play Store or App Store.
+- Download the "Expo Go" app from the Play Store or App Store.
 - Start your project with Expo
   - Install the CLI `npm i -g expo-cli`
   - Start the project `expo start`
