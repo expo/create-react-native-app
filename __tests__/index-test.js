@@ -159,10 +159,10 @@ describe('yes', () => {
     expect(fileExists(workspaceName, '.git')).toBe(true);
     expect(fileExists(projectRoot, '.git')).not.toBe(true);
 
-    expect(fileExists(workspaceName, 'package.json')).toBe(true);
-    expect(fileExists(workspaceName, 'App.js')).toBe(true);
-    expect(fileExists(workspaceName, '.gitignore')).toBe(true);
-    expect(fileExists(workspaceName, 'node_modules')).toBe(true);
+    expect(fileExists(projectRoot, 'package.json')).toBe(true);
+    expect(fileExists(projectRoot, 'App.js')).toBe(true);
+    expect(fileExists(projectRoot, '.gitignore')).toBe(true);
+    expect(fileExists(projectRoot, 'node_modules')).toBe(true);
   });
 });
 
