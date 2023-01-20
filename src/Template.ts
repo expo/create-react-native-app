@@ -110,6 +110,7 @@ export async function initGitRepoAsync(
   try {
     await spawnAsync('git', ['rev-parse', '--is-inside-work-tree'], { stdio: 'ignore', cwd: root });
     !flags.silent && Logger.gray('New project is already inside of a Git repo, skipping git init.');
+    return false;
   } catch (e) {
     if (e.errno === 'ENOENT') {
       !flags.silent && Logger.gray('Unable to initialize Git repo. `git` not in PATH.');
