@@ -156,13 +156,13 @@ describe('yes', () => {
     const results = await execa('node', [cli, '--yes'], { cwd: projectRoot });
     expect(results.exitCode).toBe(0);
 
-    expect(fileExists(workspaceName, '.git')).toBe(true);
-    expect(fileExists(projectRoot, '.git')).not.toBe(true);
+    expect(existsSync(path.join(workspaceRoot, '.git'))).toBe(true);
+    expect(existsSync(path.join(projectRoot, '.git'))).not.toBe(true);
 
-    expect(fileExists(projectRoot, 'package.json')).toBe(true);
-    expect(fileExists(projectRoot, 'App.js')).toBe(true);
-    expect(fileExists(projectRoot, '.gitignore')).toBe(true);
-    expect(fileExists(projectRoot, 'node_modules')).toBe(true);
+    expect(existsSync(path.join(projectRoot, 'package.json'))).toBe(true);
+    expect(existsSync(path.join(projectRoot, 'App.js'))).toBe(true);
+    expect(existsSync(path.join(projectRoot, '.gitignore'))).toBe(true);
+    expect(existsSync(path.join(projectRoot, 'node_modules'))).toBe(true);
   });
 });
 
