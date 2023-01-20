@@ -141,6 +141,29 @@ describe('yes', () => {
     expect(fileExists(projectName, '.gitignore')).toBeTruthy();
     expect(fileExists(projectName, 'node_modules')).not.toBeTruthy();
   });
+  it('does not create a new git repository inside an existing repository', async () => {
+    const workspaceName = 'yes-skip-git-in-repo';
+    const workspaceRoot = getRoot(workspaceName);
+
+    // Create the workspace root, and basic monorepo structure
+    await fs.mkdirp(workspaceRoot);
+    await execa('git', ['init'], { cwd: workspaceRoot });
+
+    // Create the app within a basic monorepo structure
+    const projectRoot = path.join(workspaceRoot, 'apps', workspaceName);
+    await fs.mkdirp(projectRoot);
+
+    const results = await execa('node', [cli, '--yes'], { cwd: projectRoot });
+    expect(results.exitCode).toBe(0);
+
+    expect(fileExists(workspaceName, '.git')).toBe(true);
+    expect(fileExists(projectRoot, '.git')).not.toBe(true);
+
+    expect(fileExists(workspaceName, 'package.json')).toBe(true);
+    expect(fileExists(workspaceName, 'App.js')).toBe(true);
+    expect(fileExists(workspaceName, '.gitignore')).toBe(true);
+    expect(fileExists(workspaceName, 'node_modules')).toBe(true);
+  });
 });
 
 describe('templates', () => {
