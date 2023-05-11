@@ -30,6 +30,23 @@ class Transformer extends Minipass {
   }
 }
 
+// Files and directories that have `_` as their first character in React Native CLI templates
+// These should be transformed to have `.` as the first character
+const UNDERSCORED_DOTFILES = [
+  'buckconfig',
+  'eslintrc.js',
+  'flowconfig',
+  'gitattributes',
+  'gitignore',
+  'prettierrc.js',
+  'watchmanconfig',
+  'editorconfig',
+  'bundle',
+  'ruby-version',
+  'node-version',
+  'xcode.env',
+];
+
 export function createEntryResolver(name: string) {
   return (entry: ReadEntry) => {
     if (name) {
@@ -45,6 +62,9 @@ export function createEntryResolver(name: string) {
       // Rename `gitignore` because npm ignores files named `.gitignore` when publishing.
       // See: https://github.com/npm/npm/issues/1862
       entry.path = entry.path.replace(/gitignore$/, '.gitignore');
+    }
+    for (const fileName of UNDERSCORED_DOTFILES) {
+      entry.path = entry.path.replace(`_${fileName}`, `.${fileName}`);
     }
   };
 }
