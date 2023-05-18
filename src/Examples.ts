@@ -151,6 +151,7 @@ export async function resolveTemplateArgAsync(
       // @ts-ignore
       repoUrl = new URL(template);
     } catch (error) {
+      // @ts-expect-error
       if (error.code !== 'ERR_INVALID_URL') {
         oraInstance.fail(error);
         process.exit(1);
