@@ -45,9 +45,9 @@ Once you're up and running with Create React Native App, visit [the tutorial on 
 
 - `npx create-react-native-app` Create a new native React app.
 - `npx crna` Alias for `npx create-react-native-app`.
-- `yarn ios` -- (`expo run:ios`) Build the iOS App (requires a MacOS computer).
-- `yarn android` -- (`expo run:android`) Build the Android App.
-- `yarn web` -- (`expo start:web`) Run the website in your browser.
+- `npm run ios` -- (`npx expo run:ios`) Build the iOS App (requires a MacOS computer).
+- `npm run android` -- (`npx expo run:android`) Build the Android App.
+- `npm run web` -- (`npx expo start --web`) Run the website in your browser.
 
 ### Templates
 
