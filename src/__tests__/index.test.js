@@ -36,6 +36,6 @@ it('logs @react-native-community/cli as alternative', async () => {
 
 it('logs more information link', async () => {
   expect(await execute()).toMatchObject({
-    stderr: expect.stringContaining('https://reactnative.dev/docs/getting-started'),
+    stderr: expect.stringContaining('https://reactnative.dev/docs/environment-setup'),
   });
 });

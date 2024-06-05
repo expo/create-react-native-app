@@ -12,7 +12,7 @@ It's recommended to use a framework to build apps with React Native, for example
   React Native Community template:
     {bold npx @react-native-community/cli init}
   
-Learn more: {underline https://reactnative.dev/docs/getting-started}
+Learn more: {underline https://reactnative.dev/docs/environment-setup}
 `);
 
 process.exit(1);
