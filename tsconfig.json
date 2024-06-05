@@ -1,11 +1,11 @@
 {
-  "extends": "@expo/babel-preset-cli/tsconfig.base",
-  "include": ["src/**/*.ts"],
+  "extends": "expo-module-scripts/tsconfig.plugin.json",
+  "include": ["src/**/*"],
   "compilerOptions": {
+    "module": "Node16",
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "rootDir": "src",
     "declaration": false,
-    "composite": false
   }
 }
